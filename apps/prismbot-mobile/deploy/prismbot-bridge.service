@@ -1,0 +1,20 @@
+[Unit]
+Description=PrismBot Mobile OpenClaw Bridge
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/.openclaw/workspace/apps/prismbot-mobile
+EnvironmentFile=%h/.openclaw/workspace/apps/prismbot-mobile/.bridge.env
+ExecStart=/usr/bin/node %h/.openclaw/workspace/apps/prismbot-mobile/openclaw-bridge-server.js
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=false
+ReadWritePaths=%h/.openclaw
+
+[Install]
+WantedBy=default.target

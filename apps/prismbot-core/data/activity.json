@@ -1,0 +1,20 @@
+[
+  {
+    "id": "act-1",
+    "projectId": "core",
+    "time": "2026-02-26T11:30:00Z",
+    "event": "Mission Control initialized"
+  },
+  {
+    "id": "act-2",
+    "projectId": "core",
+    "time": "2026-02-26T11:32:00Z",
+    "event": "Default agent roster loaded"
+  },
+  {
+    "id": "act-3",
+    "projectId": "apollo",
+    "time": "2026-02-26T11:41:00Z",
+    "event": "Apollo discovery workshop started"
+  }
+]

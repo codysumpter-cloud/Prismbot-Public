@@ -1,0 +1,81 @@
+[
+  {
+    "id": "u_admin",
+    "username": "Prismtek",
+    "displayName": "Owner",
+    "role": "admin",
+    "active": true,
+    "passwordHash": "scrypt:2c158bb50504b9f672c7215dca6fd21c:cde5eedfe83c683411b666869ceff1b8a9efe3a35a8af2b234c2d651daf8a00333f3708d2eea623dcfb115dac667177d36a86eba1d7de825bd28a127a38ab35f",
+    "createdAt": "2026-02-26T15:14:25.240Z",
+    "mustResetPassword": false,
+    "onboardingCompletedAt": "2026-02-26T15:14:25.241Z",
+    "lastLoginAt": "2026-02-26T17:10:53.041Z"
+  },
+  {
+    "id": "u_leah",
+    "username": "leah",
+    "displayName": "Leah",
+    "role": "family_user",
+    "active": true,
+    "passwordHash": "scrypt:a3a3559fb3932806954624b0bc6ffa47:637ea4daed524f3d1a031f57205af09d67cd864ff6e7e962c769e6eb3adf728eaa657ce4c51cd8aca6b8df7298019ae88479fc7822021ff7be0b6d838187401e",
+    "createdAt": "2026-02-26T15:14:25.311Z",
+    "mustResetPassword": true,
+    "onboardingCompletedAt": null
+  },
+  {
+    "id": "u_ashlyn",
+    "username": "ashlyn",
+    "displayName": "Ashlyn",
+    "role": "family_user",
+    "active": true,
+    "passwordHash": "scrypt:e55ab70886b820b2aea006dbcba1f806:9542a8fbce329792188049f6ee4050cbe3512c0bf14240caaecfb34febd0066a52bb7c4e525d03086074250dc75d2bd34d1e71fde7f2e573211e11c64cf88408",
+    "createdAt": "2026-02-26T16:03:10.912Z",
+    "mustResetPassword": true,
+    "onboardingCompletedAt": null
+  },
+  {
+    "id": "u_taylor",
+    "username": "taylor",
+    "displayName": "Taylor",
+    "role": "family_user",
+    "active": true,
+    "passwordHash": "scrypt:fcf4683c6442010453342eff99263765:975367e367dfc5c158f07c42fea13b7b04d3da60c1f21d17af95c386eed0fa942faa8907df3d790ad20dfe81768368d4960a2712fc2acbaf240af52a2d5f71bc",
+    "createdAt": "2026-02-26T16:03:10.912Z",
+    "mustResetPassword": true,
+    "onboardingCompletedAt": null
+  },
+  {
+    "id": "u_95e58f0f9f83f5b2",
+    "username": "lisztohunni",
+    "displayName": "Lisztohunni",
+    "role": "family_user",
+    "active": true,
+    "passwordHash": "scrypt:ab4bc6e1881136dea0f752c71bf636d5:9ab6cf663e8603df1ff9c82f3a3d54402289cd878e11d4fe82d30df2c1889defef48fcd51242f928a7bcf0e815e59f3590ce87c44cf03236b02a240020b1bc4c",
+    "createdAt": "2026-02-26T16:06:33.072Z",
+    "mustResetPassword": false,
+    "onboardingCompletedAt": null
+  },
+  {
+    "id": "u_5eb8f41b6628f969",
+    "username": "garan",
+    "displayName": "Garan",
+    "role": "family_user",
+    "active": true,
+    "passwordHash": "scrypt:2df1874b2e9849da474a98c3d5b831af:2540b439cbfe4b63e5046125dbfc7b74940703515b0f384d12b9c50fd08d5afed0dbd682b92e1415194f13c8234cc1933ded63e440f9fc870af88cd4554b9939",
+    "createdAt": "2026-02-26T16:39:13.428Z",
+    "mustResetPassword": false,
+    "onboardingCompletedAt": null,
+    "lastLoginAt": "2026-02-26T17:10:15.626Z"
+  },
+  {
+    "id": "u_testpilot",
+    "username": "testpilot",
+    "displayName": "Test Pilot",
+    "role": "family_user",
+    "active": true,
+    "passwordHash": "scrypt:546d8e12f812cb3b5adeafba0f52dd37:7e6f17c77eab0b686f7d86da618432d4a543be7a87e97d3bf7dc40367cc6b7c10205f20d439a22cd764abbcf2ed702666732ef62badefd4eb44c258cd53047c5",
+    "createdAt": "2026-02-26T17:14:49.529Z",
+    "mustResetPassword": false,
+    "onboardingCompletedAt": "2026-02-26T17:14:49.530Z"
+  }
+]

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PrismBot — AI Operator for Builders</title>
+  <meta name="description" content="PrismBot helps founders and communities ship faster with execution-first AI workflows." />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Analytics (set your domain + GA id before go-live) -->
+  <script defer data-domain="prismbot.ai" src="https://plausible.io/js/script.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);} 
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+</head>
+<body>
+  <header class="nav">
+    <div class="logo">PrismBot</div>
+    <nav>
+      <a href="#offer">Offer</a>
+      <a href="#proof">Proof</a>
+      <a href="#waitlist">Waitlist</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="kicker">Execution-first AI</p>
+      <h1>Ship faster. <span>Earn sooner.</span></h1>
+      <p class="sub">PrismBot turns ideas into shipped assets, launch pages, and repeatable workflows for creators and operators.</p>
+      <div class="cta-row">
+        <a class="btn" href="#waitlist">Get Early Access</a>
+        <a class="btn ghost" href="#offer">See Offer</a>
+      </div>
+      <p class="meta">Built by Prismtek • Discord-native • Automation-ready</p>
+    </section>
+
+    <section id="offer" class="offer card">
+      <h2>What you get</h2>
+      <ul>
+        <li><strong>Launch Sprint:</strong> Offer + landing page + execution plan</li>
+        <li><strong>Asset Pipeline:</strong> Prompt-to-pack workflow for pixel products</li>
+        <li><strong>Operator Mode:</strong> Health checks, recovery scripts, and runbooks</li>
+      </ul>
+      <a class="btn" href="#waitlist">Join the beta</a>
+    </section>
+
+    <section id="proof" class="features">
+      <article>
+        <h3>Execution First</h3>
+        <p>Converts plans into files, scripts, and deliverables—not just chat replies.</p>
+      </article>
+      <article>
+        <h3>Image + Animation Pipeline</h3>
+        <p>Structured workflow for generation, LibreSprite polish, spritesheets, and release zips.</p>
+      </article>
+      <article>
+        <h3>Reliability Layer</h3>
+        <p>Track-based ops hardening with health checks and rapid recovery playbooks.</p>
+      </article>
+    </section>
+
+    <section id="waitlist" class="waitlist card">
+      <h2>Get launch updates</h2>
+      <p>Use your Formspree/ConvertKit endpoint in <code>data-form-action</code> to capture leads.</p>
+      <form id="waitlistForm" data-form-action="https://formspree.io/f/xlgwydvo" onsubmit="submitWaitlist(event)">
+        <input type="hidden" name="source" value="prismbot-site" />
+        <input type="hidden" name="_subject" value="New PrismBot Waitlist Signup" />
+        <input type="hidden" name="_next" value="./thank-you.html" />
+        <label class="hp" for="company">Company</label>
+        <input class="hp" id="company" name="company" type="text" tabindex="-1" autocomplete="off" />
+        <input name="email" type="email" placeholder="you@example.com" required />
+        <button class="btn" type="submit">Join Waitlist</button>
+      </form>
+      <small id="formStatus"></small>
+    </section>
+  </main>
+
+  <footer>
+    <small>© <span id="year"></span> PrismBot. Built by Prismtek.</small>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    async function submitWaitlist(e) {
+      e.preventDefault();
+      const form = document.getElementById('waitlistForm');
+      const status = document.getElementById('formStatus');
+      const action = form.dataset.formAction;
+      const email = new FormData(form).get('email');
+
+      if (!action) {
+        status.textContent = 'Set data-form-action to your endpoint (Formspree/ConvertKit) and you are live.';
+        return;
+      }
+
+      try {
+        const res = await fetch(action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        status.textContent = res.ok ? 'You are in. Watch your inbox.' : 'Submission failed. Check endpoint settings.';
+        if (res.ok) {
+          if (window.plausible) window.plausible('waitlist_signup');
+          if (window.gtag) gtag('event', 'waitlist_signup', { method: 'formspree' });
+          form.reset();
+        }
+      } catch {
+        status.textContent = 'Network error. Try again.';
+      }
+    }
+  </script>
+</body>
+</html>

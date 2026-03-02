@@ -1,0 +1,10 @@
+[
+  {
+    "id": "chat-1772109087064",
+    "message": "Smoke chat ping",
+    "createdAt": "2026-02-26T12:31:27.064Z",
+    "status": "queued",
+    "delivery": "local-assistant-queue",
+    "note": "Queued safely. Live bridge not configured in this build."
+  }
+]

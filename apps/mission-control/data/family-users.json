@@ -1,0 +1,52 @@
+[
+  {
+    "id": "fam-owner",
+    "displayName": "Prismtek",
+    "username": "prismtek",
+    "role": "owner",
+    "email": "",
+    "status": "active",
+    "lastActiveAt": null,
+    "createdAt": "2026-02-26T00:00:00.000Z"
+  },
+  {
+    "id": "fam-kid-1",
+    "displayName": "Kid User",
+    "username": "kid1",
+    "role": "child",
+    "email": "",
+    "status": "active",
+    "lastActiveAt": null,
+    "createdAt": "2026-02-26T00:00:00.000Z"
+  },
+  {
+    "id": "fam-1772109087038",
+    "displayName": "Smoke Family",
+    "username": "smoke-family",
+    "role": "member",
+    "email": "",
+    "status": "disabled",
+    "lastActiveAt": null,
+    "createdAt": "2026-02-26T12:31:27.038Z"
+  },
+  {
+    "id": "fam-garan",
+    "displayName": "Garan",
+    "username": "garan",
+    "role": "family_user",
+    "email": "",
+    "status": "active",
+    "lastActiveAt": null,
+    "createdAt": "2026-02-26T16:40:00.000Z"
+  },
+  {
+    "id": "fam-liztohunni",
+    "displayName": "liztohunni",
+    "username": "liztohunni",
+    "role": "family_user",
+    "email": "",
+    "status": "active",
+    "lastActiveAt": null,
+    "createdAt": "2026-02-26T16:40:00.000Z"
+  }
+]

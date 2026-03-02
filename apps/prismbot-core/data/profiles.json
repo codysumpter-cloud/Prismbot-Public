@@ -1,0 +1,116 @@
+{
+  "u_leah": {
+    "mode": "adult",
+    "greeting": "Hi Leah! I’m Prism.",
+    "preferences": {
+      "tone": "friendly",
+      "topics": []
+    },
+    "updatedAt": "2026-03-02T14:02:58.983Z",
+    "builder": {
+      "layoutPreset": "balanced",
+      "widgets": [
+        "daily_prompt",
+        "chat_tips",
+        "favorites"
+      ],
+      "helpPinned": true,
+      "updatedAt": "2026-03-02T14:02:58.981Z"
+    }
+  },
+  "u_ashlyn": {
+    "mode": "adult",
+    "greeting": "Hi Ashlyn! I’m Prism.",
+    "preferences": {
+      "tone": "friendly",
+      "topics": []
+    },
+    "updatedAt": "2026-03-02T14:02:58.983Z",
+    "builder": {
+      "layoutPreset": "balanced",
+      "widgets": [
+        "daily_prompt",
+        "chat_tips",
+        "favorites"
+      ],
+      "helpPinned": true,
+      "updatedAt": "2026-03-02T14:02:58.981Z"
+    }
+  },
+  "u_taylor": {
+    "mode": "adult",
+    "greeting": "Hi Taylor! I’m Prism.",
+    "preferences": {
+      "tone": "friendly",
+      "topics": []
+    },
+    "updatedAt": "2026-03-02T14:02:58.983Z",
+    "builder": {
+      "layoutPreset": "balanced",
+      "widgets": [
+        "daily_prompt",
+        "chat_tips",
+        "favorites"
+      ],
+      "helpPinned": true,
+      "updatedAt": "2026-03-02T14:02:58.981Z"
+    }
+  },
+  "u_95e58f0f9f83f5b2": {
+    "mode": "adult",
+    "greeting": "Hi Lisztohunni! I’m Prism.",
+    "preferences": {
+      "tone": "friendly",
+      "topics": []
+    },
+    "updatedAt": "2026-03-02T14:02:58.983Z",
+    "builder": {
+      "layoutPreset": "balanced",
+      "widgets": [
+        "daily_prompt",
+        "chat_tips",
+        "favorites"
+      ],
+      "helpPinned": true,
+      "updatedAt": "2026-03-02T14:02:58.981Z"
+    }
+  },
+  "u_5eb8f41b6628f969": {
+    "mode": "adult",
+    "greeting": "Hi Garan! I’m Prism.",
+    "preferences": {
+      "tone": "friendly",
+      "topics": []
+    },
+    "updatedAt": "2026-03-02T14:02:58.983Z",
+    "builder": {
+      "layoutPreset": "balanced",
+      "widgets": [
+        "daily_prompt",
+        "chat_tips",
+        "favorites"
+      ],
+      "helpPinned": true,
+      "updatedAt": "2026-03-02T14:02:58.981Z"
+    }
+  },
+  "u_testpilot": {
+    "mode": "adult",
+    "greeting": "Hi Test Pilot! I’m Prism.",
+    "preferences": {
+      "tone": "friendly",
+      "topics": []
+    },
+    "updatedAt": "2026-03-02T14:02:58.983Z",
+    "builder": {
+      "layoutPreset": "balanced",
+      "widgets": [
+        "daily_prompt",
+        "chat_tips",
+        "favorites"
+      ],
+      "helpPinned": true,
+      "updatedAt": "2026-03-02T14:02:58.981Z"
+    }
+  }
+}

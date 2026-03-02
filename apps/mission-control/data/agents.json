@@ -1,0 +1,9 @@
+[
+  {"id":"pm-1","projectId":"core","name":"Nova","role":"PM","status":"online"},
+  {"id":"arch-1","projectId":"core","name":"Atlas","role":"Architect","status":"online"},
+  {"id":"eng-1","projectId":"core","name":"Bolt","role":"Engineer","status":"online"},
+  {"id":"qa-1","projectId":"core","name":"Sage","role":"QA","status":"idle"},
+  {"id":"res-1","projectId":"apollo","name":"Echo","role":"Research","status":"online"},
+  {"id":"des-1","projectId":"apollo","name":"Lumen","role":"Designer","status":"idle"},
+  {"id":"ops-1","projectId":"apollo","name":"Forge","role":"Ops","status":"online"}
+]

@@ -1,0 +1,33 @@
+{
+  "version": "v1",
+  "entities": {
+    "users": {
+      "description": "Account records with role and auth metadata",
+      "keys": ["id", "username", "role", "passwordHash", "createdAt", "updatedAt", "status"]
+    },
+    "sessions": {
+      "description": "Session index keyed by session id",
+      "keys": ["id", "userId", "kind", "createdAt", "updatedAt", "meta"]
+    },
+    "profiles": {
+      "description": "Per-user profile/customization state",
+      "keys": ["userId", "displayName", "preferences", "builder", "updatedAt"]
+    },
+    "history": {
+      "description": "Per-user, per-session message history",
+      "keys": ["userId", "sessionId", "messages"]
+    },
+    "tasks": {
+      "description": "Operator and workflow task queue",
+      "keys": ["id", "title", "status", "owner", "createdAt", "updatedAt", "meta"]
+    },
+    "activity": {
+      "description": "Audit/event log entries",
+      "keys": ["id", "type", "actor", "timestamp", "details"]
+    },
+    "integrations": {
+      "description": "External integration config references",
+      "keys": ["id", "kind", "status", "configRef", "updatedAt"]
+    }
+  }
+}

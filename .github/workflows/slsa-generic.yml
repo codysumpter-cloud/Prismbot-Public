@@ -1,0 +1,37 @@
+name: SLSA Generic Provenance
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  actions: read
+  id-token: write
+  contents: write
+
+jobs:
+  hash-subjects:
+    runs-on: ubuntu-latest
+    outputs:
+      subjects: ${{ steps.hash.outputs.subjects }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Hash tracked files
+        id: hash
+        run: |
+          set -e
+          FILES=$(git ls-files)
+          test -n "$FILES"
+          SUBJECTS=$(sha256sum $FILES | base64 -w0)
+          echo "subjects=$SUBJECTS" >> "$GITHUB_OUTPUT"
+
+  provenance:
+    needs: hash-subjects
+    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v2.1.0
+    with:
+      base64-subjects: ${{ needs.hash-subjects.outputs.subjects }}
+      upload-assets: true
+    secrets: inherit

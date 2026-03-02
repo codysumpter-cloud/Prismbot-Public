@@ -1,0 +1,26 @@
+[
+  {
+    "id": "task-1",
+    "projectId": "core",
+    "title": "Checkpoint #1 scaffold",
+    "owner": "Nova",
+    "priority": "medium",
+    "status": "done"
+  },
+  {
+    "id": "task-2",
+    "projectId": "core",
+    "title": "Task Queue shell UI",
+    "owner": "Bolt",
+    "priority": "high",
+    "status": "in-progress"
+  },
+  {
+    "id": "task-3",
+    "projectId": "apollo",
+    "title": "Prototype project filter UX",
+    "owner": "Lumen",
+    "priority": "low",
+    "status": "todo"
+  }
+]

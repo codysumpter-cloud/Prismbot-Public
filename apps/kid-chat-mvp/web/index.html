@@ -1,0 +1,982 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prism Family Chat</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <meta name="theme-color" content="#0b0b14" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <h1>Prism Family Chat ✨</h1>
+      <p class="sub">Family chat + Mission Control admin board</p>
+      <div id="whoami" class="whoami"></div>
+    </header>
+
+    <section id="authCard" class="card auth">
+      <h2>Sign in</h2>
+      <form id="loginForm">
+        <label>Username<input id="username" required autocomplete="username" /></label>
+        <label>Password<input id="password" type="password" required autocomplete="current-password" /></label>
+        <button type="submit">Login</button>
+      </form>
+      <p class="hint">Family users can sign up below or use an account from admin.</p>
+
+      <details id="signupBox">
+        <summary>Create account</summary>
+        <form id="signupForm" class="signup-form">
+          <label>Display name<input id="signupDisplayName" autocomplete="name" /></label>
+          <label>Username<input id="signupUsername" required autocomplete="username" /></label>
+          <label>Password<input id="signupPassword" type="password" minlength="8" required autocomplete="new-password" /></label>
+          <label>Invite code (if required)<input id="signupInviteCode" autocomplete="one-time-code" /></label>
+          <button type="submit">Create account</button>
+        </form>
+      </details>
+
+      <div id="loginError" class="error"></div>
+    </section>
+
+    <section id="resetCard" class="card hidden">
+      <h2>Set your password</h2>
+      <p class="hint">For security, set your own password on first login.</p>
+      <form id="resetForm">
+        <label>Current password<input id="currentPassword" type="password" required autocomplete="current-password" /></label>
+        <label>New password<input id="newPassword" type="password" minlength="8" required autocomplete="new-password" /></label>
+        <button type="submit">Update password</button>
+      </form>
+      <div id="resetError" class="error"></div>
+    </section>
+
+    <section id="familyView" class="card hidden">
+      <div class="row">
+        <h2>Family Chat — Personal Customization Mode</h2>
+        <button id="logoutBtn" class="secondary">Logout</button>
+      </div>
+
+      <div class="capability-grid">
+        <div class="capability-card can-do">
+          <h3>What you can do</h3>
+          <div class="badge-row">
+            <span class="cap-badge">Chat in your own safe space</span>
+            <span class="cap-badge">Customize your layout + widgets</span>
+            <span class="cap-badge">Use Help Center recipes/prompts</span>
+          </div>
+        </div>
+        <div class="capability-card admin-only">
+          <h3>Requires admin</h3>
+          <div class="badge-row">
+            <span class="cap-badge locked">Create users</span>
+            <span class="cap-badge locked">Reset passwords</span>
+            <span class="cap-badge locked">Mission Control + server settings</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-box">
+        <h3>Your Profile Context</h3>
+        <label>Mode
+          <select id="mode"><option value="adult">Adult</option><option value="kid">Kid-safe</option></select>
+        </label>
+        <label>Greeting
+          <input id="greeting" maxlength="200" />
+        </label>
+        <label>Tone
+          <input id="tone" maxlength="32" />
+        </label>
+        <label>Topics (comma separated)
+          <input id="topics" maxlength="220" />
+        </label>
+        <button id="saveProfile" class="secondary" type="button">Save profile</button>
+      </div>
+
+      <div class="profile-box">
+        <h3>Build Your Experience</h3>
+        <label>Layout preset
+          <select id="builderLayout">
+            <option value="focus">Focus</option>
+            <option value="balanced">Balanced</option>
+            <option value="explore">Explore</option>
+          </select>
+        </label>
+        <div id="builderWidgets" class="widget-grid"></div>
+        <label><input id="helpPinned" type="checkbox" /> Pin Help Center on top</label>
+        <button id="saveBuilder" class="secondary" type="button">Save builder setup</button>
+      </div>
+
+      <div id="helpCenter" class="profile-box">
+        <h3>Help Center</h3>
+        <p class="hint">Quick-start recipes</p>
+        <ul class="help-list">
+          <li><b>Plan my day:</b> “Help me make a 3-step plan for today.”</li>
+          <li><b>Homework support:</b> “Explain this in kid-safe steps: ...”</li>
+          <li><b>Creative mode:</b> “Give me 5 story starters about space pets.”</li>
+          <li><b>Family helper:</b> “Make a grocery list from these meals: ...”</li>
+        </ul>
+      </div>
+
+      <div class="chip-row" id="familyPromptChips">
+        <button class="chip" type="button" data-chip="Set my layout to focus and pin help center">Focus + pin help</button>
+        <button class="chip" type="button" data-chip="Add widgets daily_prompt and learning_corner">Add learning widgets</button>
+        <button class="chip" type="button" data-chip="Set my tone to \"encouraging\" and topics to science, art">Tone + topics</button>
+      </div>
+      <div class="row" style="margin:8px 0;">
+        <label class="hint"><input id="eternalMode" type="checkbox" /> Eternal local mode (server-independent)</label>
+        <span id="modeState" class="hint"></span>
+      </div>
+      <div id="chat" class="chat"></div>
+      <form id="chatForm" class="composer">
+        <input id="msg" placeholder="Ask me something or customize your own setup..." maxlength="500" autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+    </section>
+
+    <section id="onboardingModal" class="wizard hidden" style="display:none !important;">
+      <div class="wizard-card">
+        <div class="wizard-head">
+          <h3 id="wizardTitle">Welcome</h3>
+          <button id="wizardClose" class="secondary" type="button" aria-label="Close onboarding" onclick="document.getElementById('onboardingModal').classList.add('hidden')">✕</button>
+        </div>
+        <p id="wizardBody"></p>
+        <div class="wizard-actions">
+          <button id="wizardPrev" class="secondary" type="button">Back</button>
+          <button id="wizardNext" type="button">Next</button>
+        </div>
+        <p class="hint"><button id="wizardSkip" class="secondary" type="button" onclick="document.getElementById('onboardingModal').classList.add('hidden')">Skip for now</button></p>
+      </div>
+    </section>
+
+    <section id="adminView" class="card hidden">
+      <div class="row"><h2>Admin Dashboard + Mission Control</h2></div>
+      <div class="admin-grid">
+        <div class="panel">
+          <h3>User Management</h3>
+          <form id="newUserForm" class="inline-form">
+            <input id="newUsername" placeholder="username" required />
+            <input id="newDisplayName" placeholder="display name" required />
+            <input id="newPassword" placeholder="temp password" />
+            <button type="submit">Create user</button>
+          </form>
+          <div id="users"></div>
+
+          <h3>Session Overview</h3>
+          <div id="sessions"></div>
+        </div>
+
+        <div class="panel">
+          <h3>Mission Control: Agent Lanes</h3>
+          <p class="hint">See each role at a glance: idle, active, blocked, or done.</p>
+          <div id="agentLanes" class="lane-grid"></div>
+
+          <h3>Workflow Handoff Board</h3>
+          <form id="taskForm" class="inline-form task-create-form">
+            <input id="taskTitle" placeholder="new task" required />
+            <select id="taskRole"><option value="">Unassigned</option></select>
+            <button type="submit">Add task</button>
+          </form>
+          <div id="workflowColumns" class="workflow-columns"></div>
+        </div>
+
+        <div class="panel">
+          <h3>Activity Timeline (grouped)</h3>
+          <div id="activity"></div>
+
+          <h3>Live Admin Operator Mode (direct execution)</h3>
+          <div class="row">
+            <div id="liveStatus" class="hint">Idle</div>
+            <button id="liveNewChat" class="secondary tiny" type="button">New chat</button>
+          </div>
+          <div class="row" style="margin:8px 0;">
+            <label class="hint"><input id="adminEternalMode" type="checkbox" /> Admin Eternal local mode</label>
+            <span id="adminModeState" class="hint"></span>
+          </div>
+          <div class="chip-row" id="livePromptChips">
+            <button class="chip" type="button" data-chip="List users">List users</button>
+            <button class="chip" type="button" data-chip="List sessions">List sessions</button>
+            <button class="chip" type="button" data-chip="Create task \"Review onboarding flow\" assign engineer">Create task</button>
+            <button class="chip" type="button" data-chip="Reset password for user alex">Reset password</button>
+            <button class="chip" type="button" data-chip="Set user alex mode kid and topics to math, reading">Update profile</button>
+          </div>
+          <div id="liveChat" class="chat admin-chat"></div>
+          <form id="liveForm" class="composer">
+            <input id="liveMsg" maxlength="500" placeholder="Ask assistant directly about this family app/dashboard..." />
+            <button type="submit">Send</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+<script>
+const authCard = document.getElementById('authCard');
+const familyView = document.getElementById('familyView');
+const adminView = document.getElementById('adminView');
+const resetCard = document.getElementById('resetCard');
+const whoami = document.getElementById('whoami');
+const loginError = document.getElementById('loginError');
+const resetError = document.getElementById('resetError');
+const chat = document.getElementById('chat');
+const msg = document.getElementById('msg');
+const helpCenter = document.getElementById('helpCenter');
+
+let currentUser = null;
+let sessionToken = localStorage.getItem('fc_session_token') || '';
+let eternalMode = localStorage.getItem('prism_eternal_mode') === '1';
+let adminEternalMode = localStorage.getItem('prism_admin_eternal_mode') === '1';
+let adminState = { users: [], tasks: [], activity: [], workflow: { roles: [], statuses: [] } };
+let builderSchema = { widgets: [], layoutPresets: [] };
+const WIDGET_LABELS = {
+  daily_prompt: 'Daily Prompt',
+  favorites: 'Favorites',
+  recipe_cards: 'Recipe Cards',
+  chat_tips: 'Chat Tips',
+  learning_corner: 'Learning Corner',
+  progress_tracker: 'Progress Tracker'
+};
+
+function formatTime(ts = Date.now()) {
+  const d = new Date(ts);
+  return d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+}
+
+function localHistoryKey() {
+  const uid = currentUser?.id || 'guest';
+  return `prism_local_history_${uid}`;
+}
+
+function localStateKey() {
+  const uid = currentUser?.id || 'guest';
+  return `prism_local_state_${uid}`;
+}
+
+function loadLocalState() {
+  const raw = localStorage.getItem(localStateKey());
+  if (!raw) return { notes: [], recentTurns: [] };
+  try {
+    const parsed = JSON.parse(raw);
+    return {
+      notes: Array.isArray(parsed.notes) ? parsed.notes.slice(-20) : [],
+      recentTurns: Array.isArray(parsed.recentTurns) ? parsed.recentTurns.slice(-8) : [],
+    };
+  } catch {
+    return { notes: [], recentTurns: [] };
+  }
+}
+
+function saveLocalState(state) {
+  localStorage.setItem(localStateKey(), JSON.stringify({
+    notes: (state.notes || []).slice(-20),
+    recentTurns: (state.recentTurns || []).slice(-8),
+  }));
+}
+
+function localBrainReply(text, state) {
+  const input = String(text || '').trim();
+  const t = input.toLowerCase();
+  const name = currentUser?.displayName || 'friend';
+
+  if (!input) return { reply: 'I’m here. Tell me what you want to work on.', state };
+
+  const rememberMatch = input.match(/^remember\s+(that\s+)?(.+)/i);
+  if (rememberMatch) {
+    const note = rememberMatch[2].trim();
+    if (note) {
+      state.notes.push({ note, at: new Date().toISOString() });
+      return { reply: `Got it, ${name}. I’ll remember: “${note}”.`, state };
+    }
+  }
+
+  if (/(what do you remember|memory|notes)/i.test(t)) {
+    if (!state.notes.length) return { reply: 'I don’t have any saved local notes yet.', state };
+    const items = state.notes.slice(-5).map((n, i) => `${i + 1}. ${n.note}`).join('\n');
+    return { reply: `Here’s what I remember locally:\n${items}`, state };
+  }
+
+  if (/(status|are you online|are you live)/i.test(t)) {
+    return { reply: 'Eternal local mode is online. I can keep helping even if the server is down.', state };
+  }
+
+  if (/(help|what can you do)/i.test(t)) {
+    return {
+      reply: 'I can help with planning, drafting messages, summarizing ideas, and remembering local notes. Try: “plan my day”, “summarize this…”, or “remember that …”.',
+      state,
+    };
+  }
+
+  if (/(plan|schedule|todo|to-do)/i.test(t)) {
+    return {
+      reply: 'Let’s make a quick plan:\n1) Define the outcome\n2) Pick the top 3 tasks\n3) Do one task now.\nIf you want, tell me your goal and time window and I’ll draft it.',
+      state,
+    };
+  }
+
+  if (/(summarize|summary)/i.test(t)) {
+    const recent = state.recentTurns.slice(-3).map(r => `- ${r}`).join('\n');
+    return {
+      reply: recent ? `Quick local summary of recent context:\n${recent}` : 'Share the text/topic and I’ll summarize it for you.',
+      state,
+    };
+  }
+
+  const recentHint = state.recentTurns.slice(-1)[0];
+  const contextual = recentHint ? ` Last thing we were on: “${recentHint.slice(0, 70)}”.` : '';
+  return {
+    reply: `Got you, ${name}. I can work with that.${contextual} Want a plan, a draft reply, or a quick summary?`,
+    state,
+  };
+}
+
+function localAdminReply(text, state) {
+  const input = String(text || '').trim();
+  const t = input.toLowerCase();
+
+  if (/(status|health|uptime)/.test(t)) {
+    return { reply: 'Admin local mode online. Core controls available locally; server actions deferred.', state };
+  }
+  if (/(users|list users)/.test(t)) {
+    return { reply: 'In admin local mode, user-management calls are not executed against server. Switch to server mode for live user ops.', state };
+  }
+  if (/(task|plan|workflow)/.test(t)) {
+    return { reply: 'Local admin planning mode: define outcome, assign role lane, set first next action. I can draft the task sequence now.', state };
+  }
+
+  const recent = state.recentTurns.slice(-2).join(' | ');
+  return {
+    reply: recent
+      ? `Admin local assistant ready. Recent context: ${recent}`
+      : 'Admin local assistant ready. Ask for planning, status checks, or message drafting.',
+    state,
+  };
+}
+
+function updateModeState() {
+  const el = document.getElementById('modeState');
+  if (!el) return;
+  el.textContent = eternalMode ? 'Mode: LOCAL-PRIMARY' : 'Mode: SERVER-PRIMARY';
+}
+
+function updateAdminModeState() {
+  const el = document.getElementById('adminModeState');
+  if (!el) return;
+  el.textContent = adminEternalMode ? 'Admin Mode: LOCAL-PRIMARY' : 'Admin Mode: SERVER-PRIMARY';
+}
+
+function addBubble(target, who, text) {
+  const el = document.createElement('div');
+  el.className = `bubble ${who}`;
+
+  const body = document.createElement('div');
+  body.className = 'bubble-text';
+  body.textContent = text;
+
+  const meta = document.createElement('div');
+  meta.className = 'bubble-meta';
+  meta.textContent = formatTime();
+
+  if (who === 'bot') {
+    const copyBtn = document.createElement('button');
+    copyBtn.type = 'button';
+    copyBtn.className = 'tiny secondary copy-btn';
+    copyBtn.textContent = 'Copy';
+    copyBtn.onclick = async () => {
+      try {
+        await navigator.clipboard.writeText(text);
+        copyBtn.textContent = 'Copied';
+        setTimeout(() => { copyBtn.textContent = 'Copy'; }, 1200);
+      } catch {
+        copyBtn.textContent = 'Failed';
+        setTimeout(() => { copyBtn.textContent = 'Copy'; }, 1200);
+      }
+    };
+    meta.appendChild(copyBtn);
+  }
+
+  el.appendChild(body);
+  el.appendChild(meta);
+  target.appendChild(el);
+  target.scrollTop = target.scrollHeight;
+}
+
+async function j(url, opts = {}) {
+  const headers = { 'Content-Type': 'application/json', ...(opts.headers || {}) };
+  if (sessionToken) headers['x-session-token'] = sessionToken;
+  const r = await fetch(url, { headers, credentials: 'include', ...opts });
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) {
+    const err = data.error || 'request_failed';
+    if (err === 'auth_required' || err === 'invalid_credentials') {
+      sessionToken = '';
+      localStorage.removeItem('fc_session_token');
+      currentUser = null;
+      authCard.classList.remove('hidden');
+      familyView.classList.add('hidden');
+      adminView.classList.add('hidden');
+      resetCard.classList.add('hidden');
+      whoami.textContent = '';
+      loginError.textContent = 'Session expired. Please log in again.';
+    }
+    throw new Error(err);
+  }
+  return data;
+}
+
+function statusBadge(status) {
+  return `<span class="status-pill status-${status}">${status}</span>`;
+}
+
+function renderBuilderWidgets(selected = []) {
+  const container = document.getElementById('builderWidgets');
+  const selectedSet = new Set(selected);
+  container.innerHTML = (builderSchema.widgets || []).map(w => `
+    <label class="widget-item"><input type="checkbox" value="${w}" ${selectedSet.has(w) ? 'checked' : ''}/> ${WIDGET_LABELS[w] || w}</label>
+  `).join('');
+}
+
+function selectedBuilderWidgets() {
+  return Array.from(document.querySelectorAll('#builderWidgets input[type="checkbox"]:checked')).map(x => x.value);
+}
+
+const wizardSteps = [
+  { title: 'Welcome to your Family Space', body: 'You can chat, save your own profile preferences, and shape your screen with safe widgets.' },
+  { title: 'Your limits keep everyone safe', body: 'You cannot access admin controls, server settings, user management, or tooling. Those stay owner/admin only.' },
+  { title: 'Build Your Experience', body: 'Choose a layout preset, pick widgets, and pin Help Center if you want recipes/prompts visible first.' },
+  { title: 'Privacy scope', body: 'Your chats and builder settings are stored per-user. Other family users cannot see or change your setup.' }
+];
+let wizardIndex = 0;
+
+function renderWizardStep() {
+  document.getElementById('wizardTitle').textContent = wizardSteps[wizardIndex].title;
+  document.getElementById('wizardBody').textContent = wizardSteps[wizardIndex].body;
+  const prevBtn = document.getElementById('wizardPrev');
+  prevBtn.disabled = false;
+  prevBtn.textContent = wizardIndex === 0 ? 'Close' : 'Back';
+  document.getElementById('wizardNext').textContent = wizardIndex === wizardSteps.length - 1 ? 'Finish' : 'Next';
+}
+
+const ONBOARDING_ENABLED = false; // Temporarily disabled until mobile modal bug is fully resolved.
+
+async function maybeShowOnboarding(onboardingRequired) {
+  if (!ONBOARDING_ENABLED) return;
+  if (!currentUser || currentUser.role !== 'family_user' || !onboardingRequired) return;
+  const modal = document.getElementById('onboardingModal');
+  wizardIndex = 0;
+  modal.classList.remove('hidden');
+  renderWizardStep();
+}
+
+async function refreshAuth() {
+  const data = await j('/api/auth/me');
+  currentUser = data.user;
+  const mustReset = !!data.mustResetPassword;
+  whoami.textContent = currentUser ? `${currentUser.displayName} (${currentUser.role})` : '';
+  authCard.classList.toggle('hidden', !!currentUser);
+  resetCard.classList.toggle('hidden', !currentUser || !mustReset);
+  familyView.classList.toggle('hidden', !currentUser || mustReset);
+  adminView.classList.toggle('hidden', !currentUser || currentUser.role !== 'admin' || mustReset);
+
+  // Never show onboarding when signed out/admin/reset-required.
+  if (!currentUser || currentUser.role !== 'family_user' || mustReset) {
+    document.getElementById('onboardingModal').classList.add('hidden');
+  }
+
+  if (currentUser && !mustReset) {
+    await Promise.all([loadMyProfile(), loadMyHistory()]);
+    if (currentUser.role === 'family_user') {
+      const onboardingRequired = await loadBuilderConfig();
+      await maybeShowOnboarding(onboardingRequired);
+    }
+    if (currentUser.role === 'admin') await loadAdminData();
+  }
+}
+
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  loginError.textContent = '';
+  try {
+    const login = await j('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value
+      })
+    });
+    if (login.sessionToken) {
+      sessionToken = login.sessionToken;
+      localStorage.setItem('fc_session_token', sessionToken);
+    }
+    document.getElementById('password').value = '';
+    await refreshAuth();
+  } catch (err) {
+    loginError.textContent = `Login failed: ${err.message}`;
+  }
+});
+
+document.getElementById('signupForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  loginError.textContent = '';
+  try {
+    const signup = await j('/api/auth/signup', {
+      method: 'POST',
+      body: JSON.stringify({
+        displayName: document.getElementById('signupDisplayName').value,
+        username: document.getElementById('signupUsername').value,
+        password: document.getElementById('signupPassword').value,
+        inviteCode: document.getElementById('signupInviteCode').value
+      })
+    });
+    if (signup.sessionToken) {
+      sessionToken = signup.sessionToken;
+      localStorage.setItem('fc_session_token', sessionToken);
+    }
+    e.target.reset();
+    document.getElementById('signupBox').open = false;
+    await refreshAuth();
+  } catch (err) {
+    loginError.textContent = `Signup failed: ${err.message}`;
+  }
+});
+
+document.getElementById('resetForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  resetError.textContent = '';
+  try {
+    await j('/api/auth/change-password', {
+      method: 'POST',
+      body: JSON.stringify({
+        currentPassword: document.getElementById('currentPassword').value,
+        newPassword: document.getElementById('newPassword').value
+      })
+    });
+    document.getElementById('currentPassword').value = '';
+    document.getElementById('newPassword').value = '';
+    alert('Password updated successfully.');
+    await refreshAuth();
+  } catch (err) {
+    resetError.textContent = `Password update failed: ${err.message}`;
+  }
+});
+
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+  await j('/api/auth/logout', { method: 'POST' });
+  currentUser = null;
+  sessionToken = '';
+  localStorage.removeItem('fc_session_token');
+  chat.innerHTML = '';
+  document.getElementById('onboardingModal').classList.add('hidden');
+  refreshAuth();
+});
+
+async function loadMyProfile() {
+  const { profile } = await j('/api/profiles/me');
+  document.getElementById('mode').value = profile.mode || 'adult';
+  document.getElementById('greeting').value = profile.greeting || '';
+  document.getElementById('tone').value = profile.preferences?.tone || 'friendly';
+  document.getElementById('topics').value = (profile.preferences?.topics || []).join(', ');
+}
+
+document.getElementById('saveProfile').addEventListener('click', async () => {
+  const topics = document.getElementById('topics').value.split(',').map(x => x.trim()).filter(Boolean);
+  await j('/api/profiles/me', {
+    method: 'PUT',
+    body: JSON.stringify({
+      mode: document.getElementById('mode').value,
+      greeting: document.getElementById('greeting').value,
+      preferences: { tone: document.getElementById('tone').value, topics }
+    })
+  });
+  alert('Profile saved');
+});
+
+async function loadBuilderConfig() {
+  const data = await j('/api/builder/me');
+  builderSchema = data.schema || builderSchema;
+  const config = data.config || {};
+  document.getElementById('builderLayout').value = config.layoutPreset || 'balanced';
+  document.getElementById('helpPinned').checked = !!config.helpPinned;
+  renderBuilderWidgets(config.widgets || []);
+  helpCenter.classList.toggle('pinned-help', !!config.helpPinned);
+  return !!data.onboardingRequired;
+}
+
+document.getElementById('saveBuilder').addEventListener('click', async () => {
+  const payload = {
+    layoutPreset: document.getElementById('builderLayout').value,
+    widgets: selectedBuilderWidgets(),
+    helpPinned: !!document.getElementById('helpPinned').checked
+  };
+  const data = await j('/api/builder/me', { method: 'PUT', body: JSON.stringify(payload) });
+  renderBuilderWidgets((data.config || {}).widgets || payload.widgets);
+  helpCenter.classList.toggle('pinned-help', !!(data.config || {}).helpPinned);
+  alert('Builder setup saved');
+});
+
+async function loadMyHistory() {
+  chat.innerHTML = '';
+  if (eternalMode) {
+    const local = JSON.parse(localStorage.getItem(localHistoryKey()) || '[]');
+    local.forEach(m => addBubble(chat, m.role === 'you' ? 'you' : 'bot', m.text));
+    return;
+  }
+  const data = await j('/api/history/me?session=default');
+  (data.history || []).forEach(m => addBubble(chat, m.role === 'you' ? 'you' : 'bot', m.text));
+}
+
+document.querySelectorAll('#familyPromptChips [data-chip]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    msg.value = btn.dataset.chip || '';
+    msg.focus();
+  });
+});
+
+document.getElementById('chatForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const text = msg.value.trim();
+  if (!text) return;
+  msg.value = '';
+  addBubble(chat, 'you', text);
+  addBubble(chat, 'bot', '...');
+
+  if (eternalMode) {
+    const state = loadLocalState();
+    state.recentTurns.push(text);
+    const result = localBrainReply(text, state);
+    saveLocalState(result.state);
+
+    chat.lastChild.remove();
+    addBubble(chat, 'bot', result.reply);
+    const local = JSON.parse(localStorage.getItem(localHistoryKey()) || '[]');
+    local.push({ role: 'you', text, at: new Date().toISOString() });
+    local.push({ role: 'bot', text: result.reply, at: new Date().toISOString() });
+    localStorage.setItem(localHistoryKey(), JSON.stringify(local.slice(-120)));
+    return;
+  }
+
+  try {
+    const data = await j('/api/chat', { method: 'POST', body: JSON.stringify({ text, sessionId: 'default' }) });
+    chat.lastChild.remove();
+    addBubble(chat, 'bot', data.reply || 'No reply');
+  } catch (err) {
+    chat.lastChild.remove();
+    addBubble(chat, 'bot', `Error: ${err.message}`);
+  }
+});
+
+function roleLabel(role) {
+  if (!role) return 'Unassigned';
+  return role[0].toUpperCase() + role.slice(1);
+}
+
+function renderRoleOptions(roles) {
+  const roleSelect = document.getElementById('taskRole');
+  roleSelect.innerHTML = `<option value="">Unassigned</option>${roles.map(r => `<option value="${r}">${roleLabel(r)}</option>`).join('')}`;
+}
+
+function laneStatusForRole(role, tasks) {
+  const laneTasks = tasks.filter(t => t.assigneeRole === role && t.status !== 'done');
+  if (!laneTasks.length) return 'idle';
+  if (laneTasks.some(t => t.status === 'blocked')) return 'blocked';
+  if (laneTasks.some(t => t.status === 'running')) return 'active';
+  return 'ready';
+}
+
+function renderAgentLanes(tasks, roles) {
+  const lanes = document.getElementById('agentLanes');
+  lanes.innerHTML = roles.map(role => {
+    const laneTasks = tasks.filter(t => t.assigneeRole === role);
+    const openCount = laneTasks.filter(t => t.status !== 'done').length;
+    const status = laneStatusForRole(role, tasks);
+    return `<div class="lane-card lane-${status}">
+      <div class="row"><b>${roleLabel(role)}</b><span class="status-pill lane-pill-${status}">${status}</span></div>
+      <div class="hint">Open tasks: ${openCount}</div>
+    </div>`;
+  }).join('');
+}
+
+function taskActionButtons(task) {
+  const buttons = [];
+  if (task.status === 'queued') buttons.push(`<button class="tiny" data-action="assign" data-task="${task.id}">Assign</button>`);
+  if (task.status === 'assigned') buttons.push(`<button class="tiny" data-action="run" data-task="${task.id}">Run</button>`);
+  if (task.status === 'running') buttons.push(`<button class="tiny" data-action="complete" data-task="${task.id}">Complete</button>`);
+  if (task.status === 'running' || task.status === 'assigned') buttons.push(`<button class="tiny warn" data-action="block" data-task="${task.id}">Block</button>`);
+  if (task.status === 'blocked') buttons.push(`<button class="tiny" data-action="run" data-task="${task.id}">Resume</button>`);
+  buttons.push(`<button class="tiny secondary" data-action="reassign" data-task="${task.id}">Reassign</button>`);
+  return buttons.join(' ');
+}
+
+function roleSelectHtml(task, roles) {
+  return `<select class="tiny-select" data-role-for="${task.id}">
+    <option value="">Unassigned</option>
+    ${roles.map(r => `<option value="${r}" ${task.assigneeRole === r ? 'selected' : ''}>${roleLabel(r)}</option>`).join('')}
+  </select>`;
+}
+
+function renderWorkflowColumns(tasks, statuses, roles) {
+  const el = document.getElementById('workflowColumns');
+  el.innerHTML = statuses.map(status => {
+    const title = status[0].toUpperCase() + status.slice(1);
+    const cards = tasks.filter(t => t.status === status).map(t => `<div class="task-card">
+      <div><b>${t.title}</b></div>
+      <div class="hint">Role lane: ${roleLabel(t.assigneeRole)} ${statusBadge(t.status)}</div>
+      <div class="hint">${roleSelectHtml(t, roles)}</div>
+      <div class="task-actions">${taskActionButtons(t)}</div>
+    </div>`).join('') || '<div class="hint">No tasks</div>';
+    return `<div class="workflow-col"><h4>${title}</h4>${cards}</div>`;
+  }).join('');
+
+  el.querySelectorAll('[data-action]').forEach(btn => {
+    btn.onclick = async () => {
+      const taskId = btn.dataset.task;
+      const action = btn.dataset.action;
+      const roleSel = el.querySelector(`[data-role-for="${taskId}"]`);
+      const assigneeRole = roleSel ? roleSel.value : '';
+      const statusMap = { assign: 'assigned', run: 'running', complete: 'done', block: 'blocked' };
+      await j(`/api/admin/tasks/${taskId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ status: statusMap[action] || undefined, assigneeRole, action })
+      });
+      await loadAdminData();
+    };
+  });
+
+  el.querySelectorAll('[data-role-for]').forEach(sel => {
+    sel.onchange = async () => {
+      await j(`/api/admin/tasks/${sel.dataset.roleFor}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ assigneeRole: sel.value || '' })
+      });
+      await loadAdminData();
+    };
+  });
+}
+
+function activityLabel(item) {
+  const map = {
+    login: 'Login',
+    chat: 'Family chat message',
+    task_create: 'Task created',
+    task_update: 'Task updated',
+    user_create: 'User created',
+    user_reset_password: 'Password reset',
+    admin_live_chat: 'Admin direct chat'
+  };
+  return map[item.type] || item.type;
+}
+
+function renderActivityTimeline(activity, usersById) {
+  const grouped = {};
+  activity.forEach(a => {
+    const action = (a.type || '').startsWith('task_') ? 'Workflow actions' : 'Other actions';
+    if (!grouped[action]) grouped[action] = [];
+    grouped[action].push(a);
+  });
+
+  const out = Object.entries(grouped).map(([group, events]) => {
+    const rows = events.map(a => {
+      const actor = usersById[a.actorId]?.displayName || a.actorId;
+      const detail = [a.details?.taskId, a.details?.role, a.details?.status].filter(Boolean).join(' • ');
+      return `<div class="list-item">
+        <div><b>${activityLabel(a)}</b> — ${actor}</div>
+        <div class="hint">${new Date(a.at).toLocaleString()} ${detail ? `• ${detail}` : ''}</div>
+      </div>`;
+    }).join('');
+    return `<div class="activity-group"><h4>${group}</h4>${rows}</div>`;
+  }).join('');
+
+  document.getElementById('activity').innerHTML = out || '<div class="hint">No activity yet.</div>';
+}
+
+async function loadAdminData() {
+  const [users, sessions, tasksData, activity] = await Promise.all([
+    j('/api/admin/users'), j('/api/admin/sessions'), j('/api/admin/tasks'), j('/api/admin/activity?limit=80')
+  ]);
+
+  adminState = {
+    users: users.users || [],
+    tasks: tasksData.tasks || [],
+    workflow: tasksData.workflow || { roles: [], statuses: [] },
+    activity: activity.activity || []
+  };
+
+  const usersEl = document.getElementById('users');
+  usersEl.innerHTML = adminState.users.map(u => `
+    <div class="list-item">
+      <div><b>${u.username}</b> (${u.role}) - ${u.active ? 'active' : 'disabled'}</div>
+      ${u.role === 'family_user' ? `<button data-reset="${u.id}" class="tiny">Reset password</button>` : ''}
+    </div>
+  `).join('');
+
+  usersEl.querySelectorAll('[data-reset]').forEach(btn => btn.onclick = async () => {
+    const id = btn.dataset.reset;
+    const data = await j(`/api/admin/users/${id}/reset-password`, { method: 'POST', body: JSON.stringify({}) });
+    alert(`Temp password: ${data.tempPassword}`);
+  });
+
+  document.getElementById('sessions').innerHTML = sessions.overview.map(s =>
+    `<div class="list-item">${s.username}: ${s.sessions} session(s), ${s.messages} messages</div>`).join('');
+
+  renderRoleOptions(adminState.workflow.roles);
+  renderAgentLanes(adminState.tasks, adminState.workflow.roles);
+  renderWorkflowColumns(adminState.tasks, adminState.workflow.statuses, adminState.workflow.roles);
+  const usersById = Object.fromEntries(adminState.users.map(u => [u.id, u]));
+  renderActivityTimeline(adminState.activity, usersById);
+}
+
+document.getElementById('newUserForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const data = await j('/api/admin/users', {
+    method: 'POST',
+    body: JSON.stringify({
+      username: document.getElementById('newUsername').value,
+      displayName: document.getElementById('newDisplayName').value,
+      password: document.getElementById('newPassword').value || undefined
+    })
+  });
+  alert(`User created. Temp password: ${data.tempPassword}`);
+  e.target.reset();
+  await loadAdminData();
+});
+
+document.getElementById('taskForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  await j('/api/admin/tasks', {
+    method: 'POST',
+    body: JSON.stringify({
+      title: document.getElementById('taskTitle').value,
+      assigneeRole: document.getElementById('taskRole').value || undefined
+    })
+  });
+  e.target.reset();
+  await loadAdminData();
+});
+
+const liveChat = document.getElementById('liveChat');
+const liveStatus = document.getElementById('liveStatus');
+let adminThreadId = `thread-${Date.now()}`;
+
+document.getElementById('liveNewChat').addEventListener('click', () => {
+  adminThreadId = `thread-${Date.now()}`;
+  liveChat.innerHTML = '';
+  liveStatus.textContent = 'New chat started';
+});
+
+document.querySelectorAll('#livePromptChips [data-chip]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.getElementById('liveMsg').value = btn.dataset.chip || '';
+    document.getElementById('liveMsg').focus();
+  });
+});
+
+document.getElementById('liveForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const input = document.getElementById('liveMsg');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  addBubble(liveChat, 'you', text);
+  liveStatus.textContent = 'Sending...';
+  addBubble(liveChat, 'bot', '...');
+
+  if (adminEternalMode) {
+    const state = loadLocalState();
+    state.recentTurns.push(`[admin] ${text}`);
+    const result = localAdminReply(text, state);
+    saveLocalState(result.state);
+    liveChat.lastChild.remove();
+    addBubble(liveChat, 'bot', result.reply);
+    liveStatus.textContent = 'Status: local-mode';
+    return;
+  }
+
+  try {
+    const data = await j('/api/admin/live-chat', { method: 'POST', body: JSON.stringify({ text, threadId: adminThreadId }) });
+    liveChat.lastChild.remove();
+    addBubble(liveChat, 'bot', data.reply || 'No reply');
+    liveStatus.textContent = `Status: ${data.status.state} (${data.status.completedAt || ''})`;
+  } catch (err) {
+    liveChat.lastChild.remove();
+    addBubble(liveChat, 'bot', `Error: ${err.message}`);
+    liveStatus.textContent = 'Failed';
+  }
+});
+
+document.getElementById('wizardClose').addEventListener('click', () => {
+  document.getElementById('onboardingModal').classList.add('hidden');
+});
+
+document.getElementById('onboardingModal').addEventListener('click', (e) => {
+  if (e.target && e.target.id === 'onboardingModal') {
+    document.getElementById('onboardingModal').classList.add('hidden');
+  }
+});
+
+document.getElementById('wizardPrev').addEventListener('click', () => {
+  if (wizardIndex === 0) {
+    document.getElementById('onboardingModal').classList.add('hidden');
+    return;
+  }
+  wizardIndex = Math.max(0, wizardIndex - 1);
+  renderWizardStep();
+});
+
+document.getElementById('wizardNext').addEventListener('click', async () => {
+  if (wizardIndex < wizardSteps.length - 1) {
+    wizardIndex += 1;
+    renderWizardStep();
+    return;
+  }
+
+  // Close immediately so users are never trapped by network/API issues.
+  document.getElementById('onboardingModal').classList.add('hidden');
+
+  try {
+    await j('/api/onboarding/complete', { method: 'POST', body: JSON.stringify({}) });
+  } catch (err) {
+    loginError.textContent = `Onboarding save skipped: ${err.message}`;
+  }
+
+  await refreshAuth();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const m = document.getElementById('onboardingModal');
+  if (m) {
+    m.classList.add('hidden');
+    m.style.display = 'none';
+  }
+
+  const toggle = document.getElementById('eternalMode');
+  if (toggle) {
+    toggle.checked = eternalMode;
+    toggle.addEventListener('change', async (e) => {
+      eternalMode = !!e.target.checked;
+      localStorage.setItem('prism_eternal_mode', eternalMode ? '1' : '0');
+      updateModeState();
+      await loadMyHistory().catch(() => {});
+    });
+  }
+  updateModeState();
+
+  const adminToggle = document.getElementById('adminEternalMode');
+  if (adminToggle) {
+    adminToggle.checked = adminEternalMode;
+    adminToggle.addEventListener('change', (e) => {
+      adminEternalMode = !!e.target.checked;
+      localStorage.setItem('prism_admin_eternal_mode', adminEternalMode ? '1' : '0');
+      updateAdminModeState();
+    });
+  }
+  updateAdminModeState();
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  }
+});
+
+refreshAuth().catch(() => {});
+</script>
+</body>
+</html>

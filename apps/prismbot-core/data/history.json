@@ -1,0 +1,368 @@
+{
+  "u_leah": {
+    "default": [
+      {
+        "role": "you",
+        "text": "hi prism",
+        "at": "2026-02-26T04:28:29.215Z"
+      },
+      {
+        "role": "bot",
+        "text": "Hi Leah 💛  \nI’m here. Want to wind down again, or just chat for a minute?",
+        "at": "2026-02-26T04:28:34.366Z"
+      },
+      {
+        "role": "you",
+        "text": "Do",
+        "at": "2026-02-26T04:35:26.303Z"
+      },
+      {
+        "role": "bot",
+        "text": "Yep 💛  \nDo you mean “do the quiet mode message”? If so, here it is:\n\nYou’re safe.  \nYou did enough for today.  \nNothing needs fixing right now.  \nLet your shoulders drop.  \nLet your jaw soften.  \nSlow inhale… longer exhale.  \nAgain.  \nAnd again.  \nYou can rest now.\n\nIf you meant something else by “Do,” tell me and I’ll follow your lead.",
+        "at": "2026-02-26T04:35:34.175Z"
+      }
+    ]
+  },
+  "u_admin": {
+    "default": [
+      {
+        "role": "you",
+        "text": "Tell me a joke please",
+        "at": "2026-02-26T10:12:31.192Z"
+      },
+      {
+        "role": "bot",
+        "text": "Why don’t skeletons fight each other?\n\nBecause they don’t have the guts.",
+        "at": "2026-02-26T10:12:40.833Z"
+      },
+      {
+        "role": "you",
+        "text": "What kind of stuff can you do for me Prism?",
+        "at": "2026-02-26T10:53:49.917Z"
+      },
+      {
+        "role": "bot",
+        "text": "Lots, honestly. Think of me as your always-on helper for both quick asks and bigger projects.\n\nI can help you with things like:\n\n- Writing & editing (messages, emails, posts, docs, resumes, bios)\n- Brainstorming (ideas, names, plans, content concepts)\n- Explaining stuff (tech, life admin, random topics) in plain English\n- Planning (daily schedules, trips, workouts, study plans, project roadmaps)\n- Coding support (debugging, scripts, automation ideas, code reviews)\n- Research summaries (compare options, pros/cons, “what should I pick?”)\n- Creative fun (jokes, stories, roleplay bits, game ideas)\n- Accountability nudges (reminders, checklists, step-by-step next actions)\n\nIf you want, I can also adapt to your style—super concise, detailed, serious, chaotic, whatever vibe you want.\n\nGive me one thing you’re trying to do today, and I’ll jump in.",
+        "at": "2026-02-26T10:54:02.981Z"
+      },
+      {
+        "role": "you",
+        "text": "Can you create websites?",
+        "at": "2026-02-26T10:54:50.099Z"
+      },
+      {
+        "role": "bot",
+        "text": "Yep — absolutely.\n\nI can help you:\n- Plan the site structure (pages, sections, user flow)\n- Write the HTML/CSS/JS (or React/Next.js, etc.)\n- Make it responsive for phone/tablet/desktop\n- Add forms, animations, dark mode, and basic interactivity\n- Improve performance + SEO basics\n- Clean up design and copy so it feels professional\n\nIf you want, I can start right now by generating a full starter site in one shot.\n\nJust tell me:\n1) What the site is for\n2) Style/vibe (minimal, bold, luxury, playful, etc.)\n3) Pages you want\n4) Any colors or examples you like",
+        "at": "2026-02-26T10:54:58.755Z"
+      },
+      {
+        "role": "you",
+        "text": "Maybe I should ask what can’t you do",
+        "at": "2026-02-26T10:55:10.769Z"
+      },
+      {
+        "role": "bot",
+        "text": "Fair question 😄\n\nBig “can’t do” list:\n- I can’t physically do things in the real world (no hands, no teleporting, no fixing your sink)\n- I can’t magically know private info I wasn’t told\n- I can’t guarantee everything is always perfect/right on first try\n- I can’t break laws, safety rules, or help with harmful/illegal stuff\n- I can’t replace human judgment for serious legal/medical/emergency decisions\n\nBut for thinking, writing, planning, coding, explaining, and building digital stuff?\nI’m very much in my lane there.\n\nIf you want, hit me with a “hard mode” task and I’ll show you what I can do.",
+        "at": "2026-02-26T10:55:20.193Z"
+      },
+      {
+        "role": "you",
+        "text": "Hi prism what can you do",
+        "at": "2026-02-26T11:25:20.681Z"
+      },
+      {
+        "role": "bot",
+        "text": "Hi! I’m Prism 👋\nI can help with lots of kid-safe things, like:\n\n- Answer questions (science, animals, space, history, and more)\n- Help with homework steps (without just giving answers)\n- Explain hard topics in simple words\n- Write stories, jokes, poems, and fun game ideas\n- Practice spelling, reading, and vocabulary\n- Do math help step-by-step\n- Help plan routines, study time, or fun projects\n- Brainstorm art, LEGO, coding, or craft ideas\n\nIf you want, we can start with something fun right now—pick one: **joke, riddle, story, or quiz** 🎉",
+        "at": "2026-02-26T11:25:32.801Z"
+      },
+      {
+        "role": "you",
+        "text": "What can’t you do",
+        "at": "2026-02-26T11:27:57.677Z"
+      },
+      {
+        "role": "bot",
+        "text": "Great question 👍\n\nHere are things I **can’t** do:\n\n- I can’t see your room, camera, or private accounts\n- I can’t do real-world actions (like buying things or calling people)\n- I can’t know everything perfectly, so I can make mistakes\n- I can’t help with dangerous, harmful, or illegal stuff\n- I can’t share private personal information\n- I can’t replace a doctor, teacher, or trusted grown-up for serious problems\n\nBut I *can* help you learn, create, and solve problems safely.",
+        "at": "2026-02-26T11:28:05.082Z"
+      },
+      {
+        "role": "you",
+        "text": "hi there",
+        "at": "2026-02-26T12:46:00.459Z"
+      },
+      {
+        "role": "bot",
+        "text": "Hi there! 😊\nGreat to see you again. Want to do a quick **joke**, **riddle**, or **mini quiz**?",
+        "at": "2026-02-26T12:46:07.852Z"
+      },
+      {
+        "role": "you",
+        "text": "Are you live right now?",
+        "at": "2026-02-26T16:57:45.279Z"
+      },
+      {
+        "role": "bot",
+        "text": "Yes—I’m live right now.",
+        "at": "2026-02-26T16:57:52.531Z"
+      },
+      {
+        "role": "you",
+        "text": "Are you live here too?",
+        "at": "2026-02-26T17:00:40.155Z"
+      },
+      {
+        "role": "bot",
+        "text": "Yes—I’m live here too.",
+        "at": "2026-02-26T17:00:45.692Z"
+      },
+      {
+        "role": "you",
+        "text": "Test",
+        "at": "2026-02-26T17:15:58.926Z"
+      },
+      {
+        "role": "bot",
+        "text": "Test received ✅",
+        "at": "2026-02-26T17:16:05.171Z"
+      },
+      {
+        "role": "you",
+        "text": "Test",
+        "at": "2026-02-26T17:16:39.455Z"
+      },
+      {
+        "role": "bot",
+        "text": "Test received ✅",
+        "at": "2026-02-26T17:16:44.534Z"
+      },
+      {
+        "role": "you",
+        "text": "Testing",
+        "at": "2026-02-26T20:04:10.485Z"
+      },
+      {
+        "role": "bot",
+        "text": "Testing received ✅",
+        "at": "2026-02-26T20:04:17.659Z"
+      },
+      {
+        "role": "you",
+        "text": "Yo",
+        "at": "2026-02-27T03:46:11.226Z"
+      },
+      {
+        "role": "bot",
+        "text": "Yo 👋 I’m here.",
+        "at": "2026-02-27T03:46:20.733Z"
+      }
+    ]
+  },
+  "u_e23a6868c3d493a9": {
+    "default": [
+      {
+        "role": "you",
+        "text": "hi there",
+        "at": "2026-02-26T12:46:29.011Z"
+      },
+      {
+        "role": "bot",
+        "text": "Hey Prismtek 👋 good to see you. What do you want to tackle today?",
+        "at": "2026-02-26T12:46:35.304Z"
+      }
+    ]
+  },
+  "u_a4e340985c13246b": {
+    "default": [
+      {
+        "role": "you",
+        "text": "hello",
+        "at": "2026-02-26T13:22:11.965Z"
+      },
+      {
+        "role": "bot",
+        "text": "Hey Prismtek 👋 good to see you.",
+        "at": "2026-02-26T13:22:20.861Z"
+      }
+    ]
+  },
+  "u_8316fad9984d82a2": {
+    "default": [
+      {
+        "role": "you",
+        "text": "Yo",
+        "at": "2026-02-26T13:49:18.454Z"
+      },
+      {
+        "role": "bot",
+        "text": "Yo 😄 what’s up?",
+        "at": "2026-02-26T13:49:28.663Z"
+      },
+      {
+        "role": "you",
+        "text": "What can you do?",
+        "at": "2026-02-26T13:50:46.419Z"
+      },
+      {
+        "role": "bot",
+        "text": "Lots — think of me as your on-call helper for both quick stuff and deeper projects.\n\nI can help with things like:\n- Writing: messages, posts, docs, resumes, bios, captions\n- Editing: clarity, tone, grammar, rewrites in your style\n- Brainstorming: ideas, names, content plans, gift ideas, etc.\n- Learning/explaining: break down tech, concepts, or workflows simply\n- Planning: trips, schedules, routines, study/work plans\n- Coding help: debug ideas, explain code, draft scripts, architecture thoughts\n- Research support: summarize topics and compare options (you can share links/text)\n- Organization: turn messy notes into clean action lists\n- Creative stuff: stories, worldbuilding, roleplay, jokes, roasts (friendly or spicy 😎)\n\nIf you want, throw me one real task right now and I’ll show you how I’d handle it.",
+        "at": "2026-02-26T13:50:55.536Z"
+      }
+    ]
+  },
+  "u_ashlyn": {},
+  "u_taylor": {},
+  "u_5eb8f41b6628f969": {
+    "default": [
+      {
+        "role": "you",
+        "text": "What can you do",
+        "at": "2026-02-26T16:40:11.408Z"
+      },
+      {
+        "role": "bot",
+        "text": "I can help with plans, writing, ideas, or quick answers. What outcome do you want?",
+        "at": "2026-02-26T16:40:11.425Z"
+      },
+      {
+        "role": "you",
+        "text": "In the future will civil engineering or IT be more valuable",
+        "at": "2026-02-26T16:40:50.518Z"
+      },
+      {
+        "role": "bot",
+        "text": "I can help with plans, writing, ideas, or quick answers. What outcome do you want?",
+        "at": "2026-02-26T16:40:50.523Z"
+      },
+      {
+        "role": "you",
+        "text": "What can’t you do",
+        "at": "2026-02-26T16:41:09.144Z"
+      },
+      {
+        "role": "bot",
+        "text": "I can help with plans, writing, ideas, or quick answers. What outcome do you want?",
+        "at": "2026-02-26T16:41:09.149Z"
+      },
+      {
+        "role": "you",
+        "text": "Customize my layout to make it Las Vegas Raider themed",
+        "at": "2026-02-26T16:44:40.469Z"
+      },
+      {
+        "role": "bot",
+        "text": "I can help with plans, writing, ideas, or quick answers. What outcome do you want?",
+        "at": "2026-02-26T16:44:40.474Z"
+      },
+      {
+        "role": "you",
+        "text": "Hello",
+        "at": "2026-02-26T16:46:01.692Z"
+      },
+      {
+        "role": "bot",
+        "text": "I can help with plans, writing, ideas, or quick answers. What outcome do you want?",
+        "at": "2026-02-26T16:46:01.696Z"
+      },
+      {
+        "role": "you",
+        "text": "Hello",
+        "at": "2026-02-26T16:47:39.050Z"
+      },
+      {
+        "role": "bot",
+        "text": "I can help with plans, writing, ideas, or quick answers. What outcome do you want?",
+        "at": "2026-02-26T16:47:39.055Z"
+      },
+      {
+        "role": "you",
+        "text": "Can you customize my layout and make it Las Vegas raiders themed",
+        "at": "2026-02-26T16:47:54.625Z"
+      },
+      {
+        "role": "bot",
+        "text": "I can help with plans, writing, ideas, or quick answers. What outcome do you want?",
+        "at": "2026-02-26T16:47:54.630Z"
+      },
+      {
+        "role": "you",
+        "text": "What will be more valuable in the future civil engineering or IT",
+        "at": "2026-02-26T16:49:48.897Z"
+      },
+      {
+        "role": "bot",
+        "text": "I can help with plans, writing, ideas, or quick answers. What outcome do you want?",
+        "at": "2026-02-26T16:49:48.901Z"
+      },
+      {
+        "role": "you",
+        "text": "Yo",
+        "at": "2026-02-26T16:52:29.588Z"
+      },
+      {
+        "role": "bot",
+        "text": "I can help with plans, writing, ideas, or quick answers. What outcome do you want?",
+        "at": "2026-02-26T16:52:29.593Z"
+      },
+      {
+        "role": "you",
+        "text": "What will be more valuable in the future civil engineering or IT",
+        "at": "2026-02-26T16:52:45.013Z"
+      },
+      {
+        "role": "bot",
+        "text": "I can help with plans, writing, ideas, or quick answers. What outcome do you want?",
+        "at": "2026-02-26T16:52:45.018Z"
+      },
+      {
+        "role": "you",
+        "text": "Are you live right now",
+        "at": "2026-02-26T17:10:26.635Z"
+      },
+      {
+        "role": "bot",
+        "text": "Yes—I’m live right now.",
+        "at": "2026-02-26T17:10:33.630Z"
+      },
+      {
+        "role": "you",
+        "text": "Can you change my theme to Las Vegas raiders theme",
+        "at": "2026-02-26T17:10:48.089Z"
+      },
+      {
+        "role": "bot",
+        "text": "I can’t directly click settings from this chat, but you can switch it in your profile now:\n\nGo to Profile/Settings → Appearance → Theme, then pick “Custom” (or NFL-style if available) and set a Raiders look:\n- Primary: #000000 (black)\n- Secondary: #A5ACAF (silver)\n- Accent: #FFFFFF (white)\n\nIf you want, I can also give you a full Raiders-style preset (buttons, background, and text contrast) you can paste in.",
+        "at": "2026-02-26T17:10:57.617Z"
+      },
+      {
+        "role": "you",
+        "text": "What will be more valuable in the future? A degree in civil engineering or IT?",
+        "at": "2026-02-26T17:11:35.502Z"
+      },
+      {
+        "role": "bot",
+        "text": "Short answer: IT is likely to have faster growth and flexibility, but civil engineering will stay highly stable and essential—so “more valuable” depends on your goals.\n\nA practical way to choose:\n- Pick civil engineering if you want licensed, infrastructure-focused work (roads, structures, water, public projects), long-term stability, and a clear professional track.\n- Pick IT if you want faster-changing fields, remote options, potentially higher upside in certain specialties (cloud, cybersecurity, AI, data), and broader industry mobility.\n\nIf you want the strongest future-proof path, do this:\n- Choose one as your major\n- Add skills from the other (this is the winning combo)\n\nExamples:\n- Civil + IT: smart infrastructure, digital twins, GIS, construction tech, automation\n- IT + civil domain knowledge: govtech, infrastructure software, transportation systems, utilities tech\n\nIf you tell me your interests (salary vs stability, indoor vs field, math/coding preference), I can give you a direct recommendation for your situation.",
+        "at": "2026-02-26T17:11:46.113Z"
+      },
+      {
+        "role": "you",
+        "text": "I want a comfortable salary of 100k+ in Indiana, I want to be able to work from home or remote mostly. I want to be able to help people with tech issues",
+        "at": "2026-02-26T17:13:38.113Z"
+      },
+      {
+        "role": "bot",
+        "text": "Given your goals, IT is the better fit for you than civil engineering.\n\nWhy it matches what you want:\n- 100k+ in Indiana: very achievable in IT after a few years, especially in cybersecurity, cloud, or systems engineering.\n- Mostly remote/work from home: far more common in IT than civil.\n- Help people with tech issues: perfect fit for IT support, admin, and security roles.\n\nBest path for your profile:\n1) Start in IT support/help desk (get hands-on fast)\n2) Move up to SysAdmin or Cloud Support\n3) Specialize into one high-pay lane:\n   - Cybersecurity (SOC analyst → security engineer)\n   - Cloud (Azure/AWS engineer)\n   - Networking/SRE (network engineer, platform ops)\n\nCert roadmap (practical + respected):\n- First: CompTIA A+ (or Google IT Support)\n- Then: Network+ and/or Security+\n- Then one cloud cert: AWS Cloud Practitioner or Azure AZ-900\n- Later: AWS SysOps / Azure Admin / CySA+ depending on your lane\n\nIncome reality (Indiana/remote, rough ranges):\n- Entry IT support: ~45k–65k\n- Mid-level admin/cloud/support engineer: ~70k–95k\n- Specialized cyber/cloud roles: ~100k–130k+\n\nIf you want, I can build you a 12-month step-by-step plan (certs, projects, resume, and job titles to target) aimed specifically at hitting 100k.",
+        "at": "2026-02-26T17:13:50.936Z"
+      },
+      {
+        "role": "you",
+        "text": "Yes please build me a 12 month plan",
+        "at": "2026-02-26T17:24:55.251Z"
+      },
+      {
+        "role": "bot",
+        "text": "Absolutely—here’s a practical 12-month plan to aim for a remote-friendly IT path toward $100k+.\n\nGoal:\n- Build employable IT skills fast\n- Land entry IT role in 3–6 months\n- Position for mid-level/specialized roles that can reach $100k\n\nMonth 1: Foundation + Setup\n- Pick your track: Start “IT Support -> Cloud/Cyber” (best for your goals)\n- Set weekly schedule: 10–15 hours/week minimum\n- Build your job toolkit:\n  - LinkedIn profile\n  - Resume draft (even if no IT experience yet)\n  - GitHub account (for labs/projects notes)\n- Start studying CompTIA A+ (Core 1)\n\nMonth 2: A+ Core 1 + Hands-on Labs\n- Finish A+ Core 1 topics:\n  - Hardware, troubleshooting, networking basics\n- Hands-on:\n  - Install VirtualBox\n  - Create Windows + Linux VMs\n  - Practice common tech support issues\n- Start applying to:\n  - IT Help Desk, Service Desk, Desktop Support internships/junior roles\n\nMonth 3: A+ Core 2 + Job Applications\n- Complete A+ Core 2 topics:\n  - OS, security basics, ticketing, support workflows\n- Take/pass A+ exams (or at least Core 1 now, Core 2 next month)\n- Build Project #1 (Resume-ready):\n  - “Home IT Lab: user setup, permissions, troubleshooting workflows”\n- Apply to 10–20 roles/week (remote + hybrid Indiana)\n\nMonth 4: Get Employed + Network Basics\n- Keep interviewing and applying aggressively\n- Start Network+ study\n- Build Project #2:\n  - Basic network map of your home lab\n  - Subnetting examples, DHCP/DNS troubleshooting notes\n- If you land role: focus on ticket quality, communication, and speed\n\nMonth 5: Network+ + Real-World Support Skills\n- Finish Network+ and schedule exam\n- Learn core tools employers expect:\n  - Active Directory basics\n  - Microsoft 365 admin basics\n  - Ticketing systems (Jira/ServiceNow/Freshservice concepts)\n- Build Project #3:\n  - “AD user lifecycle simulation” (create, reset, disable, permissions)\n\nMonth 6: Security+ Start + Career Positioning\n- Start Security+ study\n- Update resume with:\n  - Certs earned\n  - Lab projects\n  - Any support metrics (tickets/day, CSAT, resolution time)\n- Begin targeting higher-value titles:\n  - IT Support Specialist\n  - Junior SysAdmin\n  - Cloud Support Associate\n  - SOC Analyst I (if security-focused)\n\nMonth 7: Security+ + Specialization Decision\n- Pass Security+ (or be exam-ready)\n- Choose your $100k lane:\n  1) Cloud (AWS/Azure)\n  2) Cybersecurity\n  3) Systems/Platform (SRE-ish path)\n- Start one specialization cert:\n  - Cloud: AWS Cloud Practitioner or AZ-900\n  - Cyber: continue SOC labs + SIEM basics\n\nMonth 8: Deep Skill Build in Chosen Lane\n- Cloud path:\n  - IAM, EC2/VMs, storage, monitoring, cost basics\n- Cyber path:\n  - Threat detection, log analysis, incident basics\n- Build Project #4 (specialization):\n  - Cloud: deploy secure mini app infrastructure\n  - Cyber: home SOC lab with alert triage workflow\n\nMonth 9: Portfolio + Better Job Targeting\n- Polish your portfolio (GitHub + simple project docs)\n- Rewrite resume for mid-level potential\n- Start applying to:\n  - Cloud Support Engineer\n  - Junior Cloud Admin\n  - SOC Analyst\n  - Systems Administrator\n- Practice interview stories (STAR format)\n\nMonth 10: Advanced Cert / Real Experience Push\n- Cloud path: start AWS Solutions Architect Associate or AZ-104\n- Cyber path: practical SOC tooling + maybe CySA+ prep\n- If already employed:\n  - Ask for projects involving automation/security/cloud\n- Build Project #5:\n  - Automation script(s): onboarding checklist, log parsing, backup checks\n\nMonth 11: Salary Jump Preparation\n- Focus on roles paying 80k–110k:\n  - Cloud Engineer (junior-mid)\n  - Security Analyst II trajectory\n  - SysAdmin/Platform roles\n- Negotiate better:\n  - Quantify impact (reduced ticket backlog, uptime, automation time saved)\n- Expand remote search nationally (not just Indiana employers)\n\nMonth 12: Execute the Jump\n- Apply intentionally (quality > quantity):\n  - 30–50 highly matched applications this month\n- Interview weekly\n- Push compensation target:\n  - Base goal: 85k–100k now\n  - Stretch: 100k+ with right remote company/specialty\n- Set next 12-month plan:\n  - Mid-level cert + stronger production experience -> lock in 100k+\n\nWeekly routine (do this all year):\n- 5 days/week: 1–2 hours study/labs\n- 1 day/week: resume + applications\n- 1 day/week: interview prep + networking\n- Track everything in one sheet:\n  - Cert progress\n  - Applications\n  - Interviews\n  - Skills gaps\n\nWhat to prioritize most (in order):\n1) Hands-on labs\n2) Real job experience (even entry-level)\n3) Certs (A+, Network+, Security+, then cloud/cyber)\n4) Interview skills + communication\n\nExpected timeline to $100k:\n- Fast track: 18–30 months (strong execution + specialization)\n- Typical: 2–4 years\n\nIf you want, I can give you:\n- A week-by-week plan for the first 90 days\n- A resume template tailored to “no IT experience yet”\n- Exact remote job titles/keywords to search for starting today.",
+        "at": "2026-02-26T17:25:30.988Z"
+      }
+    ]
+  }
+}

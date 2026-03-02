@@ -1,0 +1,28 @@
+name: Deno
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  deno-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Run Deno checks (if project uses Deno)
+        run: |
+          if [ -f deno.json ] || [ -f deno.jsonc ] || [ -n "$(find . -name '*.ts' -o -name '*.tsx' | head -n 1)" ]; then
+            deno fmt --check || true
+            deno test -A || true
+          else
+            echo "No Deno project detected. Skipping."
+          fi

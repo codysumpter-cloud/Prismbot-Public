@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OpenClaw Mission Control</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hero">
+        <h1>OpenClaw Mission Control</h1>
+        <p class="sub">Family-friendly admin view with clear actions, readable sections, and assistant messaging queue.</p>
+      </header>
+
+      <section class="card controls">
+        <label for="projectSelect">Project view</label>
+        <select id="projectSelect"></select>
+      </section>
+
+      <section id="panel-family-chat" data-panel="family-chat" class="card wide">
+        <h2>Direct Chat to Assistant (Owner)</h2>
+        <p class="small muted">Safe mode enabled: messages are queued locally for assistant pickup when live bridge is not configured.</p>
+        <div class="inline-controls">
+          <textarea id="familyChatInput" rows="3" placeholder="Type what you want the assistant to do..."></textarea>
+          <button id="familyChatSend">Send to Assistant Queue</button>
+          <button id="familyChatRefresh">Refresh Queue</button>
+        </div>
+        <div id="familyChatStatus" class="panel-status small muted"></div>
+        <ul id="familyChatList"></ul>
+      </section>
+
+      <section class="grid-2">
+        <section id="panel-family-users" data-panel="family-users" class="card">
+          <h2>Family Users</h2>
+          <p class="small muted">Manage family access basics. Auth backend hooks can replace these scaffold actions later.</p>
+          <form id="familyUserForm" class="stack-form">
+            <input id="familyDisplayName" placeholder="Display name (e.g., Sam)" required />
+            <input id="familyUsername" placeholder="Username (e.g., sam)" required />
+            <select id="familyRole">
+              <option value="member">Member</option>
+              <option value="child">Child</option>
+              <option value="caregiver">Caregiver</option>
+              <option value="owner">Owner</option>
+            </select>
+            <button type="submit">Add Family User</button>
+          </form>
+          <div id="familyUsersStatus" class="panel-status small muted"></div>
+          <table id="familyUsersTable">
+            <thead><tr><th>Name</th><th>Login</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </section>
+
+        <section id="panel-family-sessions" data-panel="family-sessions" class="card">
+          <h2>Family Sessions</h2>
+          <p class="small muted">Private session totals and latest activity per family user.</p>
+          <button id="familySessionsRefresh">Refresh Session Summary</button>
+          <div id="familySessionsStatus" class="panel-status small muted"></div>
+          <table id="familySessionsTable">
+            <thead><tr><th>User</th><th>Private Sessions</th><th>All Sessions</th><th>Last Active</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </section>
+      </section>
+
+      <section id="panel-search" data-panel="search" class="card wide">
+        <h2>Global Search</h2>
+        <div class="inline-controls">
+          <input id="globalSearchInput" placeholder="Search tasks, activity, sessions, memory..." />
+          <button id="globalSearchBtn">Search</button>
+        </div>
+        <div id="globalSearchStatus" class="panel-status small muted"></div>
+        <pre id="globalSearchResults" class="mono"></pre>
+      </section>
+
+      <section class="grid-3">
+        <section id="panel-roster" data-panel="roster" class="card">
+          <h2>Agent Roster</h2>
+          <div id="rosterStatus" class="panel-status small muted"></div>
+          <ul id="roster"></ul>
+        </section>
+
+        <section id="panel-activity" data-panel="activity" class="card">
+          <h2>Activity Feed</h2>
+          <div id="activityStatus" class="panel-status small muted"></div>
+          <ul id="activity"></ul>
+        </section>
+
+        <section id="panel-schedules" data-panel="schedules" class="card">
+          <h2>Schedules</h2>
+          <button id="refreshSchedules">Refresh</button>
+          <div id="schedulesStatus" class="panel-status small muted"></div>
+          <ul id="schedules"></ul>
+          <div id="recentRuns" class="small muted"></div>
+        </section>
+      </section>
+
+      <section id="panel-sessions" data-panel="sessions" class="card wide">
+        <h2>Active Sessions</h2>
+        <div class="inline-controls wrap">
+          <label><input type="checkbox" id="sessionsActiveOnly" checked /> Active only</label>
+          <label>Sort by <select id="sessionsSortBy"><option value="updatedAt">Updated</option><option value="id">ID</option><option value="provider">Provider</option><option value="to">To</option><option value="from">From</option><option value="chatType">Chat type</option></select></label>
+          <label>Direction <select id="sessionsSortDir"><option value="desc">Newest first</option><option value="asc">Oldest first</option></select></label>
+          <label>Items <select id="sessionsLimit"><option>10</option><option selected>25</option><option>50</option><option>100</option></select></label>
+          <button id="sessionsPrev">Previous</button>
+          <button id="sessionsNext">Next</button>
+          <button id="refreshSessions">Refresh</button>
+        </div>
+        <div id="sessionsStatus" class="panel-status small muted"></div>
+        <ul id="sessions"></ul>
+      </section>
+
+      <section id="panel-memory" data-panel="memory" class="card wide">
+        <h2>Memory Browser</h2>
+        <div class="inline-controls wrap">
+          <input id="memorySearch" placeholder="Filter files or search selected file text" />
+          <label>Sort <select id="memorySortBy"><option value="updatedAt">Updated</option><option value="label">Name</option><option value="size">Size</option></select></label>
+          <label>Direction <select id="memorySortDir"><option value="desc">Newest first</option><option value="asc">Oldest first</option></select></label>
+          <label>Items <select id="memoryLimit"><option>10</option><option selected>25</option><option>50</option><option>100</option></select></label>
+          <button id="memoryPrev">Previous</button>
+          <button id="memoryNext">Next</button>
+          <button id="refreshMemory">Refresh</button>
+        </div>
+        <div id="memoryStatus" class="panel-status small muted"></div>
+        <div class="memory-layout">
+          <ul id="memoryFiles"></ul>
+          <article>
+            <h3 id="memoryTitle">Select a memory file</h3>
+            <div id="memoryHits" class="small muted"></div>
+            <pre id="memoryContent">No file selected.</pre>
+          </article>
+        </div>
+      </section>
+
+      <section id="panel-tasks" data-panel="tasks" class="card wide">
+        <h2>Task Queue</h2>
+        <form id="taskForm" class="task-form">
+          <input id="title" name="title" placeholder="Task title" required />
+          <input id="owner" name="owner" placeholder="Owner" />
+          <select id="priority" name="priority"><option value="low">low</option><option value="medium" selected>medium</option><option value="high">high</option></select>
+          <button type="submit">Add Task</button>
+        </form>
+        <div id="tasksStatus" class="panel-status small muted"></div>
+        <table id="tasksTable">
+          <thead><tr><th>Title</th><th>Owner</th><th>Priority</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </main>
+
+    <script>
+      const $ = (id) => document.getElementById(id);
+      const projectSelect = $('projectSelect');
+      const rosterEl = $('roster');
+      const activityEl = $('activity');
+      const tasksBody = document.querySelector('#tasksTable tbody');
+      const taskForm = $('taskForm');
+      const sessionsEl = $('sessions');
+      const familyUsersBody = document.querySelector('#familyUsersTable tbody');
+      const familySessionsBody = document.querySelector('#familySessionsTable tbody');
+
+      const statuses = {
+        roster: $('rosterStatus'), activity: $('activityStatus'), tasks: $('tasksStatus'), sessions: $('sessionsStatus'),
+        schedules: $('schedulesStatus'), memory: $('memoryStatus'), search: $('globalSearchStatus'),
+        familyUsers: $('familyUsersStatus'), familySessions: $('familySessionsStatus'), familyChat: $('familyChatStatus')
+      };
+
+      const state = { projects: [], sessionsPage: 1, sessionsTotalPages: 1, memoryPage: 1, memoryTotalPages: 1, memoryFiles: [], selectedMemoryFile: null };
+
+      async function getJson(path) {
+        const res = await fetch(path); if (!res.ok) throw new Error(await res.text()); return res.json();
+      }
+      async function sendJson(path, method, payload) {
+        const res = await fetch(path, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        if (!res.ok) throw new Error(await res.text()); return res.json();
+      }
+      function setStatus(panel, text, kind = 'info') {
+        const el = statuses[panel]; if (!el) return; el.textContent = text || ''; el.className = `panel-status small ${kind}`;
+      }
+      function currentProject() { return projectSelect.value || 'all'; }
+      function withProject(path) { const p = currentProject(); if (p === 'all') return path; return path + (path.includes('?') ? '&' : '?') + `project=${encodeURIComponent(p)}`; }
+      function setPanelEmpty(el, text) { el.innerHTML = `<li class='empty'>${text}</li>`; }
+
+      function renderProjects() {
+        projectSelect.innerHTML = `<option value="all">All projects</option>` + state.projects.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+      }
+
+      async function refreshCore() {
+        setStatus('roster', 'Loading...', 'loading'); setStatus('activity', 'Loading...', 'loading'); setStatus('tasks', 'Loading...', 'loading');
+        const suffix = currentProject() === 'all' ? '' : `?project=${encodeURIComponent(currentProject())}`;
+        const [roster, activity, tasks] = await Promise.all([getJson('/api/roster' + suffix), getJson('/api/activity' + suffix), getJson('/api/tasks' + suffix)]);
+        rosterEl.innerHTML = roster.length ? roster.map(a => `<li><strong>${a.role}</strong>: ${a.name} <span class='badge'>${a.status}</span></li>`).join('') : `<li class='empty'>No agents found.</li>`;
+        activityEl.innerHTML = activity.length ? activity.map(a => `<li>${new Date(a.time).toLocaleString()} — ${a.event}</li>`).join('') : `<li class='empty'>No activity found.</li>`;
+        tasksBody.innerHTML = tasks.length ? tasks.map(taskRow).join('') : `<tr><td colspan='5' class='empty'>No tasks for this project.</td></tr>`;
+        setStatus('roster', `Loaded ${roster.length} agent(s).`, 'ok'); setStatus('activity', `Loaded ${activity.length} event(s).`, 'ok'); setStatus('tasks', `Loaded ${tasks.length} task(s).`, 'ok');
+      }
+
+      function taskRow(task) {
+        const statuses = ['todo', 'in-progress', 'done']; const priorities = ['low', 'medium', 'high'];
+        return `<tr data-id='${task.id}'><td><input class='edit-title' value='${task.title}'/></td><td><input class='edit-owner' value='${task.owner || ''}'/></td><td><select class='edit-priority'>${priorities.map(p => `<option value='${p}' ${task.priority === p ? 'selected' : ''}>${p}</option>`).join('')}</select></td><td><select class='edit-status'>${statuses.map(s => `<option value='${s}' ${task.status === s ? 'selected' : ''}>${s}</option>`).join('')}</select></td><td><button class='save'>Save</button> <button class='delete danger'>Delete</button></td></tr>`;
+      }
+
+      async function refreshSessions() {
+        setStatus('sessions', 'Loading sessions...', 'loading');
+        const data = await getJson(`/api/sessions?active=${$('sessionsActiveOnly').checked ? '1':'0'}&page=${state.sessionsPage}&limit=${$('sessionsLimit').value}&sortBy=${$('sessionsSortBy').value}&sortDir=${$('sessionsSortDir').value}`);
+        state.sessionsTotalPages = data.totalPages || 1;
+        $('sessionsPrev').disabled = data.page <= 1; $('sessionsNext').disabled = data.page >= state.sessionsTotalPages;
+        sessionsEl.innerHTML = (data.items || []).length ? data.items.map(s => `<li><strong>${s.id}</strong><br><span class='small muted'>${s.chatType} · ${s.provider || 'unknown'} · ${s.to || 'n/a'} · ${s.updatedAt || 'unknown'}</span></li>`).join('') : `<li class='empty'>No sessions found.</li>`;
+        setStatus('sessions', `Page ${data.page}/${data.totalPages} · ${data.total} session(s).`, 'ok');
+      }
+
+      async function refreshSchedules() {
+        setStatus('schedules', 'Loading...', 'loading');
+        const data = await getJson(withProject('/api/schedules'));
+        $('schedules').innerHTML = data.jobs.length ? data.jobs.map(j => `<li><strong>${j.name}</strong> <span class='badge'>${j.enabled ? 'enabled':'disabled'}</span><br><span class='small muted'>${j.schedule || 'manual'} · ${j.lastStatus || 'n/a'} · ${j.lastRunAt || 'never'}</span></li>`).join('') : `<li class='empty'>No cron jobs configured.</li>`;
+        $('recentRuns').textContent = data.recentRuns.length ? `Recent runs: ${data.recentRuns.map(r => `${r.name} (${r.lastStatus || 'n/a'})`).join(' | ')}` : 'No recent run metadata.';
+        setStatus('schedules', `Loaded ${data.jobs.length} schedule job(s).`, 'ok');
+      }
+
+      async function refreshMemory() {
+        setStatus('memory', 'Loading memory files...', 'loading');
+        const q = $('memorySearch').value.trim();
+        const data = await getJson(`/api/memory/files?page=${state.memoryPage}&limit=${$('memoryLimit').value}&sortBy=${$('memorySortBy').value}&sortDir=${$('memorySortDir').value}${q ? `&q=${encodeURIComponent(q)}` : ''}`);
+        state.memoryFiles = data.items || []; state.memoryTotalPages = data.totalPages || 1;
+        $('memoryPrev').disabled = data.page <= 1; $('memoryNext').disabled = data.page >= state.memoryTotalPages;
+        $('memoryFiles').innerHTML = state.memoryFiles.length ? state.memoryFiles.map(f => `<li><button class='memory-file ${state.selectedMemoryFile === f.file ? 'active':''}' data-file='${f.file}'>${f.label}</button></li>`).join('') : `<li class='empty'>No memory files found.</li>`;
+        if (!state.selectedMemoryFile && state.memoryFiles[0]) await loadMemoryContent(state.memoryFiles[0].file, q);
+        setStatus('memory', `Page ${data.page}/${data.totalPages} · ${data.total} file(s).`, 'ok');
+      }
+
+      async function loadMemoryContent(file, q='') {
+        const data = await getJson(`/api/memory/read?file=${encodeURIComponent(file)}&lineStart=1&lineLimit=500&hitsLimit=30${q ? `&q=${encodeURIComponent(q)}` : ''}`);
+        state.selectedMemoryFile = file; $('memoryTitle').textContent = file; $('memoryContent').textContent = data.content || '[empty]';
+        $('memoryHits').textContent = data.hits?.length ? `Search hits: ${data.hits.map(h => `line ${h.line}`).join(', ')}` : (q ? 'No matches in this file.' : '');
+      }
+
+      async function refreshFamilyUsers() {
+        setStatus('familyUsers', 'Loading family users...', 'loading');
+        const users = await getJson('/api/family/users');
+        familyUsersBody.innerHTML = users.map(u => `<tr><td>${u.displayName}</td><td>${u.username}</td><td>${u.role}</td><td>${u.status}</td><td><button class='disable-user' data-id='${u.id}' ${u.status === 'disabled' ? 'disabled':''}>Disable</button> <button class='reset-password' data-id='${u.id}'>Reset Password</button></td></tr>`).join('');
+        setStatus('familyUsers', `Loaded ${users.length} family user(s).`, 'ok');
+      }
+
+      async function refreshFamilySessions() {
+        setStatus('familySessions', 'Loading family session summary...', 'loading');
+        const data = await getJson('/api/family/sessions');
+        familySessionsBody.innerHTML = data.users.map(u => `<tr><td>${u.displayName} <span class='small muted'>(${u.username})</span></td><td>${u.privateSessionCount}</td><td>${u.sessionCount}</td><td>${u.lastActiveAt ? new Date(u.lastActiveAt).toLocaleString() : 'No activity yet'}</td></tr>`).join('');
+        setStatus('familySessions', `Updated ${data.users.length} row(s).`, 'ok');
+      }
+
+      async function refreshFamilyChat() {
+        setStatus('familyChat', 'Loading queue...', 'loading');
+        const data = await getJson('/api/family/chat');
+        $('familyChatList').innerHTML = data.queue.length
+          ? data.queue.map(item => `<li><strong>${item.status.toUpperCase()}</strong> · ${new Date(item.createdAt).toLocaleString()}<br>${item.message}<br><span class='small muted'>${item.note || ''}</span></li>`).join('')
+          : `<li class='empty'>No queued messages yet.</li>`;
+        setStatus('familyChat', `${data.queue.length} queued message(s).`, 'ok');
+      }
+
+      async function runGlobalSearch() {
+        const q = $('globalSearchInput').value.trim(); if (!q) return setStatus('search', 'Enter a query first.', 'info');
+        setStatus('search', `Searching for "${q}"...`, 'loading');
+        const result = await getJson(withProject(`/api/search?q=${encodeURIComponent(q)}&limit=25`));
+        const out = [];
+        out.push(`Tasks (${result.tasks.length})`); result.tasks.forEach(t => out.push(`- [${t.projectId}] ${t.title} (${t.status})`));
+        out.push(`\nActivity (${result.activity.length})`); result.activity.forEach(a => out.push(`- [${a.projectId}] ${a.event} @ ${a.time}`));
+        out.push(`\nSessions (${result.sessions.length})`); result.sessions.forEach(s => out.push(`- ${s.id} ${s.provider || ''} ${s.to || ''}`));
+        out.push(`\nMemory (${result.memory.length})`); result.memory.forEach(m => out.push(`- ${m.file}: ${m.snippet}`));
+        $('globalSearchResults').textContent = out.join('\n'); setStatus('search', `Search complete for "${q}"`, 'ok');
+      }
+
+      taskForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = new FormData(taskForm); const selected = currentProject(); const fallback = state.projects[0]?.id;
+        await sendJson('/api/tasks', 'POST', { projectId: selected === 'all' ? fallback : selected, title: form.get('title'), owner: form.get('owner') || 'Unassigned', priority: form.get('priority'), status: 'todo' });
+        taskForm.reset(); await refreshCore();
+      });
+
+      tasksBody.addEventListener('click', async (e) => {
+        const row = e.target.closest('tr[data-id]'); if (!row) return; const id = row.getAttribute('data-id');
+        if (e.target.classList.contains('save')) {
+          await sendJson('/api/tasks/' + id, 'PATCH', { title: row.querySelector('.edit-title').value, owner: row.querySelector('.edit-owner').value, priority: row.querySelector('.edit-priority').value, status: row.querySelector('.edit-status').value });
+          await refreshCore();
+        }
+        if (e.target.classList.contains('delete')) { await fetch('/api/tasks/' + id, { method: 'DELETE' }); await refreshCore(); }
+      });
+
+      $('familyUserForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        await sendJson('/api/family/users', 'POST', { displayName: $('familyDisplayName').value.trim(), username: $('familyUsername').value.trim(), role: $('familyRole').value });
+        e.target.reset(); await refreshFamilyUsers(); await refreshFamilySessions();
+      });
+
+      familyUsersBody.addEventListener('click', async (e) => {
+        const id = e.target.getAttribute('data-id'); if (!id) return;
+        if (e.target.classList.contains('disable-user')) {
+          const res = await sendJson(`/api/family/users/${id}/disable`, 'POST', {});
+          setStatus('familyUsers', res.message || 'User disabled.', 'ok');
+          await refreshFamilyUsers();
+        }
+        if (e.target.classList.contains('reset-password')) {
+          const res = await sendJson(`/api/family/users/${id}/reset-password`, 'POST', {});
+          setStatus('familyUsers', res.message || 'Password reset placeholder queued.', 'ok');
+        }
+      });
+
+      $('familyChatSend').addEventListener('click', async () => {
+        const message = $('familyChatInput').value.trim(); if (!message) return;
+        const item = await sendJson('/api/family/chat', 'POST', { message });
+        $('familyChatInput').value = '';
+        setStatus('familyChat', `Queued message ${item.id}.`, 'ok');
+        await refreshFamilyChat();
+      });
+
+      $('familyChatRefresh').addEventListener('click', refreshFamilyChat);
+      $('familySessionsRefresh').addEventListener('click', refreshFamilySessions);
+      $('globalSearchBtn').addEventListener('click', runGlobalSearch);
+      $('refreshSchedules').addEventListener('click', refreshSchedules);
+      $('refreshSessions').addEventListener('click', refreshSessions);
+      $('refreshMemory').addEventListener('click', refreshMemory);
+      $('sessionsActiveOnly').addEventListener('change', () => { state.sessionsPage = 1; refreshSessions(); });
+      $('sessionsSortBy').addEventListener('change', () => { state.sessionsPage = 1; refreshSessions(); });
+      $('sessionsSortDir').addEventListener('change', () => { state.sessionsPage = 1; refreshSessions(); });
+      $('sessionsLimit').addEventListener('change', () => { state.sessionsPage = 1; refreshSessions(); });
+      $('sessionsPrev').addEventListener('click', () => { state.sessionsPage = Math.max(1, state.sessionsPage - 1); refreshSessions(); });
+      $('sessionsNext').addEventListener('click', () => { state.sessionsPage = Math.min(state.sessionsTotalPages, state.sessionsPage + 1); refreshSessions(); });
+      $('memorySortBy').addEventListener('change', () => { state.memoryPage = 1; refreshMemory(); });
+      $('memorySortDir').addEventListener('change', () => { state.memoryPage = 1; refreshMemory(); });
+      $('memoryLimit').addEventListener('change', () => { state.memoryPage = 1; refreshMemory(); });
+      $('memoryPrev').addEventListener('click', () => { state.memoryPage = Math.max(1, state.memoryPage - 1); refreshMemory(); });
+      $('memoryNext').addEventListener('click', () => { state.memoryPage = Math.min(state.memoryTotalPages, state.memoryPage + 1); refreshMemory(); });
+      $('memorySearch').addEventListener('change', () => { state.memoryPage = 1; refreshMemory(); });
+      $('memoryFiles').addEventListener('click', async (e) => { const btn = e.target.closest('button.memory-file'); if (!btn) return; await loadMemoryContent(btn.getAttribute('data-file'), $('memorySearch').value.trim()); });
+      projectSelect.addEventListener('change', async () => { await Promise.all([refreshCore(), refreshSchedules(), refreshSessions()]); });
+
+      async function boot() {
+        state.projects = await getJson('/api/projects');
+        renderProjects();
+        await Promise.all([refreshCore(), refreshSessions(), refreshSchedules(), refreshMemory(), refreshFamilyUsers(), refreshFamilySessions(), refreshFamilyChat()]);
+      }
+
+      boot().catch((err) => {
+        Object.keys(statuses).forEach((key) => setStatus(key, `Failed to load: ${err.message}`, 'error'));
+      });
+    </script>
+  </body>
+</html>

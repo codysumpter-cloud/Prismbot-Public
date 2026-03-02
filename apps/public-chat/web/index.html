@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prism Public Chat</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header>
+        <h1>Prism Public Chat</h1>
+        <p class="sub">Anonymous session • BYO OpenAI key • Moderated + rate-limited</p>
+      </header>
+
+      <section class="panel settings">
+        <label for="apiKey">OpenAI API key (stored in this browser only)</label>
+        <div class="row">
+          <input id="apiKey" type="password" placeholder="sk-..." autocomplete="off" />
+          <button id="saveKey" class="btn">Save</button>
+          <button id="clearKey" class="btn ghost">Clear</button>
+        </div>
+        <p class="tiny" id="sessionInfo"></p>
+      </section>
+
+      <section class="panel chat">
+        <div id="messages" class="messages" aria-live="polite"></div>
+        <form id="chatForm" class="composer">
+          <input id="prompt" maxlength="800" placeholder="Type your message..." required />
+          <button class="btn" type="submit">Send</button>
+        </form>
+        <p class="tiny" id="status"></p>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

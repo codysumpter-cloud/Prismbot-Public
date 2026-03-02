@@ -1,0 +1,13 @@
+{
+  "name": "prismbot-core",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Unified PrismBot core app",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "phaseA:bootstrap": "node migrations/001-bootstrap-core.js",
+    "phaseA:import:kidchat": "node migrations/002-import-kid-chat.js",
+    "phaseA:import:mission": "node migrations/003-import-mission-control.js"
+  }
+}

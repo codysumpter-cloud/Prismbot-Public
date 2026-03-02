@@ -1,0 +1,132 @@
+:root {
+  color-scheme: dark;
+  --bg: #0b1020;
+  --card: #131a2b;
+  --card-border: #25304a;
+  --text: #e9eefc;
+  --muted: #99a8c6;
+  --accent: #6c7dff;
+  --accent-2: #8d6dff;
+  --danger: #ff6d7a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: radial-gradient(circle at top, #18213a, var(--bg));
+  color: var(--text);
+}
+
+.shell {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 24px 14px 40px;
+}
+
+h1 {
+  margin: 0;
+}
+
+.sub {
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.panel {
+  background: color-mix(in srgb, var(--card) 90%, black 10%);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 14px;
+  margin-top: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+}
+
+input {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #344266;
+  background: #0f1528;
+  color: var(--text);
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.btn {
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 10px 14px;
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid #3c4d79;
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.messages {
+  min-height: 360px;
+  max-height: 65vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 4px;
+}
+
+.msg {
+  border: 1px solid #2a3658;
+  border-radius: 12px;
+  padding: 10px 12px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.msg.user {
+  align-self: flex-end;
+  background: #1e2a4f;
+}
+
+.msg.bot {
+  align-self: flex-start;
+  background: #141d35;
+}
+
+.composer {
+  display: flex;
+  gap: 8px;
+}
+
+.tiny {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 0;
+}
+
+.warn {
+  color: var(--danger);
+}
