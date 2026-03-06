@@ -38,6 +38,20 @@ Remote:
 - `WEBSITE_FACTORY_STANDARD.md` defines the default Wix-like build quality for all requested websites.
 - `apps/prismbot-site/website-template-wixlike.html` provides a reusable high-conversion page scaffold.
 
+## Latest Runtime Updates (2026-03-06)
+
+- Omni Telegram bridge upgraded with:
+  - `/status` backend/model checks
+  - `/image <prompt>` generation flow (with async job polling + media send)
+  - cleaner replies (reduced echo/quote noise)
+- Omni image fallback chain expanded to improve reliability:
+  - NanoBanana API
+  - Gemini image fallback
+  - Pollinations fallback
+- PixelLab MCP tooling confirmed and bridged with command flow support (`/character`, `/animate`, `/tileset`, `/pixstatus`) in Omni Telegram runtime.
+- Public one-click installer template maintained separately at:
+  - `https://github.com/codysumpter-cloud/omni-openclaw-starter`
+
 ## Notes
 
 Sensitive runtime/state files are excluded via `.gitignore`.
