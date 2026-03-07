@@ -17,8 +17,11 @@ body {
 .nav { display:flex; justify-content:space-between; align-items:center; gap:16px; }
 .nav nav { display:flex; gap:14px; }
 .nav a { color: var(--muted); text-decoration:none; }
+a { color: #c9bcff; }
+a:hover { color: #e3dcff; }
 .logo { font-weight: 800; letter-spacing: .2px; }
 .hero { text-align:center; padding: 72px 20px 42px; }
+.hero.compact { padding-top: 44px; padding-bottom: 20px; }
 .kicker { color: var(--muted); margin: 0; }
 h1 { font-size: clamp(2rem, 5vw, 4rem); margin: 10px 0; line-height: 1.05; }
 h1 span { color: var(--accent); }
