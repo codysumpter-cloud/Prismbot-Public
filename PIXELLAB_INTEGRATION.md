@@ -5,6 +5,7 @@
 Integrated in website as **BYOK** (Bring Your Own Key):
 - Users connect their own PixelLab API key in `My Account`
 - Prism Creatures page supports **direct on-site generation** (prompt → generate → preview → apply)
+- Prism Creatures includes a **token-efficient starter pack pipeline** (lite/full) that generates battle scene + growth-stage creature assortment using consistent style reuse
 - Users must accept PixelLab usage rules before key connect
 - No shared global key required for end users
 
