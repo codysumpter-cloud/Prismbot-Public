@@ -52,6 +52,14 @@ Remote:
 - Public one-click installer template maintained separately at:
   - `https://github.com/codysumpter-cloud/omni-openclaw-starter`
 
+## Ops Handoff for New Models/Agents
+
+Start here when standing up a new PrismBot model/agent:
+
+- `OPENCLAW_OPERATIONS_HANDOFF.md` — full operating contract (communication, permissions, host context, safety)
+- `WEBSITE-OPS.md` — live Prismtek website runbook
+- `scripts/sync_prismtek_live.sh` — pre/post-change backup snapshot flow
+
 ## Notes
 
 Sensitive runtime/state files are excluded via `.gitignore`.
