@@ -1,0 +1,104 @@
+name: Feature Task
+description: Create a scoped implementation task aligned to branch playbooks
+title: "feat: <short task title>"
+labels: ["feature"]
+body:
+  - type: dropdown
+    id: branch
+    attributes:
+      label: Target branch track
+      options:
+        - dev/prismtek-framework
+        - feat/prompt-forge
+        - feat/pixel-pets-arena
+        - feat/arcade-streamer-hub
+        - feat/private-ai-roadmap
+        - feat/react-starter
+    validations:
+      required: true
+
+  - type: dropdown
+    id: primary-agent
+    attributes:
+      label: Primary owner agent
+      options:
+        - Frontend Developer
+        - AI Engineer
+        - Rapid Prototyper
+        - Reality Checker (QA)
+        - Social Media Strategist
+    validations:
+      required: true
+
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: 1-2 sentences. What outcome should exist when done?
+      placeholder: "Example: user can build and export a prompt from structured fields."
+    validations:
+      required: true
+
+  - type: textarea
+    id: in-scope
+    attributes:
+      label: In Scope
+      placeholder: |
+        -
+        -
+    validations:
+      required: true
+
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: Out of Scope
+      placeholder: |
+        -
+        -
+
+  - type: textarea
+    id: files
+    attributes:
+      label: Files expected to change
+      placeholder: |
+        - src/...
+        - docs/...
+
+  - type: textarea
+    id: implementation-steps
+    attributes:
+      label: Implementation steps
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification (commands + manual checks)
+      placeholder: |
+        Commands:
+        - npm run build
+
+        Manual checks:
+        -
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: done-condition
+    attributes:
+      label: Done condition
+      options:
+        - label: Acceptance criteria met
+          required: true
+        - label: Verification passed
+          required: true
+        - label: Docs updated
+          required: true
+        - label: Rollback path described
+          required: true

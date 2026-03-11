@@ -1,0 +1,44 @@
+{
+  "ts": 1772744691812,
+  "baseUrl": "http://127.0.0.1:8799/api/omni",
+  "count": 4,
+  "avgLatencyMs": 10218,
+  "results": [
+    {
+      "prompt": "In one sentence, explain what Omni is.",
+      "ok": true,
+      "model": "omni-core:phase2",
+      "backend": "local-ollama",
+      "latencyMs": 27721,
+      "output": "I am Omni, Prismtek's sovereign local model for fast and actionable assistance.",
+      "error": null
+    },
+    {
+      "prompt": "Give exactly 3 bullet points for hardening a Linux server.",
+      "ok": true,
+      "model": "omni-core:phase2",
+      "backend": "local-ollama",
+      "latencyMs": 7568,
+      "output": "- Disable password SSH logins and require keys.\n- Enable a host firewall with deny-by-default inbound rules.\n- Patch OS_packages regularly and reboot after security updates.",
+      "error": null
+    },
+    {
+      "prompt": "Rewrite this cleaner: we need this done asap but no downtime",
+      "ok": true,
+      "model": "omni-core:phase2",
+      "backend": "local-ollama",
+      "latencyMs": 3744,
+      "output": "Please prioritize this urgently and complete it with zero downtime.",
+      "error": null
+    },
+    {
+      "prompt": "What is 19*23? respond with just the number.",
+      "ok": true,
+      "model": "omni-core:phase2",
+      "backend": "local-ollama",
+      "latencyMs": 1840,
+      "output": "437",
+      "error": null
+    }
+  ]
+}

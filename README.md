@@ -19,14 +19,79 @@ This repository contains the PrismBot workspace, operating docs, app prototypes,
 - `apps/public-chat` — lightweight public web chat MVP
 - `apps/prismbot-site` — conversion-focused landing page / waitlist funnel (Formspree + analytics-ready)
 - `apps/pixel-pipeline` — image/animation production scaffold (generate → polish → package)
-- `apps/prismbot-core` — unified consolidation target (single runtime/API/auth for all modules)
+- `apps/prismbot-core` — unified consolidation target (single runtime/API/auth for all modules), including OmniAPI (`/api/omni/*`) and Studio pipeline APIs
 - `apps/prismbot-wix` — imported Wix template/site code synced from `codysumpter-cloud/prismbot.wix`
+- `apps/prismbot-web` — standalone no-Wix static website (conversion-focused)
 
 ## Phase 2 Power-Up (Completed)
 
 - **Track 1:** Reliability autopilot (`scripts/bot-health.sh`, `scripts/bot-recover.sh`, `TROUBLESHOOTING_PHASE2.md`)
 - **Track 2:** Memory quality system (`memory/decisions`, `memory/preferences`, weekly curation checklist)
 - **Track 3:** Research citation mode (`RESEARCH_CITATION_MODE.md`, response template)
+
+## One-Click Install (OpenClaw + PrismBot + OmniAPI)
+
+### Linux (Ubuntu/Debian)
+
+```bash
+git clone https://github.com/codysumpter-cloud/PrismBot.git ~/.openclaw/workspace && cd ~/.openclaw/workspace && bash scripts/install-oneclick.sh
+```
+
+### Windows (PowerShell)
+
+```powershell
+git clone https://github.com/codysumpter-cloud/PrismBot.git "$env:USERPROFILE\.openclaw\workspace"; cd "$env:USERPROFILE\.openclaw\workspace"; powershell -ExecutionPolicy Bypass -File .\scripts\install-oneclick.ps1
+```
+
+### Keep all repos up to date (one command)
+
+Linux:
+```bash
+bash scripts/update-all.sh
+```
+
+Windows:
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\update-all.ps1
+```
+
+### Build a custom BMO installer ISO (Ubuntu autoinstall)
+
+```bash
+bash iso/build-bmo-installer-iso.sh \
+  --ubuntu-iso ~/Downloads/ubuntu-24.04.2-desktop-amd64.iso \
+  --output ~/Downloads/bmo-ubuntu-24.04.2-autoinstall.iso \
+  --hostname bmo-node \
+  --username bmo \
+  --password 'ChangeMeNow!' \
+  --with-gaming
+```
+
+### One-click download latest published BMO ISO
+
+Linux:
+```bash
+bash scripts/download-latest-bmo-iso.sh ~/Downloads
+```
+
+Windows:
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\download-latest-bmo-iso.ps1 -OutDir "$env:USERPROFILE\Downloads"
+```
+
+See `iso/README.md` for notes and caveats.
+
+What this provisions:
+- OpenClaw CLI
+- PrismBot Core dependencies
+- `omni-bmo` repo sync (`be-more-agent/`)
+- (Linux) Local Image Backend Python venv + deps
+- (Linux) systemd user services (`prismbot-core`, `prismbot-local-image`, optional `prismbot-bridge`)
+- Gateway startup + verification
+
+Env template is created at:
+- Linux: `~/.config/prismbot-core.env`
+- Windows: `%USERPROFILE%\.config\prismbot-core.env`
 
 ## Git Setup
 
@@ -38,27 +103,18 @@ Remote:
 - `WEBSITE_FACTORY_STANDARD.md` defines the default Wix-like build quality for all requested websites.
 - `apps/prismbot-site/website-template-wixlike.html` provides a reusable high-conversion page scaffold.
 
-## Latest Runtime Updates (2026-03-06)
+## OmniAPI (Newest)
 
-- Omni Telegram bridge upgraded with:
-  - `/status` backend/model checks
-  - `/image <prompt>` generation flow (with async job polling + media send)
-  - cleaner replies (reduced echo/quote noise)
-- Omni image fallback chain expanded to improve reliability:
-  - NanoBanana API
-  - Gemini image fallback
-  - Pollinations fallback
-- PixelLab MCP tooling confirmed and bridged with command flow support (`/character`, `/animate`, `/tileset`, `/pixstatus`) in Omni Telegram runtime.
-- Public one-click installer template maintained separately at:
-  - `https://github.com/codysumpter-cloud/omni-openclaw-starter`
+PrismBot now includes a unified OmniAPI surface in `apps/prismbot-core`.
 
-## Ops Handoff for New Models/Agents
-
-Start here when standing up a new PrismBot model/agent:
-
-- `OPENCLAW_OPERATIONS_HANDOFF.md` — full operating contract (communication, permissions, host context, safety)
-- `WEBSITE-OPS.md` — live Prismtek website runbook
-- `scripts/sync_prismtek_live.sh` — pre/post-change backup snapshot flow
+- Base routes: `/api/omni/*`
+- Key routes: `/api/omni/health`, `/api/omni/capabilities`, `/api/omni/backends`, `/api/omni/models`, `/api/omni/orchestrate/*`, `/api/omni/audio/*`
+- Wave 1 model-sovereignty: pluggable provider adapters (`openai`, `anthropic`, `google`, `xai`, `ollama`, `local`) with deterministic routing strategies (`quality|latency|cost|local-first`) and explicit readiness states (`ready|missing_credentials|disabled|error`)
+- Studio integration: `/api/studio/generate-image`, `/api/studio/edit-image`, `/api/studio/local-image-health`
+- Public asset URL shaping: configure `CORE_PUBLIC_ASSET_BASE_URL` for production-facing artifact links (`publicUrl`) without exposing internal filesystem paths
+- Spec files:
+  - `apps/prismbot-core/OMNIAI_FULL_SPEC.md`
+  - `apps/prismbot-core/OMNIAI_OPENAPI_FULL.yaml`
 
 ## Notes
 

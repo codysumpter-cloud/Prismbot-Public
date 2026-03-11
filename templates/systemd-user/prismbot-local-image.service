@@ -1,0 +1,14 @@
+[Unit]
+Description=PrismBot Local Image Backend
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/.openclaw/workspace/apps/pixel-pipeline/local-image-backend
+ExecStart=%h/.openclaw/workspace/apps/pixel-pipeline/local-image-backend/.venv/bin/uvicorn server:app --host 127.0.0.1 --port 7860
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=default.target

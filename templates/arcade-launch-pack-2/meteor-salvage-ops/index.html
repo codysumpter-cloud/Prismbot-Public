@@ -1,0 +1,174 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Meteor Salvage Ops</title><style>body{margin:0;background:#06070f;color:#edf1ff;font-family:system-ui}#w{max-width:760px;margin:12px auto;padding:12px;background:#1a1d37;border:1px solid #6168c6;border-radius:12px}canvas{width:100%;touch-action:none;background:#0b0f24;border:1px solid #323b7f;border-radius:10px}button{background:#2b327c;color:#fff;border:1px solid #7f8cff;border-radius:8px;padding:8px 10px}.row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}</style></head><body><div id='w'><h2>Meteor Salvage Ops</h2><div class='row'><span>Score: <b id='score'>0</b></span><span>HP: <b id='hp'>3</b></span><button id='start'>Start</button><button id='submit'>Submit Score</button><span id='msg'>Shoot meteors, collect salvage.</span></div><canvas id='c' width='480' height='720'></canvas><div class='row'><button id='l'>⬅</button><button id='fire'>🔥 Fire</button><button id='r'>➡</button></div></div><script>
+const slug='meteor-salvage-ops',c=document.getElementById('c'),x=c.getContext('2d');let run=0,score=0,hp=3,last=0,px=240,shots=[],mets=[];const se=document.getElementById('score'),he=document.getElementById('hp'),msg=document.getElementById('msg');
+function reset(){run=0;score=0;hp=3;last=0;px=240;shots=[];mets=Array.from({length:10},(_,i)=>({x:Math.random()*460+10,y:-i*90,r:10+Math.random()*14,v:2+Math.random()*2,s:Math.random()<.35}));se.textContent='0';he.textContent='3';draw()}
+function fire(){shots.push({x:px,y:650,v:-7})}
+function move(d){px=Math.max(20,Math.min(460,px+d*24))}
+function step(ts){if(!run)return;const dt=Math.min(33,ts-last||16);last=ts;for(const s of shots)s.y+=s.v*(dt/16);shots=shots.filter(s=>s.y>-20);for(const m of mets){m.y+=m.v*(dt/16);if(m.y>760){m.y=-40;m.x=Math.random()*460+10;m.r=10+Math.random()*14;m.v=2+Math.random()*3;m.s=Math.random()<.35;hp--;he.textContent=hp;if(hp<=0){run=0;msg.textContent='Ship destroyed. Score '+(score|0)}}for(const s of shots){const dx=s.x-m.x,dy=s.y-m.y;if(dx*dx+dy*dy<(m.r+4)*(m.r+4)){score+=m.s?130:60;se.textContent=(score|0);m.y=-40;m.x=Math.random()*460+10;m.r=10+Math.random()*14;m.v=2+Math.random()*3;m.s=Math.random()<.35;s.y=-50;break}}}draw();if(run)requestAnimationFrame(step)}
+function draw(){x.clearRect(0,0,480,720);for(let i=0;i<60;i++){x.fillStyle='rgba(160,170,255,.25)';x.fillRect((i*77)%480,(i*139)%720,2,2)}x.fillStyle='#68e6ff';x.fillRect(px-16,662,32,26);x.fillStyle='#d8f8ff';x.fillRect(px-6,655,12,8);for(const s of shots){x.fillStyle='#8dff9f';x.fillRect(s.x-2,s.y,4,12)}for(const m of mets){x.fillStyle=m.s?'#ffd56d':'#ff7d98';x.beginPath();x.arc(m.x,m.y,m.r,0,Math.PI*2);x.fill()}}
+async function submit(){if((score|0)<=0)return msg.textContent='Play first.';msg.textContent='Submitting...';const fd=new FormData();fd.append('game',slug);fd.append('score',String(score|0));const pk=(localStorage.getItem('pixel_player_key')||('pk_'+Math.random().toString(36).slice(2)+Date.now().toString(36))); localStorage.setItem('pixel_player_key',pk); fd.append('playerKey',pk); const pn=(localStorage.getItem('pixel_player_name')||'Guest'); fd.append('name',pn); const r=await fetch('/wp-json/prismtek/v1/scores',{method:'POST',credentials:'include',body:fd});const j=await r.json().catch(()=>({}));msg.textContent=r.ok&&j.ok?'Score submitted ✅':'Submit failed: '+(j.error||r.status)}
+document.getElementById('start').onclick=()=>{reset();run=1;msg.textContent='Mission live';requestAnimationFrame(step)};document.getElementById('submit').onclick=submit;document.getElementById('l').onclick=()=>move(-1);document.getElementById('r').onclick=()=>move(1);document.getElementById('fire').onclick=fire;addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(k==='arrowleft'||k==='a')move(-1);if(k==='arrowright'||k==='d')move(1);if(k===' '||k==='enter')fire()});reset();
+</script>
+<script>
+/* prism-uniform-layer-v1 */
+(function(){
+  try{
+    const css = document.createElement('style');
+    css.textContent = `
+      body{margin:0;background:#0b122d;color:#fff;font-family:monospace;display:grid;place-items:center;min-height:100vh;padding:8px;box-sizing:border-box}
+      #w,.wrap{display:grid;gap:8px;justify-items:center;padding:10px;max-width:96vw;width:min(96vw,860px);box-sizing:border-box}
+      canvas{width:min(96vw,700px)!important;height:auto!important;max-height:70vh!important;image-rendering:pixelated;border:2px solid #6f86ff!important;touch-action:none!important}
+      .row,.controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+      button{min-height:40px;min-width:44px;padding:8px 12px}
+      @media (max-width:640px){button{flex:1 1 auto}}
+    `;
+    document.head.appendChild(css);
+    const scoreEls = [document.getElementById('score'), document.getElementById('s'), document.getElementById('sc')].filter(Boolean);
+    function parseScore(){
+      for(const el of scoreEls){
+        const n = parseInt((el.textContent||'').replace(/[^0-9-]/g,''),10);
+        if(Number.isFinite(n)) return Math.max(0,n);
+      }
+      const txt = (document.body.textContent||'').match(/Score\s*:?\s*(\d+)/i);
+      return txt ? parseInt(txt[1],10) : 0;
+    }
+    const slug = (location.pathname.split('/').filter(Boolean).slice(-2,-1)[0] || 'game').toLowerCase();
+    let lastSubmitted = 0;
+    async function submitScore(score){
+      try{
+        score = Number(score)||0;
+        if(score<=0 || score<=lastSubmitted) return;
+        lastSubmitted = score;
+        const fd = new FormData();
+        fd.append('game', slug);
+        fd.append('score', String(score));
+        const pk = localStorage.getItem('pixel_player_key') || ('pk_'+Math.random().toString(36).slice(2)+Date.now().toString(36));
+        localStorage.setItem('pixel_player_key', pk);
+        fd.append('playerKey', pk);
+        fd.append('name', localStorage.getItem('pixel_player_name') || 'Guest');
+        await fetch('/wp-json/prismtek/v1/scores', { method:'POST', credentials:'include', cache:'no-store', body: fd });
+      }catch{}
+    }
+    setInterval(()=>{ const s=parseScore(); if(s>0) submitScore(s); }, 2500);
+    document.addEventListener('visibilitychange', ()=>{ if(document.hidden){ const s=parseScore(); if(s>0) submitScore(s); } });
+    window.addEventListener('beforeunload', ()=>{ const s=parseScore(); if(s>0) submitScore(s); });
+  }catch{}
+})();
+</script>
+
+
+<script>
+/* prism-skyhunt-skin-v1 */
+(function(){
+  try{
+    const css = document.createElement('style');
+    css.textContent = `
+      body{margin:0!important;background:#0b122d!important;color:#fff!important;font-family:monospace!important;display:grid!important;place-items:center!important;min-height:100vh!important}
+      #w,.wrap{display:grid!important;gap:8px!important;justify-items:center!important;padding:10px!important;max-width:96vw!important;width:auto!important}
+      h1,h2,h3{margin:0 0 4px 0!important;font:700 20px/1.1 monospace!important;color:#fff!important}
+      canvas{width:min(92vw,480px)!important;height:auto!important;image-rendering:pixelated!important;border:3px solid #8aa0ff!important;background:#5cb7ff!important;cursor:crosshair!important;max-height:none!important}
+      .row,.controls,#hud{display:flex!important;gap:10px!important;flex-wrap:wrap!important;justify-content:center!important;align-items:center!important}
+      button{background:#1b2458!important;color:#fff!important;border:1px solid #5e76ff!important;padding:8px 12px!important;border-radius:0!important;box-shadow:none!important}
+      #msg,.status,#ui{font:14px/1.2 monospace!important;color:#fff!important}
+      input,select{font-family:monospace!important}
+    `;
+    document.head.appendChild(css);
+  }catch{}
+})();
+</script>
+
+
+<script>
+/* prism-uniform-hud-v1 */
+(function(){
+  try{
+    function getScore(){
+      const ids=['score','s','sc'];
+      for(const id of ids){
+        const el=document.getElementById(id);
+        if(!el) continue;
+        const n=parseInt((el.textContent||'').replace(/[^0-9-]/g,''),10);
+        if(Number.isFinite(n)) return Math.max(0,n);
+      }
+      const m=(document.body.textContent||'').match(/Score\s*:?\s*(\d+)/i);
+      return m?Math.max(0,parseInt(m[1],10)):0;
+    }
+    const slug=(location.pathname.split('/').filter(Boolean).slice(-2,-1)[0]||'game').toLowerCase();
+    const wrap=document.querySelector('#w,.wrap') || document.body;
+    let ui=document.getElementById('ui');
+    if(!ui){ ui=document.createElement('div'); ui.id='ui'; wrap.insertBefore(ui, wrap.children[2] || null); }
+    ui.style.fontFamily='monospace'; ui.style.fontSize='14px'; ui.style.color='#fff';
+    function tick(){
+      const score=getScore();
+      const bestKey='best_'+slug;
+      const prev=parseInt(localStorage.getItem(bestKey)||'0',10)||0;
+      const best=Math.max(prev,score);
+      if(best!==prev) localStorage.setItem(bestKey,String(best));
+      ui.textContent=`Score ${score} · Round 1 · Ammo -- · Best ${best}`;
+    }
+    setInterval(tick,300);
+    tick();
+  }catch{}
+})();
+</script>
+
+
+<script>
+/* prism-controls-scale-v2 */
+(function(){
+  try{
+    const css=document.createElement('style');
+    css.textContent=`
+      .prism-shell{display:grid!important;gap:8px!important;justify-items:center!important;max-width:96vw!important;padding:10px!important}
+      .prism-shell canvas{width:min(92vw,480px)!important;height:auto!important;max-height:72vh!important;display:block!important}
+      .prism-controls{display:grid!important;grid-template-columns:repeat(3,minmax(84px,1fr))!important;gap:8px!important;width:min(92vw,480px)!important;align-items:stretch!important}
+      .prism-controls button{min-height:42px!important;padding:8px 10px!important;font:600 14px/1 monospace!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+      .prism-controls .prism-note{grid-column:1/-1!important;text-align:center!important;font:13px/1.2 monospace!important;opacity:.95!important}
+      @media (max-width:520px){.prism-controls{grid-template-columns:repeat(2,minmax(84px,1fr))!important}}
+    `;
+    document.head.appendChild(css);
+    const shell=document.querySelector('#w,.wrap')||document.body;
+    shell.classList.add('prism-shell');
+    const canvas=shell.querySelector('canvas');
+    if(!canvas) return;
+    const dock=document.createElement('div');
+    dock.className='prism-controls';
+    const rows=[...shell.querySelectorAll('.row,.controls')];
+    const seen=new Set();
+    for(const row of rows){
+      const buttons=[...row.querySelectorAll('button')];
+      for(const b of buttons){ if(seen.has(b)) continue; seen.add(b); dock.appendChild(b); }
+      const txt=(row.textContent||'').replace(/\s+/g,' ').trim();
+      if(txt && !buttons.length){ const note=document.createElement('div'); note.className='prism-note'; note.textContent=txt; dock.appendChild(note); }
+    }
+    if(!dock.children.length){
+      const buttons=[...shell.querySelectorAll('button')];
+      for(const b of buttons){ if(!seen.has(b)){ seen.add(b); dock.appendChild(b);} }
+    }
+    for(const row of rows){ if(!row.querySelector('button')) row.remove(); }
+    const ui=shell.querySelector('#ui,#msg,.status');
+    if(ui && ui.nextSibling) shell.insertBefore(dock, ui.nextSibling); else shell.appendChild(dock);
+  }catch{}
+})();
+</script>
+
+
+<script>
+/* prism-iframe-compat-v1 */
+(function(){
+  try{
+    if(window.self===window.top) return;
+    const css=document.createElement('style');
+    css.textContent=`
+      html,body{height:auto!important;min-height:0!important;overflow:auto!important}
+      body{display:block!important;place-items:initial!important;padding:0!important;margin:0!important;background:#0b122d!important}
+      #w,.wrap,.prism-shell{width:100%!important;max-width:100%!important;margin:0!important;padding:8px!important;box-sizing:border-box!important;justify-items:stretch!important}
+      canvas{width:100%!important;max-width:100%!important;max-height:none!important;height:auto!important;display:block!important;margin:0 auto!important}
+      .prism-controls{width:100%!important;max-width:100%!important;grid-template-columns:repeat(3,minmax(0,1fr))!important}
+      @media (max-width:520px){.prism-controls{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+    `;
+    document.head.appendChild(css);
+  }catch{}
+})();
+</script>
+
+</body></html>

@@ -1,0 +1,149 @@
+.shell {
+  width: min(1024px, 94vw);
+  margin: 2rem auto;
+  display: grid;
+  gap: 1rem;
+}
+
+.panel {
+  background: #141821;
+  border: 3px solid #2f3b59;
+  box-shadow: 0 0 0 3px #0a0d14 inset;
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.eyebrow {
+  color: #77e7b7;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 0.4rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+}
+
+h2 {
+  margin: 0 0 0.6rem;
+}
+
+.sub {
+  color: #c7d2ef;
+}
+
+.nav {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.nav a {
+  color: #d7e0ff;
+  text-decoration: none;
+  border: 1px solid #3e4b71;
+  border-radius: 8px;
+  padding: 0.45rem 0.65rem;
+  font-weight: 700;
+}
+
+.nav a.active {
+  background: #5d3ccf;
+  border-color: #8c5dff;
+}
+
+.actions {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+button {
+  border: 0;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #8c5dff, #5d3ccf);
+  color: #fff;
+  font-weight: 700;
+  padding: 0.65rem 0.95rem;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+a {
+  color: #8ee6ff;
+  font-weight: 700;
+}
+
+ul {
+  margin: 0;
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+li {
+  color: #d5def6;
+}
+
+.form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.form label {
+  display: grid;
+  gap: 0.35rem;
+  color: #d6def7;
+  font-weight: 600;
+}
+
+.form input,
+.form select {
+  background: #0f1320;
+  border: 1px solid #37415f;
+  color: #f3f6ff;
+  border-radius: 8px;
+  padding: 0.55rem 0.65rem;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.output {
+  margin-top: 0.8rem;
+  background: #0b0f1a;
+  border: 1px solid #2f3b59;
+  border-radius: 8px;
+  padding: 0.7rem;
+  max-height: 320px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #d8e1ff;
+}
+
+.output.ok {
+  border-color: #1fa67a;
+}
+
+.output.error {
+  border-color: #e26a7b;
+}

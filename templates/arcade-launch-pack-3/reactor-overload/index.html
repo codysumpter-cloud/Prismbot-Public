@@ -1,0 +1,37 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Reactor Overload</title>
+<style>
+body{margin:0;background:#0b122d;color:#fff;font-family:monospace;display:grid;place-items:center;min-height:100vh}
+.wrap{display:grid;gap:8px;justify-items:center;padding:10px;max-width:96vw}
+canvas{width:min(92vw,480px);height:auto;image-rendering:pixelated;border:3px solid #8aa0ff;background:#5cb7ff}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+button{background:#1b2458;color:#fff;border:1px solid #5e76ff;padding:8px 12px}
+.pad{display:grid;grid-template-columns:repeat(3,70px);gap:6px;justify-content:center}.pad button{height:44px}
+</style></head><body>
+<div class="wrap">
+<h3>Reactor Overload</h3>
+<canvas id="g" width="400" height="520"></canvas>
+<div id="ui">Score 0 · Heat 35% · Time 60s · Best 0</div>
+<div class="row"><button id="start">Start</button><button id="pause">Pause</button><button id="restart">Restart</button></div>
+<div class="row"><span>Keep heat between 20-80%. Tap cells to cool.</span></div>
+</div>
+<script>
+let _last=0;function submitScore(s){try{s=+s||0;if(s<=0||s<=_last)return;_last=s;const pk=(localStorage.getItem('pixel_player_key')||('pk_'+Math.random().toString(36).slice(2)+Date.now().toString(36)));localStorage.setItem('pixel_player_key',pk);fetch('/wp-json/prismtek/v1/scores',{method:'POST',credentials:'include',cache:'no-store',headers:{'content-type':'application/json'},body:JSON.stringify({game:'reactor-overload',score:s,name:(localStorage.getItem('pixel_player_name')||'Guest'),playerKey:pk})}).catch(()=>{});}catch{}}
+const c=g,x=c.getContext('2d');const W=400,H=520,GS=6,CW=58,OX=26,OY=110;let best=+localStorage.ro_best||0;
+let grid=[],heat=35,time=60,score=0,paused=false,run=false,over=false;
+function rr(a,b){return a+Math.random()*(b-a)}
+function setup(){grid=Array.from({length:GS*GS},()=>Math.floor(rr(1,5)));heat=35;time=60;score=0;paused=false;run=false;over=false;sync();}
+function sync(){ui.textContent=`Score ${score} · Heat ${Math.max(0,heat|0)}% · Time ${Math.max(0,time|0)}s · Best ${best}`}
+function idx(r,c){return r*GS+c} function inb(r,c){return r>=0&&c>=0&&r<GS&&c<GS}
+function tapCell(r,c){if(!run||paused||over)return;for(const [dr,dc] of [[0,0],[-1,0],[1,0],[0,-1],[0,1]]){const nr=r+dr,nc=c+dc;if(inb(nr,nc))grid[idx(nr,nc)]=Math.max(0,grid[idx(nr,nc)]-2);}heat=Math.max(0,heat-2);score+=8;sync();}
+function tick(){if(!run||paused||over)return;time-=0.1;for(let i=0;i<grid.length;i++){if(Math.random()<0.22)grid[i]=Math.min(9,grid[i]+1);}const avg=grid.reduce((a,b)=>a+b,0)/grid.length;heat += (avg-3.8)*0.9 + 0.25;if(heat>100){over=true;run=false;}if(time<=0){over=true;run=false;score+=Math.max(0,200-Math.abs(50-heat)*4);}score += Math.max(0,Math.floor(6-Math.abs(50-heat)/12));if(score>best){best=score;localStorage.ro_best=best;submitScore(best)}sync();}
+function draw(){x.fillStyle='#64c5ff';x.fillRect(0,0,W,H);x.fillStyle='#1e2f45';x.fillRect(16,92,368,370);for(let r=0;r<GS;r++)for(let c2=0;c2<GS;c2++){const v=grid[idx(r,c2)],x0=OX+c2*CW,y0=OY+r*CW;const col=v<3?'#49b36e':(v<6?'#e2ba55':'#d65a6d');x.fillStyle=col;x.fillRect(x0,y0,52,52);x.fillStyle='rgba(0,0,0,.25)';x.fillRect(x0+8,y0+30,36,12);x.fillStyle='#fff';x.fillText(String(v),x0+23,y0+20)}
+x.fillStyle='rgba(0,0,0,.35)';x.fillRect(20,20,220,20);x.fillStyle=heat<80?'#7dff9e':'#ff6d85';x.fillRect(20,20,Math.max(0,2.2*Math.min(100,heat)),20);
+if(!run&&!over){x.fillStyle='rgba(0,0,0,.55)';x.fillRect(70,228,260,72);x.fillStyle='#fff';x.fillText('Press Start',156,268)}
+if(paused&&!over){x.fillStyle='rgba(0,0,0,.55)';x.fillRect(120,220,160,70);x.fillStyle='#fff';x.fillText('Paused',172,260)}
+if(over){x.fillStyle='rgba(0,0,0,.65)';x.fillRect(58,205,284,110);x.fillStyle='#fff';x.fillText(time<=0?'Shift Complete':'Meltdown!',145,248);x.fillText('Restart to play again',126,274)}}
+c.addEventListener('pointerdown',e=>{const r=c.getBoundingClientRect(),mx=(e.clientX-r.left)*(W/r.width),my=(e.clientY-r.top)*(H/r.height);const cc=Math.floor((mx-OX)/CW),rrr=Math.floor((my-OY)/CW);if(inb(rrr,cc))tapCell(rrr,cc)});
+start.onclick=()=>{if(over)setup();run=true;paused=false;pause.textContent='Pause';}; pause.onclick=()=>{if(!run||over)return;paused=!paused;pause.textContent=paused?'Resume':'Pause'}; restart.onclick=()=>setup();
+setInterval(()=>{tick();draw();},100); submitScore(best); setup();
+</script></body></html>

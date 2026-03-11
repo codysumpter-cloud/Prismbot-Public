@@ -27,4 +27,5 @@ cd apps/pixel-pipeline
 
 ## Notes
 - LibreSprite is installed and available as `libresprite`.
+- Local image backend now includes Pixel Superiority controls (`pixel_mode`, `strict_hq`, `palette_lock`, `nearest_neighbor`, `anti_mush`, `coherence_checks`) and `/pixel/zoomquilt` composition output (frame set + preview mp4).
 - For now, generation is operator-guided; automation hooks are scaffolded.

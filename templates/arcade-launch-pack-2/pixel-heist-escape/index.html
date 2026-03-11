@@ -1,0 +1,175 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Pixel Heist Escape</title><style>body{margin:0;background:#090d14;color:#f0f4ff;font-family:system-ui}#w{max-width:760px;margin:12px auto;padding:12px;background:#1a2430;border:1px solid #5d8ab3;border-radius:12px}canvas{width:100%;touch-action:none;background:#081018;border:1px solid #36506a;border-radius:10px}button{background:#2a445a;color:#fff;border:1px solid #74a5cf;border-radius:8px;padding:8px 10px}.row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}</style></head><body><div id='w'><h2>Pixel Heist Escape</h2><div class='row'><span>Score: <b id='score'>0</b></span><span>Loot: <b id='loot'>0</b></span><button id='start'>Start</button><button id='submit'>Submit Score</button><span id='msg'>Steal loot, avoid guards.</span></div><canvas id='c' width='480' height='640'></canvas></div><script>
+const slug='pixel-heist-escape',c=document.getElementById('c'),x=c.getContext('2d');let run=0,last=0,score=0,loot=0,p={x:40,y:560,w:18,h:18,s:2.8},keys=new Set(),guards=[],gems=[];const se=document.getElementById('score'),le=document.getElementById('loot'),msg=document.getElementById('msg');
+function rr(a,b){return Math.random()*(b-a)+a}function reset(){run=0;last=0;score=0;loot=0;p.x=40;p.y=560;guards=[{x:120,y:120,vx:1.4,vy:0},{x:340,y:300,vx:0,vy:1.5},{x:220,y:500,vx:1.2,vy:0}];gems=Array.from({length:8},()=>({x:rr(30,450),y:rr(30,610),r:6,t:1}));se.textContent='0';le.textContent='0';draw()}
+function col(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y}
+function step(ts){if(!run)return;const dt=Math.min(33,ts-last||16);last=ts;score+=dt*0.02;let dx=0,dy=0;if(keys.has('arrowleft')||keys.has('a'))dx=-1;if(keys.has('arrowright')||keys.has('d'))dx=1;if(keys.has('arrowup')||keys.has('w'))dy=-1;if(keys.has('arrowdown')||keys.has('s'))dy=1;p.x=Math.max(6,Math.min(456,p.x+dx*p.s*dt/10));p.y=Math.max(6,Math.min(616,p.y+dy*p.s*dt/10));for(const g of guards){g.x+=g.vx*dt/10;g.y+=g.vy*dt/10;if(g.x<10||g.x>450)g.vx*=-1;if(g.y<10||g.y>610)g.vy*=-1;const box={x:g.x,y:g.y,w:22,h:22};if(col(p,box)){run=0;msg.textContent='Caught! Score '+(score|0);draw();return}}
+for(const gem of gems){if(!gem.t)continue;const dx=p.x+9-gem.x,dy=p.y+9-gem.y;if(dx*dx+dy*dy<180){gem.t=0;loot++;score+=120;le.textContent=loot}}
+if(loot===gems.length){run=0;score+=500;msg.textContent='Escape successful! Score '+(score|0)}se.textContent=(score|0);draw();if(run)requestAnimationFrame(step)}
+function draw(){x.clearRect(0,0,480,640);x.fillStyle='#12202d';for(let i=0;i<12;i++)x.fillRect(i*40,0,1,640);for(let i=0;i<16;i++)x.fillRect(0,i*40,480,1);x.fillStyle='#67e7ff';x.fillRect(p.x,p.y,p.w,p.h);for(const g of guards){x.fillStyle='#ff748d';x.fillRect(g.x,g.y,22,22)}for(const gem of gems){if(!gem.t)continue;x.fillStyle='#ffe178';x.beginPath();x.arc(gem.x,gem.y,6,0,Math.PI*2);x.fill()}}
+async function submit(){if((score|0)<=0)return msg.textContent='Play first.';msg.textContent='Submitting...';const fd=new FormData();fd.append('game',slug);fd.append('score',String(score|0));const pk=(localStorage.getItem('pixel_player_key')||('pk_'+Math.random().toString(36).slice(2)+Date.now().toString(36))); localStorage.setItem('pixel_player_key',pk); fd.append('playerKey',pk); const pn=(localStorage.getItem('pixel_player_name')||'Guest'); fd.append('name',pn); const r=await fetch('/wp-json/prismtek/v1/scores',{method:'POST',credentials:'include',body:fd});const j=await r.json().catch(()=>({}));msg.textContent=r.ok&&j.ok?'Score submitted ✅':'Submit failed: '+(j.error||r.status)}
+document.getElementById('start').onclick=()=>{reset();run=1;msg.textContent='Heist started';requestAnimationFrame(step)};document.getElementById('submit').onclick=submit;addEventListener('keydown',e=>keys.add(e.key.toLowerCase()));addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));reset();
+</script>
+<script>
+/* prism-uniform-layer-v1 */
+(function(){
+  try{
+    const css = document.createElement('style');
+    css.textContent = `
+      body{margin:0;background:#0b122d;color:#fff;font-family:monospace;display:grid;place-items:center;min-height:100vh;padding:8px;box-sizing:border-box}
+      #w,.wrap{display:grid;gap:8px;justify-items:center;padding:10px;max-width:96vw;width:min(96vw,860px);box-sizing:border-box}
+      canvas{width:min(96vw,700px)!important;height:auto!important;max-height:70vh!important;image-rendering:pixelated;border:2px solid #6f86ff!important;touch-action:none!important}
+      .row,.controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+      button{min-height:40px;min-width:44px;padding:8px 12px}
+      @media (max-width:640px){button{flex:1 1 auto}}
+    `;
+    document.head.appendChild(css);
+    const scoreEls = [document.getElementById('score'), document.getElementById('s'), document.getElementById('sc')].filter(Boolean);
+    function parseScore(){
+      for(const el of scoreEls){
+        const n = parseInt((el.textContent||'').replace(/[^0-9-]/g,''),10);
+        if(Number.isFinite(n)) return Math.max(0,n);
+      }
+      const txt = (document.body.textContent||'').match(/Score\s*:?\s*(\d+)/i);
+      return txt ? parseInt(txt[1],10) : 0;
+    }
+    const slug = (location.pathname.split('/').filter(Boolean).slice(-2,-1)[0] || 'game').toLowerCase();
+    let lastSubmitted = 0;
+    async function submitScore(score){
+      try{
+        score = Number(score)||0;
+        if(score<=0 || score<=lastSubmitted) return;
+        lastSubmitted = score;
+        const fd = new FormData();
+        fd.append('game', slug);
+        fd.append('score', String(score));
+        const pk = localStorage.getItem('pixel_player_key') || ('pk_'+Math.random().toString(36).slice(2)+Date.now().toString(36));
+        localStorage.setItem('pixel_player_key', pk);
+        fd.append('playerKey', pk);
+        fd.append('name', localStorage.getItem('pixel_player_name') || 'Guest');
+        await fetch('/wp-json/prismtek/v1/scores', { method:'POST', credentials:'include', cache:'no-store', body: fd });
+      }catch{}
+    }
+    setInterval(()=>{ const s=parseScore(); if(s>0) submitScore(s); }, 2500);
+    document.addEventListener('visibilitychange', ()=>{ if(document.hidden){ const s=parseScore(); if(s>0) submitScore(s); } });
+    window.addEventListener('beforeunload', ()=>{ const s=parseScore(); if(s>0) submitScore(s); });
+  }catch{}
+})();
+</script>
+
+
+<script>
+/* prism-skyhunt-skin-v1 */
+(function(){
+  try{
+    const css = document.createElement('style');
+    css.textContent = `
+      body{margin:0!important;background:#0b122d!important;color:#fff!important;font-family:monospace!important;display:grid!important;place-items:center!important;min-height:100vh!important}
+      #w,.wrap{display:grid!important;gap:8px!important;justify-items:center!important;padding:10px!important;max-width:96vw!important;width:auto!important}
+      h1,h2,h3{margin:0 0 4px 0!important;font:700 20px/1.1 monospace!important;color:#fff!important}
+      canvas{width:min(92vw,480px)!important;height:auto!important;image-rendering:pixelated!important;border:3px solid #8aa0ff!important;background:#5cb7ff!important;cursor:crosshair!important;max-height:none!important}
+      .row,.controls,#hud{display:flex!important;gap:10px!important;flex-wrap:wrap!important;justify-content:center!important;align-items:center!important}
+      button{background:#1b2458!important;color:#fff!important;border:1px solid #5e76ff!important;padding:8px 12px!important;border-radius:0!important;box-shadow:none!important}
+      #msg,.status,#ui{font:14px/1.2 monospace!important;color:#fff!important}
+      input,select{font-family:monospace!important}
+    `;
+    document.head.appendChild(css);
+  }catch{}
+})();
+</script>
+
+
+<script>
+/* prism-uniform-hud-v1 */
+(function(){
+  try{
+    function getScore(){
+      const ids=['score','s','sc'];
+      for(const id of ids){
+        const el=document.getElementById(id);
+        if(!el) continue;
+        const n=parseInt((el.textContent||'').replace(/[^0-9-]/g,''),10);
+        if(Number.isFinite(n)) return Math.max(0,n);
+      }
+      const m=(document.body.textContent||'').match(/Score\s*:?\s*(\d+)/i);
+      return m?Math.max(0,parseInt(m[1],10)):0;
+    }
+    const slug=(location.pathname.split('/').filter(Boolean).slice(-2,-1)[0]||'game').toLowerCase();
+    const wrap=document.querySelector('#w,.wrap') || document.body;
+    let ui=document.getElementById('ui');
+    if(!ui){ ui=document.createElement('div'); ui.id='ui'; wrap.insertBefore(ui, wrap.children[2] || null); }
+    ui.style.fontFamily='monospace'; ui.style.fontSize='14px'; ui.style.color='#fff';
+    function tick(){
+      const score=getScore();
+      const bestKey='best_'+slug;
+      const prev=parseInt(localStorage.getItem(bestKey)||'0',10)||0;
+      const best=Math.max(prev,score);
+      if(best!==prev) localStorage.setItem(bestKey,String(best));
+      ui.textContent=`Score ${score} · Round 1 · Ammo -- · Best ${best}`;
+    }
+    setInterval(tick,300);
+    tick();
+  }catch{}
+})();
+</script>
+
+
+<script>
+/* prism-controls-scale-v2 */
+(function(){
+  try{
+    const css=document.createElement('style');
+    css.textContent=`
+      .prism-shell{display:grid!important;gap:8px!important;justify-items:center!important;max-width:96vw!important;padding:10px!important}
+      .prism-shell canvas{width:min(92vw,480px)!important;height:auto!important;max-height:72vh!important;display:block!important}
+      .prism-controls{display:grid!important;grid-template-columns:repeat(3,minmax(84px,1fr))!important;gap:8px!important;width:min(92vw,480px)!important;align-items:stretch!important}
+      .prism-controls button{min-height:42px!important;padding:8px 10px!important;font:600 14px/1 monospace!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+      .prism-controls .prism-note{grid-column:1/-1!important;text-align:center!important;font:13px/1.2 monospace!important;opacity:.95!important}
+      @media (max-width:520px){.prism-controls{grid-template-columns:repeat(2,minmax(84px,1fr))!important}}
+    `;
+    document.head.appendChild(css);
+    const shell=document.querySelector('#w,.wrap')||document.body;
+    shell.classList.add('prism-shell');
+    const canvas=shell.querySelector('canvas');
+    if(!canvas) return;
+    const dock=document.createElement('div');
+    dock.className='prism-controls';
+    const rows=[...shell.querySelectorAll('.row,.controls')];
+    const seen=new Set();
+    for(const row of rows){
+      const buttons=[...row.querySelectorAll('button')];
+      for(const b of buttons){ if(seen.has(b)) continue; seen.add(b); dock.appendChild(b); }
+      const txt=(row.textContent||'').replace(/\s+/g,' ').trim();
+      if(txt && !buttons.length){ const note=document.createElement('div'); note.className='prism-note'; note.textContent=txt; dock.appendChild(note); }
+    }
+    if(!dock.children.length){
+      const buttons=[...shell.querySelectorAll('button')];
+      for(const b of buttons){ if(!seen.has(b)){ seen.add(b); dock.appendChild(b);} }
+    }
+    for(const row of rows){ if(!row.querySelector('button')) row.remove(); }
+    const ui=shell.querySelector('#ui,#msg,.status');
+    if(ui && ui.nextSibling) shell.insertBefore(dock, ui.nextSibling); else shell.appendChild(dock);
+  }catch{}
+})();
+</script>
+
+
+<script>
+/* prism-iframe-compat-v1 */
+(function(){
+  try{
+    if(window.self===window.top) return;
+    const css=document.createElement('style');
+    css.textContent=`
+      html,body{height:auto!important;min-height:0!important;overflow:auto!important}
+      body{display:block!important;place-items:initial!important;padding:0!important;margin:0!important;background:#0b122d!important}
+      #w,.wrap,.prism-shell{width:100%!important;max-width:100%!important;margin:0!important;padding:8px!important;box-sizing:border-box!important;justify-items:stretch!important}
+      canvas{width:100%!important;max-width:100%!important;max-height:none!important;height:auto!important;display:block!important;margin:0 auto!important}
+      .prism-controls{width:100%!important;max-width:100%!important;grid-template-columns:repeat(3,minmax(0,1fr))!important}
+      @media (max-width:520px){.prism-controls{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+    `;
+    document.head.appendChild(css);
+  }catch{}
+})();
+</script>
+
+</body></html>

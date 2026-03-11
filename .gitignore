@@ -18,3 +18,6 @@ apps/kid-chat-mvp/tasks.json
 apps/kid-chat-mvp/builder.json
 apps/kid-chat-mvp/profiles.json
 apps/mission-control/.env
+**/.venv/
+**/__pycache__/
+*.pyc

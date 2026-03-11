@@ -1,0 +1,252 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Prism Companion Lab</title>
+<style>
+body{margin:0;background:#0b122d;color:#fff;font-family:monospace;display:grid;place-items:center;min-height:100vh}
+.wrap{display:grid;gap:8px;justify-items:center;padding:10px;max-width:96vw}
+canvas{width:min(92vw,480px);height:auto;image-rendering:pixelated;border:3px solid #8aa0ff;background:#5cb7ff}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+button,select,input{background:#1b2458;color:#fff;border:1px solid #5e76ff;padding:8px 10px;font-family:monospace}
+.panel{width:min(92vw,480px);display:grid;gap:8px;background:rgba(10,18,49,.75);border:1px solid #5e76ff;padding:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+small{opacity:.95}
+</style></head><body>
+<div class="wrap">
+  <h3>Prism Companion Lab</h3>
+  <canvas id="g" width="400" height="520"></canvas>
+  <div id="ui">Companion: Prismo · Hunger 65 · Happy 70 · Energy 75 · Age 0 · Care Score 0</div>
+  <div class="row"><button id="feed">Feed</button><button id="play">Play</button><button id="rest">Rest</button><button id="submit">Submit Care Score</button></div>
+
+  <details class="panel" open>
+    <summary><strong>Guided Companion Prompt</strong></summary>
+    <div class="grid2">
+      <label>Provider
+        <select id="provider"><option value="pixellab">PixelLab</option><option value="base44">Base44</option></select>
+      </label>
+      <label>Species
+        <select id="species">
+          <option>blob</option><option>fox</option><option>dragon</option><option>cat</option><option>slime</option><option>trex</option>
+          <option>wolf pup</option><option>otter</option><option>axolotl</option><option>owl</option><option>raccoon</option>
+          <option>chibi robot</option><option>panda</option><option>bunny</option><option>hamster</option><option>griffin</option>
+          <option>bat</option><option>gecko</option><option>baby dino</option><option>cloud spirit</option>
+        </select>
+      </label>
+      <label>Personality
+        <select id="personality">
+          <option>brave</option><option>curious</option><option>chaotic</option><option>gentle</option><option>sleepy</option><option>gremlin</option>
+          <option>playful</option><option>shy</option><option>loyal</option><option>stubborn</option><option>dramatic</option>
+          <option>hyper</option><option>calm</option><option>sassy</option><option>mischievous</option><option>wise</option>
+        </select>
+      </label>
+      <label>Palette
+        <select id="palette">
+          <option>neon blue</option><option>mint candy</option><option>sunset coral</option><option>void purple</option><option>forest glow</option>
+          <option>rose quartz</option><option>amber dusk</option><option>toxic lime</option><option>cotton sky</option><option>ocean night</option>
+          <option>lava pop</option><option>peach cream</option><option>mono noir</option><option>electric cyan</option><option>golden moss</option>
+        </select>
+      </label>
+    </div>
+    <label>Guided prompt
+      <input id="prompt" type="text" value="Tiny tamagotchi style companion, front-facing pixel art, clean outline, expressive eyes, transparent background" />
+    </label>
+    <div class="row">
+      <button id="check">Check Linked Accounts</button>
+      <button id="gen">Generate Companion Art</button>
+      <button id="useLocal">Use Local Pixel Companion</button>
+    </div>
+    <small id="status">Ready.</small>
+  </details>
+</div>
+<script>
+const API='/wp-json/prismtek/v1/';
+const c=document.getElementById('g'), x=c.getContext('2d');
+const uiEl=document.getElementById('ui');
+const statusEl=document.getElementById('status');
+let restNonce='';
+let loggedIn=false;
+let pet={name:'Prismo',hunger:65,happy:70,energy:75,age:0,careScore:0,species:'blob',personality:'brave',palette:'neon blue',creatureId:'',imageUrl:'',anim:{seed:1,bobAmp:2,bobSpeed:10,blinkRate:90,wobble:1.2,orbit:2},lastSeenTs:Math.floor(Date.now()/1000)};
+let paused=false, over=false, lastSubmit=0, img=null, animTick=0;
+
+const $=(id)=>document.getElementById(id);
+const speciesEl=$('species'), personalityEl=$('personality'), paletteEl=$('palette'), providerEl=$('provider'), promptEl=$('prompt');
+
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function setStatus(m){statusEl.textContent=m;}
+function sync(){uiEl.textContent=`Companion: ${pet.name} · Hunger ${pet.hunger|0} · Happy ${pet.happy|0} · Energy ${pet.energy|0} · Age ${pet.age|0} · Care Score ${pet.careScore|0}`; speciesEl.value=pet.species; personalityEl.value=pet.personality; paletteEl.value=pet.palette;}
+function hashSeed(s){let h=2166136261; for(let i=0;i<s.length;i++){h^=s.charCodeAt(i); h=Math.imul(h,16777619);} return Math.abs(h>>>0)||1;}
+function makeAnim(seedStr){const n=hashSeed(seedStr); return {seed:n,bobAmp:1.5+(n%40)/20,bobSpeed:8+((n>>3)%10),blinkRate:70+((n>>5)%110),wobble:0.5+((n>>9)%30)/10,orbit:1+((n>>13)%4)};}
+function loadImg(url){return new Promise((res,rej)=>{if(!url)return rej();const i=new Image();i.crossOrigin='anonymous';i.onload=()=>res(i);i.onerror=rej;i.src=url;});}
+
+async function bootstrapAuth(){
+  try{
+    const r=await fetch(API+'session?ts='+Date.now(),{credentials:'include',cache:'no-store'});
+    const j=await r.json().catch(()=>({}));
+    loggedIn=!!j.loggedIn;
+    restNonce=j.nonce||'';
+  }catch{}
+}
+
+async function apiGet(path){
+  const headers = restNonce ? {'X-WP-Nonce':restNonce} : {};
+  const r=await fetch(API+path,{credentials:'include',cache:'no-store',headers});
+  const j=await r.json().catch(()=>({}));
+  return {ok:r.ok,j};
+}
+async function apiPost(path,payload){
+  const headers={'content-type':'application/json'};
+  if(restNonce) headers['X-WP-Nonce']=restNonce;
+  const r=await fetch(API+path,{method:'POST',credentials:'include',headers,body:JSON.stringify(payload||{})});
+  const j=await r.json().catch(()=>({}));
+  return {ok:r.ok,j};
+}
+
+function applyOfflineDecay(){
+  const now=Math.floor(Date.now()/1000), last=Math.max(0,pet.lastSeenTs||now);
+  const hrs=Math.max(0,(now-last)/3600); if(hrs<=0) return;
+  pet.age += hrs*0.5;
+  pet.hunger = clamp(pet.hunger - hrs*2.2,0,100);
+  pet.happy  = clamp(pet.happy  - hrs*1.7,0,100);
+  pet.energy = clamp(pet.energy - hrs*1.5,0,100);
+  if(pet.hunger<20||pet.happy<20||pet.energy<15) pet.careScore=Math.max(0,pet.careScore-hrs*4);
+  pet.lastSeenTs=now;
+}
+
+async function loadProfile(){
+  await bootstrapAuth();
+  let loaded=false;
+  if(loggedIn){
+    const out=await apiGet('companion/profile-lite');
+    if(out.ok&&out.j?.ok&&out.j.profile){pet=Object.assign(pet,out.j.profile); loaded=true;}
+  }
+  if(!loaded){
+    try{const raw=localStorage.getItem('prism_companion_lab_local_v1'); if(raw){pet=Object.assign(pet,JSON.parse(raw)); loaded=true;}}catch{}
+  }
+  if(!pet.anim||!pet.anim.seed) pet.anim=makeAnim((pet.creatureId||'local')+pet.species+pet.personality+pet.palette);
+  applyOfflineDecay();
+  if(pet.imageUrl){ try{img=await loadImg(pet.imageUrl);}catch{img=null;} }
+  sync();
+}
+
+async function saveProfile(){
+  pet.lastSeenTs=Math.floor(Date.now()/1000);
+  const payload={...pet,imageUrl:pet.imageUrl||'',anim:pet.anim||makeAnim('fallback')};
+  try{
+    if(loggedIn){
+      await bootstrapAuth();
+      await apiPost('companion/profile-lite',payload);
+    } else {
+      localStorage.setItem('prism_companion_lab_local_v1',JSON.stringify(payload));
+    }
+  }catch{}
+}
+
+function decay(){if(over||paused)return;pet.age+=0.02;pet.hunger=clamp(pet.hunger-0.05,0,100);pet.happy=clamp(pet.happy-0.035,0,100);pet.energy=clamp(pet.energy-0.03,0,100);if(pet.hunger<20||pet.happy<20||pet.energy<15)pet.careScore=Math.max(0,pet.careScore-0.4);else pet.careScore+=0.3;if(pet.hunger<=0||pet.happy<=0||pet.energy<=0)over=true;sync();}
+function action(kind){
+  // Allow recovery actions even when companion is in critical state
+  if(kind==='feed'){pet.hunger=clamp(pet.hunger+22,0,100);pet.energy=clamp(pet.energy-2,0,100);}
+  if(kind==='play'){pet.happy=clamp(pet.happy+18,0,100);pet.energy=clamp(pet.energy-6,0,100);}
+  if(kind==='rest'){pet.energy=clamp(pet.energy+24,0,100);pet.happy=clamp(pet.happy+5,0,100);}
+
+  // revive if player brought all critical stats above 0
+  if(pet.hunger>0 && pet.happy>0 && pet.energy>0){ over=false; }
+
+  pet.careScore+=12;
+  sync();
+  saveProfile();
+}
+
+function drawCompanionSprite(){
+  const a=pet.anim||makeAnim('fallback');
+  const frame=Math.floor(animTick/8)%4, blink=(animTick%a.blinkRate)>(a.blinkRate-8);
+  const mood=(pet.energy<28)?'sleepy':(pet.hunger<28?'hungry':(pet.happy>72?'happy':'neutral'));
+  const yBob=Math.sin(animTick/a.bobSpeed)*a.bobAmp + (mood==='sleepy'?1.2:0), xBob=Math.sin(animTick/15)*a.wobble;
+  const px=174+xBob, py=222+yBob;
+  x.fillStyle='rgba(0,0,0,.25)'; x.fillRect(px+8,py+42,36,6);
+  const col=({'neon blue':'#66e7ff','mint candy':'#8dffb6','sunset coral':'#ff8ea0','void purple':'#b99cff','forest glow':'#7dff9e','rose quartz':'#ffb6cc','amber dusk':'#ffc27a','toxic lime':'#b9ff6b','cotton sky':'#bce4ff','ocean night':'#5aa6ff','lava pop':'#ff7d6b','peach cream':'#ffd0a2','mono noir':'#d8d8d8','electric cyan':'#5df2ff','golden moss':'#c6d67a'}[pet.palette]||'#66e7ff');
+  x.fillStyle=col; x.fillRect(px,py,52,44+(frame%2)); x.fillStyle='rgba(255,255,255,.18)'; x.fillRect(px+6,py+6,12,10);
+  x.fillStyle='#213047'; x.fillRect(px+10,py+44+(frame%2),8,4); x.fillRect(px+34,py+44+((frame+1)%2),8,4);
+  if(pet.species.includes('cat')||pet.species.includes('fox')||pet.species.includes('wolf')||pet.species.includes('bunny')){x.fillStyle=col;x.fillRect(px+6,py-6,8,8);x.fillRect(px+38,py-6,8,8);} else if(pet.species.includes('dragon')||pet.species.includes('trex')||pet.species.includes('dino')||pet.species.includes('griffin')){x.fillStyle='#ffd27a';x.fillRect(px+6,py-5,5,7);x.fillRect(px+41,py-5,5,7);} 
+  x.fillStyle='#fff';x.fillRect(px+12,py+14,10,10);x.fillRect(px+30,py+14,10,10);
+  if(blink){x.fillStyle='#1a1a1a';x.fillRect(px+12,py+18,10,2);x.fillRect(px+30,py+18,10,2);} else {x.fillStyle='#1a1a1a';x.fillRect(px+16,py+18,4,4);x.fillRect(px+34,py+18,4,4);} 
+  x.fillStyle='#ffcf7d'; if(mood==='happy'){x.fillRect(px+20,py+30,12,3);x.fillRect(px+22,py+33,8,2);} else if(mood==='hungry'){x.fillRect(px+22,py+31,8,5);} else if(mood==='sleepy'){x.fillRect(px+21,py+32,10,2);} else {x.fillRect(px+21,py+31,10,3);} 
+  x.fillStyle='rgba(255,255,255,.9)';x.fillRect(px+46,py-16,12,10);x.fillStyle='#1a1a1a';x.font='10px monospace';x.fillText(mood==='happy'?'♥':(mood==='hungry'?'!':'z'),px+49,py-8);
+}
+
+function draw(){animTick++; x.fillStyle='#64c5ff';x.fillRect(0,0,400,520);x.fillStyle='#6dbc56';x.fillRect(0,390,400,130);
+  x.fillStyle='rgba(255,255,255,.8)';for(let i=0;i<4;i++){const cx=(animTick*0.5+i*110)%420-40,cy=80+(i%2)*34;x.fillRect(cx,cy,40,12);x.fillRect(cx+8,cy-7,24,7)}
+  x.fillStyle='#2f7b3b';x.fillRect(26,120,348,240);
+
+  if(img){
+    const a=pet.anim||makeAnim('img'), bob=Math.sin(animTick/a.bobSpeed)*a.bobAmp;
+    x.fillStyle='rgba(0,0,0,.24)';x.fillRect(168,287+bob,64,7);
+    x.drawImage(img,150,185+bob,100,100);
+    for(let i=0;i<(a.orbit||2);i++){const ang=(animTick/18)+i*(Math.PI*2/(a.orbit||2));const ox=200+Math.cos(ang)*58,oy=235+Math.sin(ang)*18; x.fillStyle='rgba(255,255,255,.75)';x.fillRect(ox,oy,3,3);} 
+    if((animTick%100)>86){x.fillStyle='rgba(0,0,0,.18)';x.fillRect(170,226+bob,60,8);} 
+  } else drawCompanionSprite();
+
+  x.fillStyle='rgba(0,0,0,.35)';x.fillRect(14,12,138,18);x.fillStyle='#ffd166';x.fillRect(14,12,pet.hunger*1.38,18);
+  x.fillStyle='rgba(0,0,0,.35)';x.fillRect(14,34,138,18);x.fillStyle='#8dffb6';x.fillRect(14,34,pet.happy*1.38,18);
+  x.fillStyle='rgba(0,0,0,.35)';x.fillRect(14,56,138,18);x.fillStyle='#66e7ff';x.fillRect(14,56,pet.energy*1.38,18);
+  x.fillStyle='#fff';x.fillText('Hunger',160,25);x.fillText('Happy',160,47);x.fillText('Energy',160,69);
+  if(over){x.fillStyle='rgba(0,0,0,.65)';x.fillRect(58,205,284,110);x.fillStyle='#fff';x.font='18px monospace';x.fillText('Companion Needs Care!',86,248);x.font='14px monospace';x.fillText('Use Feed/Rest/Play to revive',104,274);} }
+
+function buildPrompt(){return `${promptEl.value.trim()}. Tamagotchi-style virtual pet companion for ${pet.species}, personality ${pet.personality}, palette ${pet.palette}, pixel art, transparent background, centered character, no text.`;}
+
+$('check').onclick=async()=>{
+  setStatus('Checking linked accounts...');
+  const out=await apiGet('integrations/linked-status-lite?ts='+Date.now());
+  if(out.ok && out.j?.ok){
+    const s1 = out.j.pixellab?.connected ? 'PixelLab connected' : 'PixelLab not connected';
+    const s2 = out.j.base44?.connected ? 'Base44 connected' : 'Base44 not connected';
+    if(!out.j.loggedIn){
+      setStatus('Linked account status couldn't be confirmed in this view yet. Try once more.');
+      return;
+    }
+    setStatus(`${s1} · ${s2}`);
+    return;
+  }
+  setStatus('Linked account check unavailable right now.');
+};
+
+$('gen').onclick=async()=>{
+  pet.species=speciesEl.value; pet.personality=personalityEl.value; pet.palette=paletteEl.value;
+  const providerSel=providerEl.value, desc=buildPrompt();
+  const seedBase=`${Date.now()}|${pet.species}|${pet.personality}|${pet.palette}|${desc}`;
+  pet.anim=makeAnim(seedBase);
+  await bootstrapAuth();
+  if(providerSel==='pixellab'){
+    setStatus('Generating with PixelLab...');
+    const out=await apiPost('pixellab/generate',{description:desc,width:512,height:512,model:'bitforge'});
+    if(!out.ok||!out.j?.ok||!out.j.imageUrl){setStatus('PixelLab generation failed. Check linked key in My Account.');return;}
+    pet.creatureId='pl-'+Date.now(); pet.imageUrl=out.j.imageUrl;
+    try{img=await loadImg(out.j.imageUrl);}catch{img=null;}
+    await saveProfile();
+    setStatus('Companion generated + saved.');
+  } else {
+    const b44=await apiGet('base44/status');
+    if(!b44.ok||!b44.j?.ok||!b44.j.connected){setStatus('Base44 not linked. Connect key in My Account first.');return;}
+    pet.creatureId='b44-'+Date.now(); pet.imageUrl=''; img=null;
+    try{await navigator.clipboard.writeText(desc);}catch{}
+    await saveProfile();
+    setStatus('Base44 guided prompt copied. Companion profile saved with unique animation.');
+  }
+  sync();
+};
+
+$('useLocal').onclick=async()=>{pet.imageUrl='';img=null;pet.creatureId='local-'+Date.now();pet.anim=makeAnim('local|'+Date.now()+pet.species);await saveProfile();setStatus('Using local pixel companion style.');};
+$('feed').onclick=()=>action('feed'); $('play').onclick=()=>action('play'); $('rest').onclick=()=>action('rest');
+$('submit').onclick=async()=>{
+  const s=Math.max(0,Math.floor(pet.careScore)); if(s<=0||s<=lastSubmit){setStatus('No new score to submit yet.');return;}
+  lastSubmit=s; const pk=(localStorage.getItem('pixel_player_key')||('pk_'+Math.random().toString(36).slice(2)+Date.now().toString(36)));localStorage.setItem('pixel_player_key',pk);
+  await fetch('/wp-json/prismtek/v1/scores',{method:'POST',credentials:'include',cache:'no-store',headers:{'content-type':'application/json'},body:JSON.stringify({game:'prism-companion-lab',score:s,name:(localStorage.getItem('pixel_player_name')||'Guest'),playerKey:pk})}).catch(()=>{});
+  await saveProfile(); setStatus('Care score submitted.');
+};
+
+setInterval(async()=>{const s=Math.max(0,Math.floor(pet.careScore));if(s>0&&s>lastSubmit){lastSubmit=s;const pk=(localStorage.getItem('pixel_player_key')||('pk_'+Math.random().toString(36).slice(2)+Date.now().toString(36)));localStorage.setItem('pixel_player_key',pk);await fetch('/wp-json/prismtek/v1/scores',{method:'POST',credentials:'include',cache:'no-store',headers:{'content-type':'application/json'},body:JSON.stringify({game:'prism-companion-lab',score:s,name:(localStorage.getItem('pixel_player_name')||'Guest'),playerKey:pk})}).catch(()=>{});} },30000);
+setInterval(()=>{decay();draw();},120);
+setInterval(()=>{saveProfile();},10000);
+window.addEventListener('visibilitychange',()=>{if(document.hidden) saveProfile();});
+window.addEventListener('beforeunload',()=>{saveProfile(); try{localStorage.setItem('prism_companion_lab_local_v1',JSON.stringify(pet));}catch{} });
+
+loadProfile().then(()=>{sync();draw();setStatus(loggedIn?'Profile loaded from account.':'Using local save (account session not detected in this frame).');}).catch(()=>{setStatus('Load issue. Refresh once.');});
+</script></body></html>

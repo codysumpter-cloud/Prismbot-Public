@@ -1,0 +1,30 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Signal Scramble</title>
+<style>
+body{margin:0;background:#0b122d;color:#fff;font-family:monospace;display:grid;place-items:center;min-height:100vh}
+.wrap{display:grid;gap:8px;justify-items:center;padding:10px;max-width:96vw}
+#board{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;width:min(92vw,480px)}
+.cell{height:64px;background:#1b2458;color:#fff;border:1px solid #5e76ff;font:bold 20px monospace}
+.cell.on{background:#2f8f58;border-color:#91f5b7;color:#071f11}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+button{background:#1b2458;color:#fff;border:1px solid #5e76ff;padding:8px 12px}
+</style></head><body>
+<div class="wrap">
+<h3>Signal Scramble</h3>
+<div id="ui">Score 0 · Moves 0 · Level 1 · Best 0</div>
+<div class="row"><button id="new">New Puzzle</button><button id="pause">Pause</button><button id="submit">Submit</button></div>
+<div id="board"></div>
+<div>Turn all nodes ON in as few moves as possible</div>
+</div>
+<script>
+let _last=0;function submitScore(s){try{s=+s||0;if(s<=0||s<=_last)return;_last=s;const pk=(localStorage.getItem('pixel_player_key')||('pk_'+Math.random().toString(36).slice(2)+Date.now().toString(36)));localStorage.setItem('pixel_player_key',pk);fetch('/wp-json/prismtek/v1/scores',{method:'POST',credentials:'include',cache:'no-store',headers:{'content-type':'application/json'},body:JSON.stringify({game:'signal-scramble',score:s,name:(localStorage.getItem('pixel_player_name')||'Guest'),playerKey:pk})}).catch(()=>{});}catch{}}
+const N=5,b=board;let best=+localStorage.ss_best||0;let level=1,moves=0,score=0,paused=false,grid=[];
+function idx(r,c){return r*N+c} function neigh(r,c){return [[r,c],[r-1,c],[r+1,c],[r,c-1],[r,c+1]].filter(([a,d])=>a>=0&&a<N&&d>=0&&d<N)}
+function setup(){grid=Array(N*N).fill(1);moves=0;for(let i=0;i<16+level*2;i++){const r=(Math.random()*N)|0,c=(Math.random()*N)|0;for(const [a,d] of neigh(r,c))grid[idx(a,d)]^=1;}if(grid.every(v=>v===1))grid[0]=0;render();sync();}
+function sync(){ui.textContent=`Score ${score} · Moves ${moves} · Level ${level} · Best ${best}`}
+function tap(r,c){if(paused)return;for(const [a,d] of neigh(r,c))grid[idx(a,d)]^=1;moves++;render();if(grid.every(v=>v===1)){const pts=Math.max(120,1400-moves*35 + level*45);score+=pts;level++;if(score>best){best=score;localStorage.ss_best=best;submitScore(best)}setup();}}
+function render(){b.innerHTML='';for(let r=0;r<N;r++)for(let c=0;c<N;c++){const el=document.createElement('button');const on=grid[idx(r,c)]===1;el.className='cell'+(on?' on':'');el.textContent=on?'●':'○';el.onclick=()=>tap(r,c);b.appendChild(el);}sync();}
+new.onclick=()=>setup();pause.onclick=()=>{paused=!paused;pause.textContent=paused?'Resume':'Pause'};submit.onclick=()=>submitScore(score);
+submitScore(best);setup();
+</script></body></html>

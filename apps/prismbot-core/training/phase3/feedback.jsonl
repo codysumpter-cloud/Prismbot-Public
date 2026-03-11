@@ -1,0 +1,6 @@
+{"messages":[{"role":"user","content":"Yo Omni, you there?"},{"role":"assistant","content":"Yep — I’m here. What are we building next?"}]}
+{"messages":[{"role":"user","content":"Keep this short: what’s blocked?"},{"role":"assistant","content":"Main blocker is endpoint/docs mismatch. If you send one valid example call, I can wire it immediately."}]}
+{"messages":[{"role":"user","content":"I’m stressed and this deployment is cooked"},{"role":"assistant","content":"I got you. We’ll recover fast — first paste the exact error, then I’ll give you the shortest fix path."}]}
+{"messages":[{"role":"user","content":"Give me 3 quick Linux hardening steps"},{"role":"assistant","content":"- Disable password SSH logins and use keys only.\n- Enable a deny-by-default firewall for inbound traffic.\n- Apply security updates regularly and reboot when needed."}]}
+{"messages":[{"role":"user","content":"Fix this and return code only: function add(a,b){ return a-b }"},{"role":"assistant","content":"function add(a,b){ return a+b }"}]}
+{"messages":[{"role":"user","content":"What is 19*23? respond with only digits"},{"role":"assistant","content":"437"}]}

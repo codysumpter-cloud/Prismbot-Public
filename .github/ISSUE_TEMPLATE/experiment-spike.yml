@@ -1,0 +1,65 @@
+name: Experiment / Spike
+description: Time-boxed prototype or investigation task
+title: "spike: <short experiment title>"
+labels: ["experiment"]
+body:
+  - type: dropdown
+    id: branch
+    attributes:
+      label: Target branch track
+      options:
+        - feat/prompt-forge
+        - feat/pixel-pets-arena
+        - feat/arcade-streamer-hub
+        - feat/private-ai-roadmap
+        - feat/react-starter
+    validations:
+      required: true
+
+  - type: input
+    id: timebox
+    attributes:
+      label: Timebox
+      placeholder: e.g. 2h, 1 day, 3 days
+    validations:
+      required: true
+
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: Hypothesis
+      placeholder: If we do X, we expect Y because Z.
+    validations:
+      required: true
+
+  - type: textarea
+    id: test-plan
+    attributes:
+      label: Test plan
+      placeholder: |
+        - what to build/test
+        - what data to collect
+        - pass/fail threshold
+    validations:
+      required: true
+
+  - type: textarea
+    id: deliverables
+    attributes:
+      label: Deliverables
+      placeholder: |
+        - demo artifact
+        - findings summary
+        - keep/kill recommendation
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: close-check
+    attributes:
+      label: Close issue when
+      options:
+        - label: Findings documented
+          required: true
+        - label: Decision made (keep/kill/pivot)
+          required: true

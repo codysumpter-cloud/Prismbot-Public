@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PrismBot — AI That Ships</title>
+  <meta name="description" content="PrismBot helps creators and operators ship faster with execution-first AI workflows." />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="brand">PrismBot</div>
+    <nav>
+      <a href="#offer">Offer</a>
+      <a href="#proof">Proof</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn ghost" href="#waitlist">Join Waitlist</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="kicker">Execution-first AI</p>
+      <h1>Ship faster. <span>Earn sooner.</span></h1>
+      <p class="sub">PrismBot turns ideas into shipped products, workflows, and launch-ready assets.</p>
+      <div class="cta-row">
+        <a class="btn" href="#waitlist">Join Waitlist</a>
+        <a class="btn ghost" href="#offer">See Offer</a>
+        <a class="btn ghost" href="mailto:prismbot@prismtek.dev?subject=PrismBot%20Discovery%20Call">Book Call</a>
+      </div>
+    </section>
+
+    <section id="offer" class="section card">
+      <h2>What PrismBot delivers</h2>
+      <div class="grid">
+        <article><h3>Launch Sprint</h3><p>Offer design, page build, and execution plan to launch fast.</p></article>
+        <article><h3>AI Operator Setup</h3><p>Automation, runbooks, and reliability workflows that save time weekly.</p></article>
+        <article><h3>Pixel Studio Pipeline</h3><p>Image/animation workflow from concept to sellable asset pack.</p></article>
+      </div>
+    </section>
+
+    <section id="proof" class="section">
+      <h2>Proof of execution</h2>
+      <div class="metrics">
+        <div class="card"><strong>50+</strong><span>workflows shipped</span></div>
+        <div class="card"><strong>Faster</strong><span>launch cycles</span></div>
+        <div class="card"><strong>Hours saved</strong><span>every week</span></div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section card">
+      <h2>Starter offers</h2>
+      <div class="grid">
+        <article><h3>Launch Sprint</h3><p>From $299 · landing page + positioning + CTA funnel</p></article>
+        <article><h3>Operator Setup</h3><p>From $499 · automations + reliability + deploy checklist</p></article>
+        <article><h3>Custom Build</h3><p>Quote-based · app workflows, integrations, and support</p></article>
+      </div>
+    </section>
+
+    <section id="faq" class="section card faq">
+      <h2>FAQ</h2>
+      <details><summary>Who is PrismBot for?</summary><p>Creators, founders, and operators who want execution, not just advice.</p></details>
+      <details><summary>How quickly can I start?</summary><p>You can start today with a waitlist signup or discovery call.</p></details>
+      <details><summary>Team or solo?</summary><p>Both. PrismBot workflows support solo builders and lean teams.</p></details>
+    </section>
+
+    <section id="waitlist" class="section card waitlist">
+      <h2>Get Early Access</h2>
+      <p>Join for launch updates, early access, and first-offer drops.</p>
+      <form id="waitlistForm" action="https://formspree.io/f/xlgwydvo" method="POST">
+        <input type="hidden" name="source" value="prismbot-web" />
+        <input type="hidden" name="_subject" value="New PrismBot Waitlist Signup" />
+        <input type="email" name="email" placeholder="you@example.com" required />
+        <button type="submit" class="btn">Join Waitlist</button>
+      </form>
+      <p class="contact">Email: <a href="mailto:prismbot@prismtek.dev">prismbot@prismtek.dev</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <small>© <span id="year"></span> PrismBot</small>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

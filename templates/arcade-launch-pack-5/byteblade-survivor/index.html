@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Byteblade Survivor</title>
+<style>
+body{margin:0;background:#0b122d;color:#fff;font-family:monospace;display:grid;place-items:center;min-height:100vh}
+.wrap{display:grid;gap:8px;justify-items:center;padding:10px;max-width:96vw}
+canvas{width:min(92vw,480px);height:auto;image-rendering:pixelated;border:3px solid #8aa0ff;background:#5cb7ff}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+button{background:#1b2458;color:#fff;border:1px solid #5e76ff;padding:8px 12px}
+.pad{display:grid;grid-template-columns:repeat(3,70px);gap:6px;justify-content:center}
+.pad button{height:44px}
+</style></head>
+<body><div class="wrap">
+<h3>Byteblade Survivor</h3>
+<canvas id="g" width="400" height="520"></canvas>
+<div id="ui">Score 0 · Time 0s · HP 5 · Best 0</div>
+<div class="row"><button id="pause">Pause</button><button id="restart">Restart</button><span>Survive waves • WASD / arrows / pad</span></div>
+<div class="pad"><button></button><button id="u">▲</button><button></button><button id="l">◀</button><button id="d">▼</button><button id="r">▶</button></div>
+</div>
+<script>
+let _last=0;function submitScore(s){try{s=+s||0;if(s<=0||s<=_last)return;_last=s;const pk=(localStorage.getItem('pixel_player_key')||('pk_'+Math.random().toString(36).slice(2)+Date.now().toString(36)));localStorage.setItem('pixel_player_key',pk);fetch('/wp-json/prismtek/v1/scores',{method:'POST',credentials:'include',cache:'no-store',headers:{'content-type':'application/json'},body:JSON.stringify({game:'byteblade-survivor',score:s,name:(localStorage.getItem('pixel_player_name')||'Guest'),playerKey:pk})}).catch(()=>{});}catch{}}
+const c=g,x=c.getContext('2d');const W=400,H=520;let best=+localStorage.bbs_best||0;
+let score=0,time=0,hp=5,paused=false,over=false,keys=new Set(),p={x:200,y:300,r:11,s:2.4},en=[],flash=0;
+function rr(a,b){return a+Math.random()*(b-a)}
+function spawn(){const e= Math.floor(rr(0,4)); if(e===0)en.push({x:rr(0,W),y:-20,r:10,s:1.2,h:2}); if(e===1)en.push({x:W+20,y:rr(0,H),r:10,s:1.2,h:2}); if(e===2)en.push({x:rr(0,W),y:H+20,r:10,s:1.2,h:2}); if(e===3)en.push({x:-20,y:rr(0,H),r:10,s:1.2,h:2});}
+function restart(){score=0;time=0;hp=5;paused=false;over=false;p={x:200,y:300,r:11,s:2.4};en=[];flash=0;for(let i=0;i<5;i++)spawn();sync();pause.textContent='Pause';}
+function sync(){ui.textContent=`Score ${score} · Time ${time|0}s · HP ${hp} · Best ${best}`}
+function update(dt){if(paused||over)return;time += dt/60; if(Math.random()<0.06+Math.min(.2,time/240))spawn();
+let dx=0,dy=0;if(keys.has('arrowleft')||keys.has('a'))dx=-1;if(keys.has('arrowright')||keys.has('d'))dx=1;if(keys.has('arrowup')||keys.has('w'))dy=-1;if(keys.has('arrowdown')||keys.has('s'))dy=1;const d=Math.hypot(dx,dy)||1;p.x=Math.max(12,Math.min(W-12,p.x+dx/d*p.s*dt));p.y=Math.max(12,Math.min(H-12,p.y+dy/d*p.s*dt));
+for(const e of en){const vx=p.x-e.x,vy=p.y-e.y,dd=Math.hypot(vx,vy)||1;e.x += vx/dd*e.s*dt;e.y += vy/dd*e.s*dt;const hit=(p.x-e.x)**2+(p.y-e.y)**2<(p.r+e.r)**2;if(hit){if(flash<=0){hp--;flash=24;if(hp<=0){over=true;if(score>best){best=score;localStorage.bbs_best=best;submitScore(best)}}}e.h--;if(e.h<=0){e.dead=true;score+=40;if(score>best){best=score;localStorage.bbs_best=best;submitScore(best)}}}}
+en=en.filter(e=>!e.dead);if(!over){score += Math.floor(dt*0.45);}if(flash>0)flash-=dt;sync();}
+function draw(){x.fillStyle='#64c5ff';x.fillRect(0,0,W,H);x.fillStyle='#6dbc56';x.fillRect(0,390,W,130);x.fillStyle='rgba(0,0,0,.08)';for(let i=0;i<20;i++)x.fillRect(i*20,0,1,H);
+for(const e of en){x.fillStyle='#ff7d98';x.beginPath();x.arc(e.x,e.y,e.r,0,7);x.fill();x.fillStyle='#1f1f1f';x.fillRect(e.x-2,e.y-2,2,2)}
+if(flash>0){x.strokeStyle='rgba(255,255,255,.7)';x.beginPath();x.arc(p.x,p.y,34,0,7);x.stroke();}
+x.fillStyle='#66e7ff';x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill();x.fillStyle='rgba(102,231,255,.35)';x.beginPath();x.arc(p.x,p.y,30,0,7);x.fill();
+if(over){x.fillStyle='rgba(0,0,0,.65)';x.fillRect(58,205,284,110);x.fillStyle='#fff';x.font='22px monospace';x.fillText('Game Over',136,248);x.font='14px monospace';x.fillText('Tap restart or press R',118,274)}
+if(paused&&!over){x.fillStyle='rgba(0,0,0,.55)';x.fillRect(120,220,160,70);x.fillStyle='#fff';x.fillText('Paused',172,260)}}
+function loop(){update(1);draw();requestAnimationFrame(loop)}
+addEventListener('keydown',e=>{keys.add(e.key.toLowerCase());if(e.key==='r')restart();if(e.key==='p'){paused=!paused;pause.textContent=paused?'Resume':'Pause'}});addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));
+u.onpointerdown=()=>keys.add('arrowup');d.onpointerdown=()=>keys.add('arrowdown');l.onpointerdown=()=>keys.add('arrowleft');r.onpointerdown=()=>keys.add('arrowright');
+for(const b of [u,d,l,r]) b.onpointerup=()=>{keys.delete('arrowup');keys.delete('arrowdown');keys.delete('arrowleft');keys.delete('arrowright');};
+pause.onclick=()=>{if(over)return;paused=!paused;pause.textContent=paused?'Resume':'Pause'};restart.onclick=restart;
+submitScore(best);restart();requestAnimationFrame(loop);
+</script></body></html>

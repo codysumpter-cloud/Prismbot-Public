@@ -1,0 +1,78 @@
+name: Bug Fix
+description: Report and fix a bug with clear repro and verification
+title: "fix: <short bug title>"
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: branch
+    attributes:
+      label: Target branch track
+      options:
+        - dev/prismtek-framework
+        - feat/prompt-forge
+        - feat/pixel-pets-arena
+        - feat/arcade-streamer-hub
+        - feat/private-ai-roadmap
+        - feat/react-starter
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Bug summary
+      placeholder: What is broken and why it matters?
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction steps
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: likely-root-cause
+    attributes:
+      label: Suspected root cause
+      placeholder: Optional hypothesis before implementation
+
+  - type: textarea
+    id: fix-approach
+    attributes:
+      label: Fix approach
+      placeholder: Minimal, reversible patch plan.
+    validations:
+      required: true
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification
+      placeholder: |
+        Commands:
+        -
+
+        Manual checks:
+        -
+    validations:
+      required: true

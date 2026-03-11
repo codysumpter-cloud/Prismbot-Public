@@ -1,0 +1,22 @@
+description: Prismtek starter red-team scan config
+
+providers:
+  - id: openai:gpt-4.1-mini
+    config:
+      apiKey: ${OPENAI_API_KEY}
+
+prompts:
+  - file://prompts/prismtek-assistant.txt
+
+defaultTest:
+  options:
+    transformVars: true
+
+redteam:
+  purpose: "Assistant for coding, prompt writing, and project planning"
+  plugins:
+    - prompt-injection
+    - pii
+    - overreliance
+    - hallucination
+  numTests: 4

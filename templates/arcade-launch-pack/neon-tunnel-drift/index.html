@@ -1,0 +1,176 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Neon Tunnel Drift</title><style>body{margin:0;background:#050816;color:#eaf0ff;font-family:system-ui}#w{max-width:760px;margin:12px auto;padding:12px;background:#111a3a;border:1px solid #4f63bf;border-radius:12px}canvas{width:100%;touch-action:none;max-height:70vh;background:linear-gradient(#0b0f24,#05070f);border:1px solid #2c3a7e;border-radius:10px;display:block}button{background:#22337a;color:#fff;border:1px solid #5f77d9;border-radius:8px;padding:8px 10px}#hud{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:8px 0}.controls{display:flex;gap:8px;margin-top:8px}.controls button{flex:1}</style></head><body><div id='w'><h2>Neon Tunnel Drift</h2><div id='hud'><span>Score: <b id='score'>0</b></span><span>Best Run Wins.</span><button id='start'>Start</button><button id='submit'>Submit Score</button><span id='msg'>Ready.</span></div><canvas id='c' width='480' height='720'></canvas><div class='controls'><button id='l'>⬅ Left</button><button id='r'>Right ➡</button></div></div><script>
+const slug='neon-tunnel-drift',c=document.getElementById('c'),x=c.getContext('2d');let run=0,s=0,t=0,last=0,lane=1,obs=[];const sw=document.getElementById('score'),msg=document.getElementById('msg');
+function reset(){s=0;t=0;lane=1;obs=[];for(let i=0;i<14;i++)spawn(-i*90);draw();sw.textContent='0';msg.textContent='Ready.'}
+function spawn(y=-40){obs.push({lane:Math.floor(Math.random()*3),y,speed:4+Math.random()*3,w:96,h:26})}
+function move(d){lane=Math.max(0,Math.min(2,lane+d));}
+function hit(a,b){return a.x<a2(b)&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y;function a2(o){return o.x+o.w}}
+function step(ts){if(!run)return;const dt=Math.min(33,ts-last||16);last=ts;t+=dt;s+=dt*0.03;sw.textContent=(s|0);if(Math.random()<0.08)spawn();const px=70+lane*130,py=620,p={x:px,y:py,w:80,h:44};for(const o of obs){o.y+=o.speed+Math.min(8,s/250);o.x=58+o.lane*130;o.w=104;o.h=32;if(o.y>760){o.y=-60;o.lane=Math.floor(Math.random()*3)}}for(const o of obs){if(hit(p,o)){run=0;msg.textContent='Crashed! Final score '+(s|0);draw();return}}
+draw();requestAnimationFrame(step)}
+function draw(){x.clearRect(0,0,c.width,c.height);for(let i=0;i<30;i++){x.fillStyle='rgba(120,160,255,.15)';x.fillRect(45+i*13,0,2,c.height)}for(let i=1;i<3;i++){x.strokeStyle='rgba(130,160,255,.35)';x.setLineDash([10,12]);x.beginPath();x.moveTo(40+i*130,0);x.lineTo(40+i*130,c.height);x.stroke();x.setLineDash([])}for(const o of obs){x.fillStyle='#ff5d89';x.fillRect(o.x,o.y,o.w,o.h)}const px=70+lane*130,py=620;x.fillStyle='#63e5ff';x.fillRect(px,py,80,44);x.fillStyle='#d7f7ff';x.fillRect(px+10,py+8,24,10)}
+async function submit(){if((s|0)<=0)return msg.textContent='Play first.';msg.textContent='Submitting...';const fd=new FormData();fd.append('game',slug);fd.append('score',String(s|0));const pk=(localStorage.getItem('pixel_player_key')||('pk_'+Math.random().toString(36).slice(2)+Date.now().toString(36))); localStorage.setItem('pixel_player_key',pk); fd.append('playerKey',pk); const pn=(localStorage.getItem('pixel_player_name')||'Guest'); fd.append('name',pn); const r=await fetch('/wp-json/prismtek/v1/scores',{method:'POST',credentials:'include',body:fd});const j=await r.json().catch(()=>({}));msg.textContent=r.ok&&j.ok?'Score submitted ✅':'Submit failed: '+(j.error||r.status)}
+document.getElementById('start').onclick=()=>{reset();run=1;msg.textContent='Go!';last=0;requestAnimationFrame(step)};document.getElementById('submit').onclick=submit;document.getElementById('l').onclick=()=>move(-1);document.getElementById('r').onclick=()=>move(1);addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='a')move(-1);if(e.key==='ArrowRight'||e.key==='d')move(1)});reset();
+</script>
+<script>
+/* prism-uniform-layer-v1 */
+(function(){
+  try{
+    const css = document.createElement('style');
+    css.textContent = `
+      body{margin:0;background:#0b122d;color:#fff;font-family:monospace;display:grid;place-items:center;min-height:100vh;padding:8px;box-sizing:border-box}
+      #w,.wrap{display:grid;gap:8px;justify-items:center;padding:10px;max-width:96vw;width:min(96vw,860px);box-sizing:border-box}
+      canvas{width:min(96vw,700px)!important;height:auto!important;max-height:70vh!important;image-rendering:pixelated;border:2px solid #6f86ff!important;touch-action:none!important}
+      .row,.controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+      button{min-height:40px;min-width:44px;padding:8px 12px}
+      @media (max-width:640px){button{flex:1 1 auto}}
+    `;
+    document.head.appendChild(css);
+    const scoreEls = [document.getElementById('score'), document.getElementById('s'), document.getElementById('sc')].filter(Boolean);
+    function parseScore(){
+      for(const el of scoreEls){
+        const n = parseInt((el.textContent||'').replace(/[^0-9-]/g,''),10);
+        if(Number.isFinite(n)) return Math.max(0,n);
+      }
+      const txt = (document.body.textContent||'').match(/Score\s*:?\s*(\d+)/i);
+      return txt ? parseInt(txt[1],10) : 0;
+    }
+    const slug = (location.pathname.split('/').filter(Boolean).slice(-2,-1)[0] || 'game').toLowerCase();
+    let lastSubmitted = 0;
+    async function submitScore(score){
+      try{
+        score = Number(score)||0;
+        if(score<=0 || score<=lastSubmitted) return;
+        lastSubmitted = score;
+        const fd = new FormData();
+        fd.append('game', slug);
+        fd.append('score', String(score));
+        const pk = localStorage.getItem('pixel_player_key') || ('pk_'+Math.random().toString(36).slice(2)+Date.now().toString(36));
+        localStorage.setItem('pixel_player_key', pk);
+        fd.append('playerKey', pk);
+        fd.append('name', localStorage.getItem('pixel_player_name') || 'Guest');
+        await fetch('/wp-json/prismtek/v1/scores', { method:'POST', credentials:'include', cache:'no-store', body: fd });
+      }catch{}
+    }
+    setInterval(()=>{ const s=parseScore(); if(s>0) submitScore(s); }, 2500);
+    document.addEventListener('visibilitychange', ()=>{ if(document.hidden){ const s=parseScore(); if(s>0) submitScore(s); } });
+    window.addEventListener('beforeunload', ()=>{ const s=parseScore(); if(s>0) submitScore(s); });
+  }catch{}
+})();
+</script>
+
+
+<script>
+/* prism-skyhunt-skin-v1 */
+(function(){
+  try{
+    const css = document.createElement('style');
+    css.textContent = `
+      body{margin:0!important;background:#0b122d!important;color:#fff!important;font-family:monospace!important;display:grid!important;place-items:center!important;min-height:100vh!important}
+      #w,.wrap{display:grid!important;gap:8px!important;justify-items:center!important;padding:10px!important;max-width:96vw!important;width:auto!important}
+      h1,h2,h3{margin:0 0 4px 0!important;font:700 20px/1.1 monospace!important;color:#fff!important}
+      canvas{width:min(92vw,480px)!important;height:auto!important;image-rendering:pixelated!important;border:3px solid #8aa0ff!important;background:#5cb7ff!important;cursor:crosshair!important;max-height:none!important}
+      .row,.controls,#hud{display:flex!important;gap:10px!important;flex-wrap:wrap!important;justify-content:center!important;align-items:center!important}
+      button{background:#1b2458!important;color:#fff!important;border:1px solid #5e76ff!important;padding:8px 12px!important;border-radius:0!important;box-shadow:none!important}
+      #msg,.status,#ui{font:14px/1.2 monospace!important;color:#fff!important}
+      input,select{font-family:monospace!important}
+    `;
+    document.head.appendChild(css);
+  }catch{}
+})();
+</script>
+
+
+<script>
+/* prism-uniform-hud-v1 */
+(function(){
+  try{
+    function getScore(){
+      const ids=['score','s','sc'];
+      for(const id of ids){
+        const el=document.getElementById(id);
+        if(!el) continue;
+        const n=parseInt((el.textContent||'').replace(/[^0-9-]/g,''),10);
+        if(Number.isFinite(n)) return Math.max(0,n);
+      }
+      const m=(document.body.textContent||'').match(/Score\s*:?\s*(\d+)/i);
+      return m?Math.max(0,parseInt(m[1],10)):0;
+    }
+    const slug=(location.pathname.split('/').filter(Boolean).slice(-2,-1)[0]||'game').toLowerCase();
+    const wrap=document.querySelector('#w,.wrap') || document.body;
+    let ui=document.getElementById('ui');
+    if(!ui){ ui=document.createElement('div'); ui.id='ui'; wrap.insertBefore(ui, wrap.children[2] || null); }
+    ui.style.fontFamily='monospace'; ui.style.fontSize='14px'; ui.style.color='#fff';
+    function tick(){
+      const score=getScore();
+      const bestKey='best_'+slug;
+      const prev=parseInt(localStorage.getItem(bestKey)||'0',10)||0;
+      const best=Math.max(prev,score);
+      if(best!==prev) localStorage.setItem(bestKey,String(best));
+      ui.textContent=`Score ${score} · Round 1 · Ammo -- · Best ${best}`;
+    }
+    setInterval(tick,300);
+    tick();
+  }catch{}
+})();
+</script>
+
+
+<script>
+/* prism-controls-scale-v2 */
+(function(){
+  try{
+    const css=document.createElement('style');
+    css.textContent=`
+      .prism-shell{display:grid!important;gap:8px!important;justify-items:center!important;max-width:96vw!important;padding:10px!important}
+      .prism-shell canvas{width:min(92vw,480px)!important;height:auto!important;max-height:72vh!important;display:block!important}
+      .prism-controls{display:grid!important;grid-template-columns:repeat(3,minmax(84px,1fr))!important;gap:8px!important;width:min(92vw,480px)!important;align-items:stretch!important}
+      .prism-controls button{min-height:42px!important;padding:8px 10px!important;font:600 14px/1 monospace!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+      .prism-controls .prism-note{grid-column:1/-1!important;text-align:center!important;font:13px/1.2 monospace!important;opacity:.95!important}
+      @media (max-width:520px){.prism-controls{grid-template-columns:repeat(2,minmax(84px,1fr))!important}}
+    `;
+    document.head.appendChild(css);
+    const shell=document.querySelector('#w,.wrap')||document.body;
+    shell.classList.add('prism-shell');
+    const canvas=shell.querySelector('canvas');
+    if(!canvas) return;
+    const dock=document.createElement('div');
+    dock.className='prism-controls';
+    const rows=[...shell.querySelectorAll('.row,.controls')];
+    const seen=new Set();
+    for(const row of rows){
+      const buttons=[...row.querySelectorAll('button')];
+      for(const b of buttons){ if(seen.has(b)) continue; seen.add(b); dock.appendChild(b); }
+      const txt=(row.textContent||'').replace(/\s+/g,' ').trim();
+      if(txt && !buttons.length){ const note=document.createElement('div'); note.className='prism-note'; note.textContent=txt; dock.appendChild(note); }
+    }
+    if(!dock.children.length){
+      const buttons=[...shell.querySelectorAll('button')];
+      for(const b of buttons){ if(!seen.has(b)){ seen.add(b); dock.appendChild(b);} }
+    }
+    for(const row of rows){ if(!row.querySelector('button')) row.remove(); }
+    const ui=shell.querySelector('#ui,#msg,.status');
+    if(ui && ui.nextSibling) shell.insertBefore(dock, ui.nextSibling); else shell.appendChild(dock);
+  }catch{}
+})();
+</script>
+
+
+<script>
+/* prism-iframe-compat-v1 */
+(function(){
+  try{
+    if(window.self===window.top) return;
+    const css=document.createElement('style');
+    css.textContent=`
+      html,body{height:auto!important;min-height:0!important;overflow:auto!important}
+      body{display:block!important;place-items:initial!important;padding:0!important;margin:0!important;background:#0b122d!important}
+      #w,.wrap,.prism-shell{width:100%!important;max-width:100%!important;margin:0!important;padding:8px!important;box-sizing:border-box!important;justify-items:stretch!important}
+      canvas{width:100%!important;max-width:100%!important;max-height:none!important;height:auto!important;display:block!important;margin:0 auto!important}
+      .prism-controls{width:100%!important;max-width:100%!important;grid-template-columns:repeat(3,minmax(0,1fr))!important}
+      @media (max-width:520px){.prism-controls{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+    `;
+    document.head.appendChild(css);
+  }catch{}
+})();
+</script>
+
+</body></html>

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Crossy Pixel</title>
+  <style>
+    body{margin:0;background:#0b132b;color:#fff;font-family:monospace;display:grid;place-items:center;min-height:100vh}
+    .wrap{padding:10px;display:grid;gap:8px;justify-items:center;max-width:96vw}
+    canvas{image-rendering:pixelated;border:3px solid #8aa0ff;width:min(92vw,420px);height:auto}
+    .pad{display:grid;grid-template-columns:repeat(3,64px);gap:6px;justify-content:center}
+    .pad button{height:46px;background:#1b2458;color:#fff;border:1px solid #5e76ff}.row{display:flex;gap:8px;justify-content:center} .row button{padding:8px 12px;background:#1b2458;color:#fff;border:1px solid #5e76ff}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h3>Crossy Pixel</h3>
+  <canvas id="c" width="320" height="480"></canvas>
+  <div id="ui">Lives 3 · Score 0 · Level 1 · Best 0</div><div class="row"><button id="pause">Pause</button><button id="restart">Restart</button></div>
+  <div>Reach the top lanes repeatedly. Avoid traffic and use logs to cross water.</div>
+  <div class="pad"><button></button><button id="u">↑</button><button></button><button id="l">←</button><button id="d">↓</button><button id="r">→</button></div>
+</div>
+<script>
+let _lastSubmitted=0;function submitScore(score){try{score=Number(score)||0;if(score<=0||score<=_lastSubmitted)return;_lastSubmitted=score;fetch('/wp-json/prismtek/v1/scores',{method:'POST',credentials:'include',cache:'no-store',headers:{'content-type':'application/json'},body:JSON.stringify({game:'crossy-pixel',score,name:(localStorage.getItem('pixel_player_name')||'Guest'),playerKey:(localStorage.getItem('pixel_player_key')||'')})}).catch(()=>{});}catch{}}
+const c=document.getElementById('c'),x=c.getContext('2d');
+const ui=document.getElementById('ui');
+const tile=32, rows=15, cols=10;
+let best=+localStorage.crossy_pixel_best||0;
+let lives=3,score=0,level=1,started=false,over=false,paused=false;
+let frog={x:4,y:14};
+let cars=[],logs=[];
+
+function laneY(row){return row*tile}
+function rand(a,b){return a+Math.random()*(b-a)}
+
+function buildLevel(){
+  cars=[]; logs=[];
+  const speedBoost = 0.25*(level-1);
+  // road lanes
+  [10,11,12].forEach((row,i)=>{
+    const dir = i%2? -1 : 1;
+    const speed = rand(1.4,2.3)+speedBoost;
+    for(let k=0;k<3;k++) cars.push({row,x:k*130+rand(0,60),w:58,h:22,dir,speed,col:['#ffb347','#ff6b6b','#8ecae6'][k%3]});
+  });
+  // water lanes (logs)
+  [6,7,8].forEach((row,i)=>{
+    const dir = i%2? 1 : -1;
+    const speed = rand(1.1,1.9)+speedBoost*0.7;
+    for(let k=0;k<2;k++) logs.push({row,x:k*170+rand(0,90),w:104,h:20,dir,speed});
+  });
+}
+
+function resetPos(){frog.x=4;frog.y=14;}
+function restart(){lives=3;score=0;level=1;started=false;over=false;paused=false;buildLevel();resetPos();syncUI(); if(window.pause) pause.textContent="Pause";}
+function syncUI(){ui.textContent=`Lives ${lives} · Score ${score} · Level ${level} · Best ${best}`;}
+
+function move(dx,dy){if(over||paused)return;started=true;frog.x=Math.max(0,Math.min(cols-1,frog.x+dx));frog.y=Math.max(0,Math.min(rows-1,frog.y+dy));}
+
+addEventListener('keydown',e=>{if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();if(e.key==='p'){paused=!paused; if(window.pause) pause.textContent=paused?'Resume':'Pause'; return;} 
+  if(e.key==='w'||e.key==='ArrowUp')move(0,-1);
+  if(e.key==='s'||e.key==='ArrowDown')move(0,1);
+  if(e.key==='a'||e.key==='ArrowLeft')move(-1,0);
+  if(e.key==='d'||e.key==='ArrowRight')move(1,0);
+  if(e.key==='r')restart();
+});
+[['u',0,-1],['d',0,1],['l',-1,0],['r',1,0]].forEach(([id,a,b])=>document.getElementById(id).onclick=()=>move(a,b));
+
+let touchStart=null;
+c.addEventListener('pointerdown',e=>{touchStart={x:e.clientX,y:e.clientY};started=true; if(over){restart();}});
+c.addEventListener('pointerup',e=>{
+  if(!touchStart) return;
+  const dx=e.clientX-touchStart.x, dy=e.clientY-touchStart.y;
+  if(Math.abs(dx)<12 && Math.abs(dy)<12){ touchStart=null; return; }
+  if(Math.abs(dx)>Math.abs(dy)) move(dx>0?1:-1,0); else move(0,dy>0?1:-1);
+  touchStart=null;
+});
+
+function hit(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y}
+
+function loseLife(){
+  lives--; resetPos();
+  if(lives<=0){
+    over=true;
+    if(score>best){best=score;localStorage.crossy_pixel_best=best;submitScore(best);}    
+  }
+  syncUI();
+}
+
+function tick(){
+  if(!started||over||paused) return;
+
+  cars.forEach(o=>{o.x += o.dir*o.speed; if(o.dir>0&&o.x>340)o.x=-o.w-6; if(o.dir<0&&o.x<-o.w-10)o.x=330;});
+  logs.forEach(o=>{o.x += o.dir*o.speed; if(o.dir>0&&o.x>350)o.x=-o.w-8; if(o.dir<0&&o.x<-o.w-12)o.x=332;});
+
+  const frogRect={x:frog.x*tile+8,y:frog.y*tile+8,w:16,h:16};
+
+  // car collision (road rows 10-12)
+  if(frog.y>=10 && frog.y<=12){
+    for(const car of cars){
+      if(car.row!==frog.y) continue;
+      const r={x:car.x,y:laneY(car.row)+6,w:car.w,h:car.h};
+      if(hit(frogRect,r)){ loseLife(); return; }
+    }
+  }
+
+  // water rows 6-8 (must be on a log)
+  if(frog.y>=6 && frog.y<=8){
+    let onLog=false;
+    // refresh frog rect each frame
+    const fr={x:frog.x*tile+8,y:frog.y*tile+8,w:16,h:16};
+    for(const lg of logs){
+      if(lg.row!==frog.y) continue;
+      const lr={x:lg.x,y:laneY(lg.row)+6,w:lg.w,h:lg.h};
+      if(hit(fr,lr)){
+        onLog=true;
+        // drift smoothly with log
+        const nx = (frog.x*tile + lg.dir*lg.speed);
+        frog.x = Math.round(nx / tile);
+        break;
+      }
+    }
+    if(!onLog){ loseLife(); return; }
+    if(frog.x<0||frog.x>=cols){ loseLife(); return; }
+  }
+
+  // reach top
+  if(frog.y===0){
+    score += 10 + level*2;
+    if(score>best){best=score;localStorage.crossy_pixel_best=best;submitScore(best);}    
+    level = Math.min(9, level+1);
+    buildLevel();
+    resetPos();
+    syncUI();
+  }
+}
+
+function draw(){
+  x.fillStyle='#122';x.fillRect(0,0,320,480);
+  for(let r=0;r<rows;r++){
+    if(r===0) x.fillStyle='#205f30';
+    else if(r>=6&&r<=8) x.fillStyle='#1e4f86';
+    else if(r>=10&&r<=12) x.fillStyle='#2f2f2f';
+    else x.fillStyle='#2f7b3b';
+    x.fillRect(0,r*tile,320,tile);
+  }
+  // lane separators
+  x.fillStyle='rgba(255,255,255,.2)';
+  for(let r=0;r<rows;r++) x.fillRect(0,r*tile,320,1);
+
+  // logs
+  logs.forEach(lg=>{
+    x.fillStyle='#8b5a2b';x.fillRect(lg.x,lg.row*tile+6,lg.w,20);
+    x.fillStyle='#6d4520';x.fillRect(lg.x+4,lg.row*tile+10,lg.w-8,12);
+  });
+
+  // cars
+  cars.forEach(car=>{
+    x.fillStyle=car.col;x.fillRect(car.x,car.row*tile+6,car.w,22);
+    x.fillStyle='rgba(0,0,0,.25)';x.fillRect(car.x+6,car.row*tile+18,car.w-12,10);
+  });
+
+  // frog
+  x.fillStyle='#8bff5f';x.fillRect(frog.x*tile+8,frog.y*tile+8,16,16);
+  x.fillStyle='#112';x.fillRect(frog.x*tile+10,frog.y*tile+10,3,3);x.fillRect(frog.x*tile+19,frog.y*tile+10,3,3);
+
+  if(!started){
+    x.fillStyle='rgba(0,0,0,.55)';x.fillRect(44,196,232,88);
+    x.fillStyle='#fff';x.fillText('Tap or Swipe to Start',80,236);
+  }
+  if(paused&&!over){x.fillStyle='rgba(0,0,0,.55)';x.fillRect(90,210,140,58);x.fillStyle='#fff';x.fillText('Paused',136,244);} if(over){
+    x.fillStyle='rgba(0,0,0,.65)';x.fillRect(38,186,244,108);
+    x.fillStyle='#fff';x.fillText('Game Over',130,228);x.fillText('Tap to Restart',116,252);
+  }
+}
+
+setInterval(()=>{tick();draw();},100);
+document.getElementById('pause').onclick=()=>{if(over)return;paused=!paused;pause.textContent=paused?'Resume':'Pause';};
+document.getElementById('restart').onclick=()=>restart();
+submitScore(best);restart();
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+[Unit]
+Description=PrismBot Core
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/.openclaw/workspace
+ExecStart=/usr/bin/node %h/.openclaw/workspace/apps/prismbot-core/src/server.js
+Restart=always
+RestartSec=3
+EnvironmentFile=%h/.config/prismbot-core.env
+
+[Install]
+WantedBy=default.target

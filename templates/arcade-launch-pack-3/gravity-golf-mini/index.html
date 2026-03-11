@@ -1,0 +1,38 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Gravity Golf Mini</title>
+<style>
+body{margin:0;background:#0b122d;color:#fff;font-family:monospace;display:grid;place-items:center;min-height:100vh}
+.wrap{display:grid;gap:8px;justify-items:center;padding:10px;max-width:96vw}
+canvas{width:min(92vw,480px);height:auto;image-rendering:pixelated;border:3px solid #8aa0ff;background:#5cb7ff;touch-action:none}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+button{background:#1b2458;color:#fff;border:1px solid #5e76ff;padding:8px 12px}
+</style></head><body>
+<div class="wrap"><h3>Gravity Golf Mini</h3>
+<canvas id="g" width="400" height="520"></canvas>
+<div id="ui">Score 0 · Hole 1 · Strokes 0 · Best 0</div>
+<div class="row"><button id="pause">Pause</button><button id="reset">Reset Hole</button><button id="submit">Submit</button></div>
+<div>Drag from ball to aim shot</div></div>
+<script>
+let _last=0;function submitScore(s){try{s=+s||0;if(s<=0||s<=_last)return;_last=s;const pk=(localStorage.getItem('pixel_player_key')||('pk_'+Math.random().toString(36).slice(2)+Date.now().toString(36)));localStorage.setItem('pixel_player_key',pk);fetch('/wp-json/prismtek/v1/scores',{method:'POST',credentials:'include',cache:'no-store',headers:{'content-type':'application/json'},body:JSON.stringify({game:'gravity-golf-mini',score:s,name:(localStorage.getItem('pixel_player_name')||'Guest'),playerKey:pk})}).catch(()=>{});}catch{}}
+const c=g,x=c.getContext('2d');const W=400,H=520;let best=+localStorage.ggm_best||0;
+let score=0,hole=1,strokes=0,paused=false,done=false;let ball={x:70,y:420,vx:0,vy:0,r:8},cup={x:338,y:102,r:12};
+let wells=[{x:150,y:250,m:1600,r:18},{x:280,y:330,m:1700,r:20}],drag=null;
+function rr(a,b){return a+Math.random()*(b-a)}
+function resetHole(){strokes=0;done=false;ball={x:70,y:420,vx:0,vy:0,r:8};cup={x:rr(300,350),y:rr(90,130),r:12};wells=[{x:rr(110,180),y:rr(170,280),m:rr(1300,1800),r:18},{x:rr(220,300),y:rr(250,360),m:rr(1400,1900),r:20}];sync();}
+function sync(){ui.textContent=`Score ${score} · Hole ${hole} · Strokes ${strokes} · Best ${best}`}
+function physics(){if(paused||done)return;let ax=0,ay=0;for(const w of wells){const dx=w.x-ball.x,dy=w.y-ball.y,d2=Math.max(140,dx*dx+dy*dy);const f=w.m/d2, d=Math.sqrt(d2);ax+=f*dx/d;ay+=f*dy/d;}ball.vx+=ax*0.02;ball.vy+=ay*0.02;ball.x+=ball.vx;ball.y+=ball.vy;ball.vx*=0.994;ball.vy*=0.994;
+if(ball.x<8||ball.x>W-8)ball.vx*=-0.85;if(ball.y<8||ball.y>H-8)ball.vy*=-0.85;ball.x=Math.max(8,Math.min(W-8,ball.x));ball.y=Math.max(8,Math.min(H-8,ball.y));
+if((ball.x-cup.x)**2+(ball.y-cup.y)**2<cup.r*cup.r){done=true;const pts=Math.max(120,1200-strokes*120);score+=pts;hole++;if(score>best){best=score;localStorage.ggm_best=best;submitScore(best)}setTimeout(()=>resetHole(),500);}sync();}
+function draw(){x.fillStyle='#64c5ff';x.fillRect(0,0,W,H);x.fillStyle='#6dbc56';x.fillRect(0,390,W,130);x.fillStyle='#1f5f2f';x.fillRect(20,70,360,350);
+x.fillStyle='#0a111f';x.beginPath();x.arc(cup.x,cup.y,cup.r,0,7);x.fill();for(const w of wells){x.fillStyle='#7fd3ff';x.beginPath();x.arc(w.x,w.y,w.r,0,7);x.fill();x.fillStyle='rgba(127,211,255,.2)';x.beginPath();x.arc(w.x,w.y,w.r+12,0,7);x.fill();}
+x.fillStyle='#ffe27a';x.beginPath();x.arc(ball.x,ball.y,ball.r,0,7);x.fill();
+if(drag){x.strokeStyle='#fff';x.beginPath();x.moveTo(ball.x,ball.y);x.lineTo(drag.x,drag.y);x.stroke();}
+if(paused){x.fillStyle='rgba(0,0,0,.55)';x.fillRect(120,220,160,70);x.fillStyle='#fff';x.fillText('Paused',172,260)}}
+function loop(){physics();draw();requestAnimationFrame(loop)}
+c.addEventListener('pointerdown',e=>{if(paused)return;const r=c.getBoundingClientRect(),mx=(e.clientX-r.left)*(W/r.width),my=(e.clientY-r.top)*(H/r.height);if((mx-ball.x)**2+(my-ball.y)**2<500)drag={x:mx,y:my};});
+c.addEventListener('pointermove',e=>{if(!drag)return;const r=c.getBoundingClientRect();drag.x=(e.clientX-r.left)*(W/r.width);drag.y=(e.clientY-r.top)*(H/r.height)});
+c.addEventListener('pointerup',()=>{if(!drag||paused||done)return;const dx=ball.x-drag.x,dy=ball.y-drag.y;ball.vx+=dx*0.055;ball.vy+=dy*0.055;strokes++;drag=null;sync();});
+pause.onclick=()=>{paused=!paused;pause.textContent=paused?'Resume':'Pause'};reset.onclick=()=>resetHole();submit.onclick=()=>submitScore(score);
+submitScore(best);resetHole();requestAnimationFrame(loop);
+</script></body></html>

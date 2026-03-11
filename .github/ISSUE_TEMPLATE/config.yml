@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Prismtek Branch Playbooks
+    url: https://github.com/codysumpter-cloud/PrismBot/blob/main/BRANCH-PLAYBOOKS/README.md
+    about: Use branch-specific playbooks before opening large tasks.

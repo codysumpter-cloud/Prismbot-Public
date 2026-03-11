@@ -1,0 +1,542 @@
+[
+  {
+    "title": "[dev-prismtek-framework] Create contributor onboarding quickstart",
+    "track": "dev/prismtek-framework",
+    "labels": [
+      "phase-2",
+      "docs"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `dev/prismtek-framework`.\n\n## Goal\nCreate contributor onboarding quickstart\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[dev-prismtek-framework] Add release checklist template",
+    "track": "dev/prismtek-framework",
+    "labels": [
+      "phase-2",
+      "docs"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `dev/prismtek-framework`.\n\n## Goal\nAdd release checklist template\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[dev-prismtek-framework] Document PR review standards",
+    "track": "dev/prismtek-framework",
+    "labels": [
+      "phase-2",
+      "docs"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `dev/prismtek-framework`.\n\n## Goal\nDocument PR review standards\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[dev-prismtek-framework] Define branch protection policy",
+    "track": "dev/prismtek-framework",
+    "labels": [
+      "phase-2",
+      "docs"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `dev/prismtek-framework`.\n\n## Goal\nDefine branch protection policy\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[dev-prismtek-framework] Add incident postmortem template",
+    "track": "dev/prismtek-framework",
+    "labels": [
+      "phase-2",
+      "docs"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `dev/prismtek-framework`.\n\n## Goal\nAdd incident postmortem template\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[dev-prismtek-framework] Create definition-of-done checklist",
+    "track": "dev/prismtek-framework",
+    "labels": [
+      "phase-2",
+      "docs"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `dev/prismtek-framework`.\n\n## Goal\nCreate definition-of-done checklist\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[dev-prismtek-framework] Add architecture decision record template",
+    "track": "dev/prismtek-framework",
+    "labels": [
+      "phase-2",
+      "docs"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `dev/prismtek-framework`.\n\n## Goal\nAdd architecture decision record template\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[dev-prismtek-framework] Document dependency update policy",
+    "track": "dev/prismtek-framework",
+    "labels": [
+      "phase-2",
+      "docs"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `dev/prismtek-framework`.\n\n## Goal\nDocument dependency update policy\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[dev-prismtek-framework] Create security review checklist",
+    "track": "dev/prismtek-framework",
+    "labels": [
+      "phase-2",
+      "docs"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `dev/prismtek-framework`.\n\n## Goal\nCreate security review checklist\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[dev-prismtek-framework] Add maintenance heartbeat SOP",
+    "track": "dev/prismtek-framework",
+    "labels": [
+      "phase-2",
+      "docs"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `dev/prismtek-framework`.\n\n## Goal\nAdd maintenance heartbeat SOP\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-prompt-forge] Scaffold app shell and route structure",
+    "track": "feat/prompt-forge",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/prompt-forge`.\n\n## Goal\nScaffold app shell and route structure\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-prompt-forge] Build prompt worksheet form",
+    "track": "feat/prompt-forge",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/prompt-forge`.\n\n## Goal\nBuild prompt worksheet form\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-prompt-forge] Implement template category browser",
+    "track": "feat/prompt-forge",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/prompt-forge`.\n\n## Goal\nImplement template category browser\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-prompt-forge] Add prompt preview renderer",
+    "track": "feat/prompt-forge",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/prompt-forge`.\n\n## Goal\nAdd prompt preview renderer\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-prompt-forge] Add copy-to-clipboard action",
+    "track": "feat/prompt-forge",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/prompt-forge`.\n\n## Goal\nAdd copy-to-clipboard action\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-prompt-forge] Add markdown export action",
+    "track": "feat/prompt-forge",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/prompt-forge`.\n\n## Goal\nAdd markdown export action\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-prompt-forge] Add local save/favorites",
+    "track": "feat/prompt-forge",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/prompt-forge`.\n\n## Goal\nAdd local save/favorites\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-prompt-forge] Integrate promptfoo eval quick-run",
+    "track": "feat/prompt-forge",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/prompt-forge`.\n\n## Goal\nIntegrate promptfoo eval quick-run\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-prompt-forge] Create starter template packs",
+    "track": "feat/prompt-forge",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/prompt-forge`.\n\n## Goal\nCreate starter template packs\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-prompt-forge] Add responsive polish + empty states",
+    "track": "feat/prompt-forge",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/prompt-forge`.\n\n## Goal\nAdd responsive polish + empty states\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pets-arena] Design creature data model",
+    "track": "feat/pixel-pets-arena",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/pixel-pets-arena`.\n\n## Goal\nDesign creature data model\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pets-arena] Build creature creation flow",
+    "track": "feat/pixel-pets-arena",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/pixel-pets-arena`.\n\n## Goal\nBuild creature creation flow\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pets-arena] Implement daily care actions",
+    "track": "feat/pixel-pets-arena",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/pixel-pets-arena`.\n\n## Goal\nImplement daily care actions\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pets-arena] Add XP and evolution rules",
+    "track": "feat/pixel-pets-arena",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/pixel-pets-arena`.\n\n## Goal\nAdd XP and evolution rules\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pets-arena] Build turn-based battle core",
+    "track": "feat/pixel-pets-arena",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/pixel-pets-arena`.\n\n## Goal\nBuild turn-based battle core\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pets-arena] Add enemy AI basics",
+    "track": "feat/pixel-pets-arena",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/pixel-pets-arena`.\n\n## Goal\nAdd enemy AI basics\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pets-arena] Implement loot/reward system",
+    "track": "feat/pixel-pets-arena",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/pixel-pets-arena`.\n\n## Goal\nImplement loot/reward system\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pets-arena] Create local save/load support",
+    "track": "feat/pixel-pets-arena",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/pixel-pets-arena`.\n\n## Goal\nCreate local save/load support\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pets-arena] Add leaderboard score submit flow",
+    "track": "feat/pixel-pets-arena",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/pixel-pets-arena`.\n\n## Goal\nAdd leaderboard score submit flow\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pets-arena] Create MVP gameplay tutorial screen",
+    "track": "feat/pixel-pets-arena",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/pixel-pets-arena`.\n\n## Goal\nCreate MVP gameplay tutorial screen\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-arcade-streamer-hub] Build arcade landing layout",
+    "track": "feat/arcade-streamer-hub",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/arcade-streamer-hub`.\n\n## Goal\nBuild arcade landing layout\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-arcade-streamer-hub] Create game launcher cards",
+    "track": "feat/arcade-streamer-hub",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/arcade-streamer-hub`.\n\n## Goal\nCreate game launcher cards\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-arcade-streamer-hub] Implement unified leaderboard table",
+    "track": "feat/arcade-streamer-hub",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/arcade-streamer-hub`.\n\n## Goal\nImplement unified leaderboard table\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-arcade-streamer-hub] Add leaderboard API contract",
+    "track": "feat/arcade-streamer-hub",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/arcade-streamer-hub`.\n\n## Goal\nAdd leaderboard API contract\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-arcade-streamer-hub] Add streamer challenge link generator",
+    "track": "feat/arcade-streamer-hub",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/arcade-streamer-hub`.\n\n## Goal\nAdd streamer challenge link generator\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-arcade-streamer-hub] Build weekly challenge module",
+    "track": "feat/arcade-streamer-hub",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/arcade-streamer-hub`.\n\n## Goal\nBuild weekly challenge module\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-arcade-streamer-hub] Add player profile panel",
+    "track": "feat/arcade-streamer-hub",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/arcade-streamer-hub`.\n\n## Goal\nAdd player profile panel\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-arcade-streamer-hub] Implement score submission validation",
+    "track": "feat/arcade-streamer-hub",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/arcade-streamer-hub`.\n\n## Goal\nImplement score submission validation\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-arcade-streamer-hub] Add live refresh polling",
+    "track": "feat/arcade-streamer-hub",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/arcade-streamer-hub`.\n\n## Goal\nAdd live refresh polling\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-arcade-streamer-hub] Polish retro arcade visual theme",
+    "track": "feat/arcade-streamer-hub",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/arcade-streamer-hub`.\n\n## Goal\nPolish retro arcade visual theme\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-private-ai-roadmap] Create data directory scaffold",
+    "track": "feat/private-ai-roadmap",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/private-ai-roadmap`.\n\n## Goal\nCreate data directory scaffold\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-private-ai-roadmap] Define privacy tier labels",
+    "track": "feat/private-ai-roadmap",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/private-ai-roadmap`.\n\n## Goal\nDefine privacy tier labels\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-private-ai-roadmap] Build prompt-output rating schema",
+    "track": "feat/private-ai-roadmap",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/private-ai-roadmap`.\n\n## Goal\nBuild prompt-output rating schema\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-private-ai-roadmap] Add weekly eval benchmark set",
+    "track": "feat/private-ai-roadmap",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/private-ai-roadmap`.\n\n## Goal\nAdd weekly eval benchmark set\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-private-ai-roadmap] Implement model comparison script",
+    "track": "feat/private-ai-roadmap",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/private-ai-roadmap`.\n\n## Goal\nImplement model comparison script\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-private-ai-roadmap] Document adapter training checklist",
+    "track": "feat/private-ai-roadmap",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/private-ai-roadmap`.\n\n## Goal\nDocument adapter training checklist\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-private-ai-roadmap] Create red-team baseline prompts",
+    "track": "feat/private-ai-roadmap",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/private-ai-roadmap`.\n\n## Goal\nCreate red-team baseline prompts\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-private-ai-roadmap] Add experiment logging template",
+    "track": "feat/private-ai-roadmap",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/private-ai-roadmap`.\n\n## Goal\nAdd experiment logging template\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-private-ai-roadmap] Define rollback checkpoint policy",
+    "track": "feat/private-ai-roadmap",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/private-ai-roadmap`.\n\n## Goal\nDefine rollback checkpoint policy\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-private-ai-roadmap] Publish phase progress dashboard",
+    "track": "feat/private-ai-roadmap",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/private-ai-roadmap`.\n\n## Goal\nPublish phase progress dashboard\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-react-starter] Add nested layout routes",
+    "track": "feat/react-starter",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/react-starter`.\n\n## Goal\nAdd nested layout routes\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-react-starter] Implement 404 and error boundaries",
+    "track": "feat/react-starter",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/react-starter`.\n\n## Goal\nImplement 404 and error boundaries\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-react-starter] Create shared UI component folder",
+    "track": "feat/react-starter",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/react-starter`.\n\n## Goal\nCreate shared UI component folder\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-react-starter] Add settings page scaffold",
+    "track": "feat/react-starter",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/react-starter`.\n\n## Goal\nAdd settings page scaffold\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-react-starter] Create API client helper",
+    "track": "feat/react-starter",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/react-starter`.\n\n## Goal\nCreate API client helper\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-react-starter] Add form validation utility",
+    "track": "feat/react-starter",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/react-starter`.\n\n## Goal\nAdd form validation utility\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-react-starter] Implement theme toggle",
+    "track": "feat/react-starter",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/react-starter`.\n\n## Goal\nImplement theme toggle\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-react-starter] Add test setup (vitest + rtl)",
+    "track": "feat/react-starter",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/react-starter`.\n\n## Goal\nAdd test setup (vitest + rtl)\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-react-starter] Create deployment README",
+    "track": "feat/react-starter",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/react-starter`.\n\n## Goal\nCreate deployment README\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  },
+  {
+    "title": "[feat-react-starter] Add starter feature flag system",
+    "track": "feat/react-starter",
+    "labels": [
+      "phase-2",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2 upgrade backlog item for `feat/react-starter`.\n\n## Goal\nAdd starter feature flag system\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Next follow-up task identified"
+  }
+]

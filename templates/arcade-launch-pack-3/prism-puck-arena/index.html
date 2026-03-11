@@ -1,0 +1,46 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Prism Puck Arena</title>
+<style>
+body{margin:0;background:#0b122d;color:#fff;font-family:monospace;display:grid;place-items:center;min-height:100vh}
+.wrap{display:grid;gap:8px;justify-items:center;padding:10px;max-width:96vw}
+canvas{width:min(92vw,480px);height:auto;image-rendering:pixelated;border:3px solid #8aa0ff;background:#5cb7ff}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+button{background:#1b2458;color:#fff;border:1px solid #5e76ff;padding:8px 12px}
+.pad{display:grid;grid-template-columns:repeat(3,70px);gap:6px;justify-content:center}
+.pad button{height:44px}
+</style></head><body>
+<div class="wrap">
+<h3>Prism Puck Arena</h3>
+<canvas id="g" width="400" height="520"></canvas>
+<div id="ui">Score 0 · You 0 · AI 0 · Best 0</div>
+<div class="row"><button id="pause">Pause</button><button id="restart">Restart</button><span>Deflect puck into AI goal</span></div>
+<div class="pad"><button></button><button id="u">▲</button><button></button><button id="l">◀</button><button id="d">▼</button><button id="r">▶</button></div>
+</div>
+<script>
+let _last=0;function submitScore(s){try{s=+s||0;if(s<=0||s<=_last)return;_last=s;const pk=(localStorage.getItem('pixel_player_key')||('pk_'+Math.random().toString(36).slice(2)+Date.now().toString(36)));localStorage.setItem('pixel_player_key',pk);fetch('/wp-json/prismtek/v1/scores',{method:'POST',credentials:'include',cache:'no-store',headers:{'content-type':'application/json'},body:JSON.stringify({game:'prism-puck-arena',score:s,name:(localStorage.getItem('pixel_player_name')||'Guest'),playerKey:pk})}).catch(()=>{});}catch{}}
+const c=g,x=c.getContext('2d');const W=400,H=520;let best=+localStorage.ppa_best||0;
+let you=0,ai=0,score=0,paused=false,over=false,keys=new Set();
+let me={x:80,y:260,r:20,s:2.5},bot={x:320,y:260,r:20,s:2.1},p={x:200,y:260,vx:2.8,vy:1.7,r:11};
+function rr(a,b){return a+Math.random()*(b-a)}
+function restart(){you=0;ai=0;score=0;paused=false;over=false;me={x:80,y:260,r:20,s:2.5};bot={x:320,y:260,r:20,s:2.1};p={x:200,y:260,vx:rr(-2.8,2.8),vy:rr(-2.4,2.4),r:11};sync();pause.textContent='Pause';}
+function sync(){ui.textContent=`Score ${score} · You ${you} · AI ${ai} · Best ${best}`}
+function resetPuck(dir){p={x:200,y:260,vx:dir*2.6,vy:rr(-2.2,2.2),r:11};}
+function bounce(a){const dx=p.x-a.x,dy=p.y-a.y,d=Math.hypot(dx,dy)||1;if(d<a.r+p.r){const nx=dx/d,ny=dy/d,sp=Math.hypot(p.vx,p.vy)+0.35;p.vx=nx*sp;p.vy=ny*sp;p.x=a.x+nx*(a.r+p.r+1);p.y=a.y+ny*(a.r+p.r+1)}}
+function update(){if(paused||over)return;
+let dx=0,dy=0;if(keys.has('arrowleft')||keys.has('a'))dx=-1;if(keys.has('arrowright')||keys.has('d'))dx=1;if(keys.has('arrowup')||keys.has('w'))dy=-1;if(keys.has('arrowdown')||keys.has('s'))dy=1;
+me.x=Math.max(20,Math.min(180,me.x+dx*me.s));me.y=Math.max(20,Math.min(H-20,me.y+dy*me.s));
+const ty=p.y-bot.y;bot.y += Math.max(-bot.s,Math.min(bot.s,ty));bot.x += Math.max(-bot.s,Math.min(bot.s,310-bot.x));bot.y=Math.max(20,Math.min(H-20,bot.y));
+p.x += p.vx; p.y += p.vy; if(p.y<12||p.y>H-12)p.vy*=-1;
+bounce(me); bounce(bot);
+if(p.x<0){ai++;sync();resetPuck(1);} if(p.x>W){you++;score+=220;if(score>best){best=score;localStorage.ppa_best=best;submitScore(best)}sync();resetPuck(-1);} if(you>=7||ai>=7){over=true;}}
+function draw(){x.fillStyle='#64c5ff';x.fillRect(0,0,W,H);x.fillStyle='#6dbc56';x.fillRect(0,390,W,130);x.fillStyle='#16304b';x.fillRect(20,70,360,330);x.strokeStyle='rgba(255,255,255,.5)';x.beginPath();x.moveTo(200,70);x.lineTo(200,400);x.stroke();
+x.fillStyle='#66e7ff';x.beginPath();x.arc(me.x,me.y,me.r,0,7);x.fill();x.fillStyle='#ff8ea0';x.beginPath();x.arc(bot.x,bot.y,bot.r,0,7);x.fill();x.fillStyle='#ffe066';x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill();
+if(over){x.fillStyle='rgba(0,0,0,.65)';x.fillRect(58,205,284,110);x.fillStyle='#fff';x.font='22px monospace';x.fillText(you>ai?'You Win!':'AI Wins',130,248);x.font='14px monospace';x.fillText('Tap restart or press R',118,274)}
+if(paused&&!over){x.fillStyle='rgba(0,0,0,.55)';x.fillRect(120,220,160,70);x.fillStyle='#fff';x.fillText('Paused',172,260)}}
+function loop(){update();draw();requestAnimationFrame(loop)}
+addEventListener('keydown',e=>{keys.add(e.key.toLowerCase());if(e.key==='r')restart();if(e.key==='p'){paused=!paused;pause.textContent=paused?'Resume':'Pause'}});addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));
+u.onpointerdown=()=>keys.add('arrowup');d.onpointerdown=()=>keys.add('arrowdown');l.onpointerdown=()=>keys.add('arrowleft');r.onpointerdown=()=>keys.add('arrowright');for(const b of [u,d,l,r]) b.onpointerup=()=>{keys.delete('arrowup');keys.delete('arrowdown');keys.delete('arrowleft');keys.delete('arrowright');};
+pause.onclick=()=>{if(over)return;paused=!paused;pause.textContent=paused?'Resume':'Pause'};restart.onclick=restart;
+submitScore(best);restart();requestAnimationFrame(loop);
+</script></body></html>

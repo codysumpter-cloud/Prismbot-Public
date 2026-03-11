@@ -1,0 +1,95 @@
+name: Build BMO Installer ISO
+
+on:
+  workflow_dispatch:
+    inputs:
+      ubuntu_iso_url:
+        description: "Ubuntu ISO URL"
+        required: false
+        default: "https://releases.ubuntu.com/24.04.2/ubuntu-24.04.2-desktop-amd64.iso"
+      with_gaming:
+        description: "Include gaming packages (Steam/RetroArch/mGBA)"
+        required: false
+        default: "true"
+      hostname:
+        description: "Default hostname"
+        required: false
+        default: "bmo-node"
+      username:
+        description: "Default user"
+        required: false
+        default: "bmo"
+  push:
+    branches: [ main ]
+    paths:
+      - "iso/**"
+      - ".github/workflows/build-bmo-iso.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xorriso p7zip-full openssl curl
+
+      - name: Resolve ISO URL
+        id: vars
+        run: |
+          URL="${{ github.event.inputs.ubuntu_iso_url }}"
+          if [ -z "$URL" ]; then
+            URL="https://releases.ubuntu.com/24.04.2/ubuntu-24.04.2-desktop-amd64.iso"
+          fi
+          echo "iso_url=$URL" >> $GITHUB_OUTPUT
+          NAME="$(basename "$URL")"
+          echo "iso_name=$NAME" >> $GITHUB_OUTPUT
+
+      - name: Download Ubuntu ISO
+        run: |
+          curl -fL "${{ steps.vars.outputs.iso_url }}" -o "${{ steps.vars.outputs.iso_name }}"
+
+      - name: Build BMO autoinstall ISO
+        run: |
+          chmod +x iso/build-bmo-installer-iso.sh
+          GAMING_FLAG=""
+          WG="${{ github.event.inputs.with_gaming }}"
+          [ -n "$WG" ] || WG="true"
+          if [ "$WG" = "true" ]; then
+            GAMING_FLAG="--with-gaming"
+          fi
+          HOSTNAME_INPUT="${{ github.event.inputs.hostname }}"
+          [ -n "$HOSTNAME_INPUT" ] || HOSTNAME_INPUT="bmo-node"
+          USERNAME_INPUT="${{ github.event.inputs.username }}"
+          [ -n "$USERNAME_INPUT" ] || USERNAME_INPUT="bmo"
+          bash iso/build-bmo-installer-iso.sh \
+            --ubuntu-iso "${{ steps.vars.outputs.iso_name }}" \
+            --output "bmo-installer-latest.iso" \
+            --hostname "$HOSTNAME_INPUT" \
+            --username "$USERNAME_INPUT" \
+            --password "ChangeMeNow!" \
+            ${GAMING_FLAG}
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bmo-installer-iso
+          path: bmo-installer-latest.iso
+
+      - name: Publish rolling release asset
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: bmo-iso-latest
+          name: BMO Installer ISO (Latest)
+          prerelease: true
+          files: bmo-installer-latest.iso
+          body: |
+            Auto-built BMO installer ISO.
+            Default install password in this artifact is `ChangeMeNow!`.
+            Change immediately after first boot.

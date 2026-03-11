@@ -1,0 +1,174 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Laser Labyrinth</title><style>body{margin:0;background:#071018;color:#eaf7ff;font-family:system-ui}#w{max-width:760px;margin:12px auto;padding:12px;background:#122635;border:1px solid #4da4c8;border-radius:12px}canvas{width:100%;touch-action:none;background:#0a1a24;border:1px solid #366883;border-radius:10px}button{background:#1e5b75;color:#fff;border:1px solid #7ecceb;border-radius:8px;padding:8px 10px}.row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}</style></head><body><div id='w'><h2>Laser Labyrinth</h2><div class='row'><span>Level: <b id='lv'>1</b></span><span>Score: <b id='sc'>0</b></span><button id='reset'>Reset Level</button><button id='submit'>Submit Score</button><span id='msg'>Drag mirrors to reflect laser.</span></div><canvas id='c' width='700' height='420'></canvas></div><script>
+const slug='laser-labyrinth',c=document.getElementById('c'),x=c.getContext('2d');let level=1,score=0,mirrors=[],drag=null,target={x:620,y:200,r:14},src={x:80,y:210,ang:0};const lv=lvEl=document.getElementById('lv'),sc=document.getElementById('sc'),msg=document.getElementById('msg');
+function setup(){mirrors=[{x:240,y:130,a:45},{x:360,y:280,a:-45},{x:500,y:140,a:45}];src.ang=0;target={x:620,y:200,r:14};draw()}
+function ray(){let pts=[[src.x,src.y]],x0=src.x,y0=src.y,a=src.ang*Math.PI/180;for(let k=0;k<4;k++){let hit=null;for(const m of mirrors){const dx=m.x-x0,dy=m.y-y0,proj=dx*Math.cos(a)+dy*Math.sin(a);if(proj<0)continue;const px=x0+Math.cos(a)*proj,py=y0+Math.sin(a)*proj;if((px-m.x)**2+(py-m.y)**2<400){if(!hit||proj<hit.d)hit={m,proj,px,py}}}if(!hit){pts.push([x0+Math.cos(a)*900,y0+Math.sin(a)*900]);break;}pts.push([hit.px,hit.py]);x0=hit.px;y0=hit.py;a=(2*(hit.m.a*Math.PI/180)-a);}return pts}
+function solved(pts){for(let i=1;i<pts.length;i++){const [x1,y1]=pts[i-1],[x2,y2]=pts[i];const t=((target.x-x1)*(x2-x1)+(target.y-y1)*(y2-y1))/((x2-x1)**2+(y2-y1)**2);const u=Math.max(0,Math.min(1,t));const px=x1+(x2-x1)*u,py=y1+(y2-y1)*u;if((px-target.x)**2+(py-target.y)**2<target.r*target.r)return true;}return false}
+function draw(){x.clearRect(0,0,700,420);x.fillStyle='#102836';x.fillRect(0,0,700,420);x.fillStyle='#7bf2ff';x.beginPath();x.arc(src.x,src.y,10,0,Math.PI*2);x.fill();x.fillStyle='#ffd976';x.beginPath();x.arc(target.x,target.y,target.r,0,Math.PI*2);x.fill();for(const m of mirrors){x.save();x.translate(m.x,m.y);x.rotate(m.a*Math.PI/180);x.fillStyle='#d4f2ff';x.fillRect(-26,-4,52,8);x.restore()}const pts=ray();x.strokeStyle='#ff5b7f';x.lineWidth=3;x.beginPath();x.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)x.lineTo(pts[i][0],pts[i][1]);x.stroke();if(solved(pts)){score+=200*level;level++;lv.textContent=level;sc.textContent=score;msg.textContent='Target hit! Level up.';setup()}}
+c.addEventListener('pointerdown',e=>{const r=c.getBoundingClientRect(),mx=(e.clientX-r.left)*(700/r.width),my=(e.clientY-r.top)*(420/r.height);for(const m of mirrors){if((mx-m.x)**2+(my-m.y)**2<700){drag=m;break}}});c.addEventListener('pointermove',e=>{if(!drag)return;const r=c.getBoundingClientRect(),mx=(e.clientX-r.left)*(700/r.width),my=(e.clientY-r.top)*(420/r.height);drag.a=Math.atan2(my-drag.y,mx-drag.x)*180/Math.PI;draw()});addEventListener('pointerup',()=>drag=null);
+async function submit(){if(score<=0)return msg.textContent='Solve at least one level first.';msg.textContent='Submitting...';const fd=new FormData();fd.append('game',slug);fd.append('score',String(score));const pk=(localStorage.getItem('pixel_player_key')||('pk_'+Math.random().toString(36).slice(2)+Date.now().toString(36))); localStorage.setItem('pixel_player_key',pk); fd.append('playerKey',pk); const pn=(localStorage.getItem('pixel_player_name')||'Guest'); fd.append('name',pn); const r=await fetch('/wp-json/prismtek/v1/scores',{method:'POST',credentials:'include',body:fd});const j=await r.json().catch(()=>({}));msg.textContent=r.ok&&j.ok?'Score submitted ✅':'Submit failed: '+(j.error||r.status)}
+document.getElementById('reset').onclick=()=>{level=1;score=0;lv.textContent='1';sc.textContent='0';msg.textContent='Level reset.';setup()};document.getElementById('submit').onclick=submit;setup();
+</script>
+<script>
+/* prism-uniform-layer-v1 */
+(function(){
+  try{
+    const css = document.createElement('style');
+    css.textContent = `
+      body{margin:0;background:#0b122d;color:#fff;font-family:monospace;display:grid;place-items:center;min-height:100vh;padding:8px;box-sizing:border-box}
+      #w,.wrap{display:grid;gap:8px;justify-items:center;padding:10px;max-width:96vw;width:min(96vw,860px);box-sizing:border-box}
+      canvas{width:min(96vw,700px)!important;height:auto!important;max-height:70vh!important;image-rendering:pixelated;border:2px solid #6f86ff!important;touch-action:none!important}
+      .row,.controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+      button{min-height:40px;min-width:44px;padding:8px 12px}
+      @media (max-width:640px){button{flex:1 1 auto}}
+    `;
+    document.head.appendChild(css);
+    const scoreEls = [document.getElementById('score'), document.getElementById('s'), document.getElementById('sc')].filter(Boolean);
+    function parseScore(){
+      for(const el of scoreEls){
+        const n = parseInt((el.textContent||'').replace(/[^0-9-]/g,''),10);
+        if(Number.isFinite(n)) return Math.max(0,n);
+      }
+      const txt = (document.body.textContent||'').match(/Score\s*:?\s*(\d+)/i);
+      return txt ? parseInt(txt[1],10) : 0;
+    }
+    const slug = (location.pathname.split('/').filter(Boolean).slice(-2,-1)[0] || 'game').toLowerCase();
+    let lastSubmitted = 0;
+    async function submitScore(score){
+      try{
+        score = Number(score)||0;
+        if(score<=0 || score<=lastSubmitted) return;
+        lastSubmitted = score;
+        const fd = new FormData();
+        fd.append('game', slug);
+        fd.append('score', String(score));
+        const pk = localStorage.getItem('pixel_player_key') || ('pk_'+Math.random().toString(36).slice(2)+Date.now().toString(36));
+        localStorage.setItem('pixel_player_key', pk);
+        fd.append('playerKey', pk);
+        fd.append('name', localStorage.getItem('pixel_player_name') || 'Guest');
+        await fetch('/wp-json/prismtek/v1/scores', { method:'POST', credentials:'include', cache:'no-store', body: fd });
+      }catch{}
+    }
+    setInterval(()=>{ const s=parseScore(); if(s>0) submitScore(s); }, 2500);
+    document.addEventListener('visibilitychange', ()=>{ if(document.hidden){ const s=parseScore(); if(s>0) submitScore(s); } });
+    window.addEventListener('beforeunload', ()=>{ const s=parseScore(); if(s>0) submitScore(s); });
+  }catch{}
+})();
+</script>
+
+
+<script>
+/* prism-skyhunt-skin-v1 */
+(function(){
+  try{
+    const css = document.createElement('style');
+    css.textContent = `
+      body{margin:0!important;background:#0b122d!important;color:#fff!important;font-family:monospace!important;display:grid!important;place-items:center!important;min-height:100vh!important}
+      #w,.wrap{display:grid!important;gap:8px!important;justify-items:center!important;padding:10px!important;max-width:96vw!important;width:auto!important}
+      h1,h2,h3{margin:0 0 4px 0!important;font:700 20px/1.1 monospace!important;color:#fff!important}
+      canvas{width:min(92vw,480px)!important;height:auto!important;image-rendering:pixelated!important;border:3px solid #8aa0ff!important;background:#5cb7ff!important;cursor:crosshair!important;max-height:none!important}
+      .row,.controls,#hud{display:flex!important;gap:10px!important;flex-wrap:wrap!important;justify-content:center!important;align-items:center!important}
+      button{background:#1b2458!important;color:#fff!important;border:1px solid #5e76ff!important;padding:8px 12px!important;border-radius:0!important;box-shadow:none!important}
+      #msg,.status,#ui{font:14px/1.2 monospace!important;color:#fff!important}
+      input,select{font-family:monospace!important}
+    `;
+    document.head.appendChild(css);
+  }catch{}
+})();
+</script>
+
+
+<script>
+/* prism-uniform-hud-v1 */
+(function(){
+  try{
+    function getScore(){
+      const ids=['score','s','sc'];
+      for(const id of ids){
+        const el=document.getElementById(id);
+        if(!el) continue;
+        const n=parseInt((el.textContent||'').replace(/[^0-9-]/g,''),10);
+        if(Number.isFinite(n)) return Math.max(0,n);
+      }
+      const m=(document.body.textContent||'').match(/Score\s*:?\s*(\d+)/i);
+      return m?Math.max(0,parseInt(m[1],10)):0;
+    }
+    const slug=(location.pathname.split('/').filter(Boolean).slice(-2,-1)[0]||'game').toLowerCase();
+    const wrap=document.querySelector('#w,.wrap') || document.body;
+    let ui=document.getElementById('ui');
+    if(!ui){ ui=document.createElement('div'); ui.id='ui'; wrap.insertBefore(ui, wrap.children[2] || null); }
+    ui.style.fontFamily='monospace'; ui.style.fontSize='14px'; ui.style.color='#fff';
+    function tick(){
+      const score=getScore();
+      const bestKey='best_'+slug;
+      const prev=parseInt(localStorage.getItem(bestKey)||'0',10)||0;
+      const best=Math.max(prev,score);
+      if(best!==prev) localStorage.setItem(bestKey,String(best));
+      ui.textContent=`Score ${score} · Round 1 · Ammo -- · Best ${best}`;
+    }
+    setInterval(tick,300);
+    tick();
+  }catch{}
+})();
+</script>
+
+
+<script>
+/* prism-controls-scale-v2 */
+(function(){
+  try{
+    const css=document.createElement('style');
+    css.textContent=`
+      .prism-shell{display:grid!important;gap:8px!important;justify-items:center!important;max-width:96vw!important;padding:10px!important}
+      .prism-shell canvas{width:min(92vw,480px)!important;height:auto!important;max-height:72vh!important;display:block!important}
+      .prism-controls{display:grid!important;grid-template-columns:repeat(3,minmax(84px,1fr))!important;gap:8px!important;width:min(92vw,480px)!important;align-items:stretch!important}
+      .prism-controls button{min-height:42px!important;padding:8px 10px!important;font:600 14px/1 monospace!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+      .prism-controls .prism-note{grid-column:1/-1!important;text-align:center!important;font:13px/1.2 monospace!important;opacity:.95!important}
+      @media (max-width:520px){.prism-controls{grid-template-columns:repeat(2,minmax(84px,1fr))!important}}
+    `;
+    document.head.appendChild(css);
+    const shell=document.querySelector('#w,.wrap')||document.body;
+    shell.classList.add('prism-shell');
+    const canvas=shell.querySelector('canvas');
+    if(!canvas) return;
+    const dock=document.createElement('div');
+    dock.className='prism-controls';
+    const rows=[...shell.querySelectorAll('.row,.controls')];
+    const seen=new Set();
+    for(const row of rows){
+      const buttons=[...row.querySelectorAll('button')];
+      for(const b of buttons){ if(seen.has(b)) continue; seen.add(b); dock.appendChild(b); }
+      const txt=(row.textContent||'').replace(/\s+/g,' ').trim();
+      if(txt && !buttons.length){ const note=document.createElement('div'); note.className='prism-note'; note.textContent=txt; dock.appendChild(note); }
+    }
+    if(!dock.children.length){
+      const buttons=[...shell.querySelectorAll('button')];
+      for(const b of buttons){ if(!seen.has(b)){ seen.add(b); dock.appendChild(b);} }
+    }
+    for(const row of rows){ if(!row.querySelector('button')) row.remove(); }
+    const ui=shell.querySelector('#ui,#msg,.status');
+    if(ui && ui.nextSibling) shell.insertBefore(dock, ui.nextSibling); else shell.appendChild(dock);
+  }catch{}
+})();
+</script>
+
+
+<script>
+/* prism-iframe-compat-v1 */
+(function(){
+  try{
+    if(window.self===window.top) return;
+    const css=document.createElement('style');
+    css.textContent=`
+      html,body{height:auto!important;min-height:0!important;overflow:auto!important}
+      body{display:block!important;place-items:initial!important;padding:0!important;margin:0!important;background:#0b122d!important}
+      #w,.wrap,.prism-shell{width:100%!important;max-width:100%!important;margin:0!important;padding:8px!important;box-sizing:border-box!important;justify-items:stretch!important}
+      canvas{width:100%!important;max-width:100%!important;max-height:none!important;height:auto!important;display:block!important;margin:0 auto!important}
+      .prism-controls{width:100%!important;max-width:100%!important;grid-template-columns:repeat(3,minmax(0,1fr))!important}
+      @media (max-width:520px){.prism-controls{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+    `;
+    document.head.appendChild(css);
+  }catch{}
+})();
+</script>
+
+</body></html>

@@ -5,11 +5,12 @@
     "displayName": "Owner",
     "role": "admin",
     "active": true,
-    "passwordHash": "scrypt:2c158bb50504b9f672c7215dca6fd21c:cde5eedfe83c683411b666869ceff1b8a9efe3a35a8af2b234c2d651daf8a00333f3708d2eea623dcfb115dac667177d36a86eba1d7de825bd28a127a38ab35f",
+    "passwordHash": "scrypt:a0e4443e97b6257d82fbae6396462cf4:ff5032fd34ad69178373ccb071f81a9290e7fe7ea5afe921b39e4b55124ea7499628295970692d3286ab72caa367043a46bd4a7c4fadbe644f5e203a2eba5763",
     "createdAt": "2026-02-26T15:14:25.240Z",
     "mustResetPassword": false,
     "onboardingCompletedAt": "2026-02-26T15:14:25.241Z",
-    "lastLoginAt": "2026-02-26T17:10:53.041Z"
+    "lastLoginAt": "2026-02-26T17:10:53.041Z",
+    "updatedAt": "2026-03-03T19:22:03.830Z"
   },
   {
     "id": "u_leah",

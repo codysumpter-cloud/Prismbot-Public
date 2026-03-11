@@ -1,0 +1,41 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Dungeon Byte</title>
+<style>
+body{margin:0;background:#0b122d;color:#fff;font-family:monospace;display:grid;place-items:center;min-height:100vh}
+.wrap{display:grid;gap:8px;justify-items:center;padding:10px;max-width:96vw}
+canvas{width:min(92vw,480px);height:auto;image-rendering:pixelated;border:3px solid #8aa0ff;background:#5cb7ff}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+button{background:#1b2458;color:#fff;border:1px solid #5e76ff;padding:8px 12px}
+.pad{display:grid;grid-template-columns:repeat(3,70px);gap:6px;justify-content:center}.pad button{height:44px}
+</style></head><body>
+<div class="wrap"><h3>Dungeon Byte</h3>
+<canvas id="g" width="400" height="520"></canvas>
+<div id="ui">Score 0 · Rooms 0 · HP 5 · Best 0</div>
+<div class="row"><button id="pause">Pause</button><button id="restart">Restart</button><span>Clear enemies then enter portal</span></div>
+<div class="pad"><button></button><button id="u">▲</button><button></button><button id="l">◀</button><button id="d">▼</button><button id="r">▶</button></div>
+</div>
+<script>
+let _last=0;function submitScore(s){try{s=+s||0;if(s<=0||s<=_last)return;_last=s;const pk=(localStorage.getItem('pixel_player_key')||('pk_'+Math.random().toString(36).slice(2)+Date.now().toString(36)));localStorage.setItem('pixel_player_key',pk);fetch('/wp-json/prismtek/v1/scores',{method:'POST',credentials:'include',cache:'no-store',headers:{'content-type':'application/json'},body:JSON.stringify({game:'dungeon-byte',score:s,name:(localStorage.getItem('pixel_player_name')||'Guest'),playerKey:pk})}).catch(()=>{});}catch{}}
+const c=g,x=c.getContext('2d');const W=400,H=520;let best=+localStorage.db_best||0;
+let score=0,rooms=0,hp=5,paused=false,over=false,keys=new Set();let p={x:52,y:260,w:18,h:18,s:2.4};let portal={x:338,y:245,w:24,h:30};let en=[];
+function rr(a,b){return a+Math.random()*(b-a)} function hit(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y}
+function spawnRoom(){en=Array.from({length:3+Math.min(6,rooms)},()=>({x:rr(100,340),y:rr(90,430),w:16,h:16,vx:rr(-1.6,1.6),vy:rr(-1.6,1.6),alive:true}));portal={x:338,y:245,w:24,h:30};p.x=52;p.y=260;}
+function restart(){score=0;rooms=0;hp=5;paused=false;over=false;p={x:52,y:260,w:18,h:18,s:2.4};spawnRoom();sync();pause.textContent='Pause';}
+function sync(){ui.textContent=`Score ${score} · Rooms ${rooms} · HP ${hp} · Best ${best}`}
+function update(){if(paused||over)return;let dx=0,dy=0;if(keys.has('arrowleft')||keys.has('a'))dx=-1;if(keys.has('arrowright')||keys.has('d'))dx=1;if(keys.has('arrowup')||keys.has('w'))dy=-1;if(keys.has('arrowdown')||keys.has('s'))dy=1;
+p.x=Math.max(18,Math.min(W-18-p.w,p.x+dx*p.s));p.y=Math.max(80,Math.min(H-20-p.h,p.y+dy*p.s));
+for(const e of en){if(!e.alive)continue;e.x+=e.vx;e.y+=e.vy;if(e.x<18||e.x>W-34)e.vx*=-1;if(e.y<80||e.y>H-34)e.vy*=-1;if(hit(p,e)){e.alive=false;hp--;score+=25;if(hp<=0){over=true;if(score>best){best=score;localStorage.db_best=best;submitScore(best)}}}}
+if(en.every(e=>!e.alive)&&hit(p,portal)){rooms++;score+=160+rooms*24;if(score>best){best=score;localStorage.db_best=best;submitScore(best)}spawnRoom();}
+sync();}
+function draw(){x.fillStyle='#64c5ff';x.fillRect(0,0,W,H);x.fillStyle='#30435d';x.fillRect(18,74,364,426);x.fillStyle='rgba(255,255,255,.05)';for(let i=0;i<16;i++)x.fillRect(18+i*22,74,1,426);
+for(const e of en){if(!e.alive)continue;x.fillStyle='#ff8ea0';x.fillRect(e.x,e.y,e.w,e.h);}if(en.every(e=>!e.alive)){x.fillStyle='#8dffb6';x.fillRect(portal.x,portal.y,portal.w,portal.h);}
+x.fillStyle='#66e7ff';x.fillRect(p.x,p.y,p.w,p.h);
+if(over){x.fillStyle='rgba(0,0,0,.65)';x.fillRect(58,205,284,110);x.fillStyle='#fff';x.fillText('Run Over',152,248);x.fillText('Tap restart or press R',118,274)}
+if(paused&&!over){x.fillStyle='rgba(0,0,0,.55)';x.fillRect(120,220,160,70);x.fillStyle='#fff';x.fillText('Paused',172,260)}}
+function loop(){update();draw();requestAnimationFrame(loop)}
+addEventListener('keydown',e=>{keys.add(e.key.toLowerCase());if(e.key==='r')restart();if(e.key==='p'){paused=!paused;pause.textContent=paused?'Resume':'Pause'}});addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));
+u.onpointerdown=()=>keys.add('arrowup');d.onpointerdown=()=>keys.add('arrowdown');l.onpointerdown=()=>keys.add('arrowleft');r.onpointerdown=()=>keys.add('arrowright');for(const b of [u,d,l,r]) b.onpointerup=()=>{keys.delete('arrowup');keys.delete('arrowdown');keys.delete('arrowleft');keys.delete('arrowright');};
+pause.onclick=()=>{if(over)return;paused=!paused;pause.textContent=paused?'Resume':'Pause'};restart.onclick=restart;
+submitScore(best);restart();requestAnimationFrame(loop);
+</script></body></html>

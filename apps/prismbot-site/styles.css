@@ -257,3 +257,104 @@ footer {
   .nav nav { gap: 10px; }
   .hero { padding-top: 54px; }
 }
+
+/* --- Pixel-art theme layer (non-breaking overrides) --- */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+  --pixel-bg: #111024;
+  --pixel-card: #1b1a38;
+  --pixel-line: #7f88ff;
+  --pixel-glow: #6de4ff;
+  --pixel-ink: #f6f7ff;
+}
+
+body {
+  background:
+    linear-gradient(0deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18)),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    radial-gradient(800px 420px at 15% -10%, rgba(139, 123, 255, 0.32), transparent 60%),
+    radial-gradient(900px 520px at 85% -20%, rgba(84, 210, 255, 0.2), transparent 60%),
+    var(--pixel-bg);
+  background-size: auto, 12px 12px, 12px 12px, auto, auto, auto;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.03) 0,
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0.35;
+}
+
+.logo,
+.kicker,
+h1,
+h2,
+h3,
+.btn,
+.nav a {
+  font-family: "Press Start 2P", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  line-height: 1.4;
+}
+
+.nav,
+.card,
+.features article {
+  border: 2px solid var(--pixel-line);
+  border-radius: 0;
+  background: var(--pixel-card);
+  box-shadow: 6px 6px 0 rgba(54, 62, 128, 0.65);
+}
+
+.nav a {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: #d7dcff;
+}
+
+.kicker {
+  border: 2px solid var(--pixel-line);
+  border-radius: 0;
+  background: rgba(127, 136, 255, 0.2);
+  color: var(--pixel-ink);
+  font-size: 0.62rem;
+}
+
+h1 {
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+.sub,
+.features p,
+.offer ul,
+.meta,
+footer {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.btn {
+  border: 2px solid #dfe3ff;
+  border-radius: 0;
+  box-shadow: 4px 4px 0 rgba(55, 63, 125, 0.85);
+  text-transform: uppercase;
+  font-size: 0.68rem;
+}
+
+.btn.ghost {
+  border-color: var(--pixel-line);
+  background: #1d1d3b;
+}
+
+.btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 6px 6px 0 rgba(55, 63, 125, 0.85);
+}

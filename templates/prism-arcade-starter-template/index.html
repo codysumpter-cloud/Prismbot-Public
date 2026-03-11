@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prism Starter Game</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="wrap">
+    <h1>Prism Starter Game</h1>
+    <p class="hint">Arrow keys / WASD to move. Survive and score points.</p>
+    <canvas id="game" width="480" height="320" aria-label="Game canvas"></canvas>
+    <div class="hud">
+      <span>Score: <strong id="score">0</strong></span>
+      <button id="startBtn" type="button">Start</button>
+      <button id="submitBtn" type="button">Submit Score</button>
+    </div>
+    <p id="status" class="status">Ready.</p>
+  </main>
+  <script src="./game.js"></script>
+</body>
+</html>

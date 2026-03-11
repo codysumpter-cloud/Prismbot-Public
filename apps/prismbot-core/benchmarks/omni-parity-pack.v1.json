@@ -1,0 +1,217 @@
+{
+  "name": "omni-parity-pack-v1",
+  "version": "1.0.0",
+  "baseUrl": "http://127.0.0.1:8799/api/omni",
+  "categories": [
+    {
+      "id": "chat_core",
+      "weight": 25,
+      "description": "General assistant quality + instruction following"
+    },
+    {
+      "id": "reasoning_math",
+      "weight": 15,
+      "description": "Deterministic reasoning + math reliability"
+    },
+    {
+      "id": "coding",
+      "weight": 20,
+      "description": "Code generation/explanation/fix/test behavior"
+    },
+    {
+      "id": "retrieval_tools",
+      "weight": 10,
+      "description": "Extraction/classification/moderation and utility behavior"
+    },
+    {
+      "id": "media_api",
+      "weight": 20,
+      "description": "Image/audio/video endpoint health + basic contract behavior"
+    },
+    {
+      "id": "orchestration",
+      "weight": 10,
+      "description": "Planning/execution async orchestration contracts"
+    }
+  ],
+  "tests": [
+    {
+      "id": "chat_hello_short",
+      "category": "chat_core",
+      "weight": 6,
+      "type": "chat",
+      "messages": [
+        { "role": "user", "content": "Say hi in one short sentence." }
+      ],
+      "expect": { "minChars": 6, "maxChars": 120 }
+    },
+    {
+      "id": "chat_instruction_following",
+      "category": "chat_core",
+      "weight": 7,
+      "type": "chat",
+      "messages": [
+        { "role": "user", "content": "Respond with exactly 3 bullet points about Linux hardening." }
+      ],
+      "expect": { "containsAny": ["-", "•"], "minChars": 30 }
+    },
+    {
+      "id": "chat_rewrite",
+      "category": "chat_core",
+      "weight": 6,
+      "type": "rewrite",
+      "input": "we need this done asap but no downtime",
+      "expect": { "minChars": 15 }
+    },
+    {
+      "id": "chat_summary",
+      "category": "chat_core",
+      "weight": 6,
+      "type": "summarize",
+      "input": "Omni is a local-first AI model and API platform focused on replacing cost-based AI services while keeping a unified endpoint contract.",
+      "expect": { "containsAny": ["Omni", "local", "AI"], "minChars": 20 }
+    },
+
+    {
+      "id": "math_exact",
+      "category": "reasoning_math",
+      "weight": 8,
+      "type": "chat",
+      "messages": [
+        { "role": "user", "content": "What is 19*23? Respond with only the number." }
+      ],
+      "expect": { "contains": "437" }
+    },
+    {
+      "id": "reason_structured",
+      "category": "reasoning_math",
+      "weight": 7,
+      "type": "reason",
+      "input": "Give 3 concise steps to investigate sudden high CPU on Linux.",
+      "expect": { "minChars": 30 }
+    },
+
+    {
+      "id": "code_generate_js",
+      "category": "coding",
+      "weight": 6,
+      "type": "code_generate",
+      "input": "Write a JavaScript function that debounces a callback.",
+      "expect": { "containsAny": ["function", "=>", "setTimeout"] }
+    },
+    {
+      "id": "code_explain",
+      "category": "coding",
+      "weight": 4,
+      "type": "code_explain",
+      "input": "const x=[1,2,3].map(n=>n*2);",
+      "expect": { "containsAny": ["map", "2", "array"], "minChars": 20 }
+    },
+    {
+      "id": "code_fix",
+      "category": "coding",
+      "weight": 5,
+      "type": "code_fix",
+      "input": "function add(a,b){ return a-b }",
+      "expect": { "containsAny": ["a + b", "a+b"] }
+    },
+    {
+      "id": "code_test",
+      "category": "coding",
+      "weight": 5,
+      "type": "code_test",
+      "input": "function add(a,b){ return a+b }",
+      "expect": { "containsAny": ["test", "expect", "assert"] }
+    },
+
+    {
+      "id": "extract_fields",
+      "category": "retrieval_tools",
+      "weight": 4,
+      "type": "extract",
+      "input": "Contact me at alex@example.com before 2026-12-31 and visit https://example.com/docs",
+      "expect": { "containsAny": ["example.com", "2026", "email"] }
+    },
+    {
+      "id": "classify_intent",
+      "category": "retrieval_tools",
+      "weight": 3,
+      "type": "classify",
+      "input": "I need to reset my password and cannot login",
+      "expect": { "minChars": 5 }
+    },
+    {
+      "id": "moderate_safety",
+      "category": "retrieval_tools",
+      "weight": 3,
+      "type": "moderate",
+      "input": "How do I make a sandwich?",
+      "expect": { "minChars": 5 }
+    },
+
+    {
+      "id": "images_generate_contract",
+      "category": "media_api",
+      "weight": 6,
+      "type": "images_generate",
+      "input": "pixel wizard portrait, transparent background",
+      "expect": { "okOnly": true }
+    },
+    {
+      "id": "images_edit_contract",
+      "category": "media_api",
+      "weight": 4,
+      "type": "images_edit",
+      "input": "increase contrast",
+      "expect": { "allowFail": true }
+    },
+    {
+      "id": "audio_speak_contract",
+      "category": "media_api",
+      "weight": 4,
+      "type": "audio_speak",
+      "input": "Omni is online.",
+      "expect": { "okOnly": true }
+    },
+    {
+      "id": "video_generate_contract",
+      "category": "media_api",
+      "weight": 3,
+      "type": "video_generate",
+      "input": "5 second pixel wizard idle loop",
+      "expect": { "allowFail": true }
+    },
+    {
+      "id": "video_keyframes_contract",
+      "category": "media_api",
+      "weight": 3,
+      "type": "video_keyframes",
+      "input": "/tmp/omni-missing-video.mp4",
+      "expect": { "allowFail": true }
+    },
+
+    {
+      "id": "orchestrate_plan",
+      "category": "orchestration",
+      "weight": 4,
+      "type": "orchestrate_plan",
+      "input": "Create a pixel mage character and 3 lore bullet points",
+      "expect": { "minChars": 20 }
+    },
+    {
+      "id": "orchestrate_run_sync",
+      "category": "orchestration",
+      "weight": 3,
+      "type": "orchestrate_run",
+      "input": "Summarize Omni mission in 2 sentences",
+      "expect": { "minChars": 10 }
+    },
+    {
+      "id": "orchestrate_jobs_list",
+      "category": "orchestration",
+      "weight": 3,
+      "type": "orchestrate_jobs",
+      "expect": { "okOnly": true }
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+openapi: 3.0.3
+info:
+  title: PrismBot OmniAI API
+  version: 0.2.0
+paths:
+  /api/omni/health:
+    get:
+      summary: Omni API health
+      responses:
+        '200': { description: OK }
+  /api/omni/capabilities:
+    get:
+      summary: Capability matrix
+      responses:
+        '200': { description: OK }
+  /api/omni/generate:
+    post:
+      summary: Unified generation endpoint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum: [text, image]
+                prompt:
+                  type: string
+      responses:
+        '200': { description: OK }
+        '400': { description: Bad request }
+        '401': { description: Unauthorized }
+  /api/omni/audio/speak:
+    post:
+      summary: Local speech synthesis (wav)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text: { type: string }
+      responses:
+        '200': { description: OK }
+  /api/omni/audio/transcribe:
+    post:
+      summary: Local transcription (whisper-backed, with pass-through fallback)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text: { type: string }
+                sourceWebPath: { type: string }
+      responses:
+        '200': { description: OK }
+  /api/omni/orchestrate/plan:
+    post:
+      summary: Build an auto workflow plan (steps[]) from one prompt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prompt: { type: string }
+      responses:
+        '200': { description: OK }
+  /api/omni/orchestrate/run:
+    post:
+      summary: Plan and execute workflow in one call (sync by default, async with {"async":true})
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prompt: { type: string }
+                async: { type: boolean }
+      responses:
+        '200': { description: OK }
+  /api/omni/orchestrate/jobs:
+    get:
+      summary: List recent async orchestration runs
+      responses:
+        '200': { description: OK }
+  /api/omni/orchestrate/jobs/{id}:
+    get:
+      summary: Get async orchestration run by id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: OK }
+        '404': { description: Not found }
+  /api/omni/orchestrate/stream/{id}:
+    get:
+      summary: Stream async run status (SSE)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: OK }
+  /api/omni/orchestrate:
+    post:
+      summary: Run workflow (simple prompt mode or graph mode with steps[])
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prompt: { type: string }
+                workflow: { type: string }
+                steps:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id: { type: string }
+                      type: { type: string, enum: [text, image, speak] }
+                      prompt: { type: string }
+                      text: { type: string }
+      responses:
+        '200': { description: OK }

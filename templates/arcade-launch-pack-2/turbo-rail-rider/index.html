@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Turbo Rail Rider</title>
+<style>
+body{margin:0;background:#0b122d;color:#fff;font-family:monospace;display:grid;place-items:center;min-height:100vh}
+.wrap{display:grid;gap:8px;justify-items:center;padding:10px;max-width:96vw}
+canvas{width:min(92vw,480px);height:auto;image-rendering:pixelated;border:3px solid #8aa0ff;background:#5cb7ff}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+button{background:#1b2458;color:#fff;border:1px solid #5e76ff;padding:8px 12px}
+.pad{display:grid;grid-template-columns:repeat(3,70px);gap:6px;justify-content:center}
+.pad button{height:44px}
+</style></head>
+<body><div class="wrap">
+<h3>Turbo Rail Rider</h3>
+<canvas id="g" width="400" height="520"></canvas>
+<div id="ui">Score 0 · Speed 1.0x · Crashes 0 · Best 0</div>
+<div class="row"><button id="pause">Pause</button><button id="restart">Restart</button><span>Lane dodge • A/D or ←/→</span></div>
+<div class="pad"><button></button><button id="up">▲</button><button></button><button id="left">◀</button><button id="down">▼</button><button id="right">▶</button></div>
+</div>
+<script>
+let _last=0;function submitScore(s){try{s=+s||0;if(s<=0||s<=_last)return;_last=s;const pk=(localStorage.getItem('pixel_player_key')||('pk_'+Math.random().toString(36).slice(2)+Date.now().toString(36)));localStorage.setItem('pixel_player_key',pk);fetch('/wp-json/prismtek/v1/scores',{method:'POST',credentials:'include',cache:'no-store',headers:{'content-type':'application/json'},body:JSON.stringify({game:'turbo-rail-rider',score:s,name:(localStorage.getItem('pixel_player_name')||'Guest'),playerKey:pk})}).catch(()=>{});}catch{}}
+const c=g,x=c.getContext('2d');const W=400,H=520;let best=+localStorage.trr_best||0;
+let score=0,speed=1,crashes=0,paused=false,over=false,t=0,lane=1,lastMouse=null;
+let obstacles=[],coins=[];
+function rr(a,b){return a+Math.random()*(b-a)}
+function spawn(){if(Math.random()<0.7)obstacles.push({lane:Math.floor(rr(0,3)),y:-40,w:66,h:28,col:'#ff6b6b'});if(Math.random()<0.55)coins.push({lane:Math.floor(rr(0,3)),y:-24,r:8});}
+function restart(){score=0;speed=1;crashes=0;paused=false;over=false;t=0;lane=1;obstacles=[];coins=[];for(let i=0;i<8;i++)spawn();sync();pause.textContent='Pause';}
+function sync(){ui.textContent=`Score ${score} · Speed ${speed.toFixed(1)}x · Crashes ${crashes} · Best ${best}`}
+function move(d){lane=Math.max(0,Math.min(2,lane+d));}
+function update(dt){if(paused||over)return;t+=dt;speed=Math.min(4,1+t/900);if(Math.random()<0.03*speed)spawn();
+for(const o of obstacles)o.y += (2.5+speed*1.7)*dt;
+for(const o of coins)o.y += (2.0+speed*1.5)*dt;
+obstacles=obstacles.filter(o=>o.y<560);coins=coins.filter(o=>o.y<560);
+const px=70+lane*128,py=430,pw=66,ph=34;
+for(const o of obstacles){const ox=70+o.lane*128;if(px<ox+o.w&&px+pw>ox&&py<o.y+o.h&&py+ph>o.y){crashes++;o.y=600;score=Math.max(0,score-40);if(crashes>=3){over=true;if(score>best){best=score;localStorage.trr_best=best;submitScore(best)}}}}
+for(const k of coins){const kx=103+k.lane*128,ky=k.y+8;if((px+pw/2-kx)**2+(py+ph/2-ky)**2<700){score+=20;k.y=600;if(score>best){best=score;localStorage.trr_best=best;submitScore(best)}}}
+score += Math.floor(dt*speed*0.6);
+sync();}
+function draw(){x.fillStyle='#64c5ff';x.fillRect(0,0,W,H);x.fillStyle='rgba(255,255,255,.8)';for(let i=0;i<4;i++){const cx=(t*.4+i*120)%(W+80)-40,cy=75+(i%2)*34;x.fillRect(cx,cy,40,12);x.fillRect(cx+8,cy-7,24,7)}
+x.fillStyle='#6dbc56';x.fillRect(0,390,W,130);x.fillStyle='#2f2f3f';x.fillRect(40,70,320,330);
+for(let i=1;i<3;i++){x.strokeStyle='rgba(255,255,255,.5)';x.setLineDash([8,9]);x.beginPath();x.moveTo(40+i*106,70);x.lineTo(40+i*106,400);x.stroke();x.setLineDash([])}
+for(const o of obstacles){const ox=70+o.lane*128;x.fillStyle=o.col;x.fillRect(ox,o.y,o.w,o.h);x.fillStyle='rgba(0,0,0,.2)';x.fillRect(ox+6,o.y+16,o.w-12,10)}
+for(const k of coins){const kx=103+k.lane*128;x.fillStyle='#ffe066';x.beginPath();x.arc(kx,k.y+8,8,0,7);x.fill();x.fillStyle='#c9a22e';x.fillRect(kx-2,k.y+4,4,8)}
+const px=70+lane*128,py=430;x.fillStyle='#66e7ff';x.fillRect(px,py,66,34);x.fillStyle='#dffcff';x.fillRect(px+12,py+7,22,9);
+if(over){x.fillStyle='rgba(0,0,0,.65)';x.fillRect(58,205,284,110);x.fillStyle='#fff';x.font='22px monospace';x.fillText('Race Over',136,248);x.font='14px monospace';x.fillText('Tap restart or press R',118,274)}
+if(paused&&!over){x.fillStyle='rgba(0,0,0,.55)';x.fillRect(120,220,160,70);x.fillStyle='#fff';x.fillText('Paused',172,260)}}
+function loop(){update(1);draw();requestAnimationFrame(loop)}
+addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='a')move(-1);if(e.key==='ArrowRight'||e.key==='d')move(1);if(e.key==='r')restart();if(e.key==='p'){paused=!paused;pause.textContent=paused?'Resume':'Pause'}});
+left.onclick=()=>move(-1);right.onclick=()=>move(1);up.onclick=()=>move(0);down.onclick=()=>move(0);
+pause.onclick=()=>{if(over)return;paused=!paused;pause.textContent=paused?'Resume':'Pause'};restart.onclick=restart;
+submitScore(best);restart();requestAnimationFrame(loop);
+</script></body></html>

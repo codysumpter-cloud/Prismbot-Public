@@ -1,0 +1,93 @@
+{
+  "generated_at": "2026-03-05T15:58:51.337Z",
+  "service_base": "http://127.0.0.1:8799/api/omni",
+  "server_pid": "12048",
+  "matrix": [
+    {
+      "provider": "openai",
+      "enabled": true,
+      "ready": false,
+      "credentialed": false,
+      "live_tested": false,
+      "pass_fail": "skip",
+      "skip_reason": "missing_credentials",
+      "backends_readiness": "missing_credentials",
+      "models_readiness": "missing_credentials",
+      "consistency_ok": true
+    },
+    {
+      "provider": "anthropic",
+      "enabled": true,
+      "ready": false,
+      "credentialed": false,
+      "live_tested": false,
+      "pass_fail": "skip",
+      "skip_reason": "missing_credentials",
+      "backends_readiness": "missing_credentials",
+      "models_readiness": "missing_credentials",
+      "consistency_ok": true
+    },
+    {
+      "provider": "google",
+      "enabled": true,
+      "ready": false,
+      "credentialed": false,
+      "live_tested": false,
+      "pass_fail": "skip",
+      "skip_reason": "missing_credentials",
+      "backends_readiness": "missing_credentials",
+      "models_readiness": "missing_credentials",
+      "consistency_ok": true
+    },
+    {
+      "provider": "xai",
+      "enabled": true,
+      "ready": false,
+      "credentialed": false,
+      "live_tested": false,
+      "pass_fail": "skip",
+      "skip_reason": "missing_credentials",
+      "backends_readiness": "missing_credentials",
+      "models_readiness": "missing_credentials",
+      "consistency_ok": true
+    },
+    {
+      "provider": "ollama",
+      "enabled": false,
+      "ready": false,
+      "credentialed": true,
+      "live_tested": false,
+      "pass_fail": "skip",
+      "skip_reason": "disabled",
+      "backends_readiness": "disabled",
+      "models_readiness": "disabled",
+      "consistency_ok": true
+    }
+  ],
+  "summary": {
+    "providers": 5,
+    "credentialed": 1,
+    "live_pass": 0,
+    "live_fail": 0,
+    "skipped": 5,
+    "consistency_ok": true
+  },
+  "operational_steps": {
+    "openai": [
+      "Export OPENAI_API_KEY",
+      "After exporting env vars, restart prismbot-core and re-run: npm run verify:providers:live"
+    ],
+    "anthropic": [
+      "Export ANTHROPIC_API_KEY",
+      "After exporting env vars, restart prismbot-core and re-run: npm run verify:providers:live"
+    ],
+    "google": [
+      "Export GOOGLE_API_KEY (or GEMINI_API_KEY)",
+      "After exporting env vars, restart prismbot-core and re-run: npm run verify:providers:live"
+    ],
+    "xai": [
+      "Export XAI_API_KEY",
+      "After exporting env vars, restart prismbot-core and re-run: npm run verify:providers:live"
+    ]
+  }
+}

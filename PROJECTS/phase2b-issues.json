@@ -1,0 +1,632 @@
+[
+  {
+    "title": "[feat-prismbot-core] Audit core config loading and validation paths",
+    "track": "feat/prismbot-core",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-core`.\n\n## Goal\nAudit core config loading and validation paths\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-core] Harden API input validation across core endpoints",
+    "track": "feat/prismbot-core",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-core`.\n\n## Goal\nHarden API input validation across core endpoints\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-core] Add structured health/status endpoint contract tests",
+    "track": "feat/prismbot-core",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-core`.\n\n## Goal\nAdd structured health/status endpoint contract tests\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-core] Document core runtime boot sequence and dependencies",
+    "track": "feat/prismbot-core",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-core`.\n\n## Goal\nDocument core runtime boot sequence and dependencies\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-core] Add migration safety checks and dry-run mode",
+    "track": "feat/prismbot-core",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-core`.\n\n## Goal\nAdd migration safety checks and dry-run mode\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-core] Introduce centralized error code catalog",
+    "track": "feat/prismbot-core",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-core`.\n\n## Goal\nIntroduce centralized error code catalog\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-core] Add rate-limit guardrails for high-cost operations",
+    "track": "feat/prismbot-core",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-core`.\n\n## Goal\nAdd rate-limit guardrails for high-cost operations\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-core] Create core service smoke-test script",
+    "track": "feat/prismbot-core",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-core`.\n\n## Goal\nCreate core service smoke-test script\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-core] Add telemetry/event schema documentation",
+    "track": "feat/prismbot-core",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-core`.\n\n## Goal\nAdd telemetry/event schema documentation\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-core] Implement rollback checklist for core releases",
+    "track": "feat/prismbot-core",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-core`.\n\n## Goal\nImplement rollback checklist for core releases\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pipeline] Normalize prompt template schema for generation jobs",
+    "track": "feat/pixel-pipeline",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/pixel-pipeline`.\n\n## Goal\nNormalize prompt template schema for generation jobs\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pipeline] Add asset validation checks (size/palette/transparency)",
+    "track": "feat/pixel-pipeline",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/pixel-pipeline`.\n\n## Goal\nAdd asset validation checks (size/palette/transparency)\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pipeline] Implement batch generation queue with retry logic",
+    "track": "feat/pixel-pipeline",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/pixel-pipeline`.\n\n## Goal\nImplement batch generation queue with retry logic\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pipeline] Create standardized export bundle naming/versioning",
+    "track": "feat/pixel-pipeline",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/pixel-pipeline`.\n\n## Goal\nCreate standardized export bundle naming/versioning\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pipeline] Add generation metadata manifest per asset pack",
+    "track": "feat/pixel-pipeline",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/pixel-pipeline`.\n\n## Goal\nAdd generation metadata manifest per asset pack\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pipeline] Build pipeline failure diagnostics view/log summary",
+    "track": "feat/pixel-pipeline",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/pixel-pipeline`.\n\n## Goal\nBuild pipeline failure diagnostics view/log summary\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pipeline] Add deterministic seed replay support",
+    "track": "feat/pixel-pipeline",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/pixel-pipeline`.\n\n## Goal\nAdd deterministic seed replay support\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pipeline] Create quality rubric scoring script for outputs",
+    "track": "feat/pixel-pipeline",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/pixel-pipeline`.\n\n## Goal\nCreate quality rubric scoring script for outputs\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pipeline] Implement template preset library (characters/tiles/ui)",
+    "track": "feat/pixel-pipeline",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/pixel-pipeline`.\n\n## Goal\nImplement template preset library (characters/tiles/ui)\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-pixel-pipeline] Document end-to-end pipeline runbook",
+    "track": "feat/pixel-pipeline",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/pixel-pipeline`.\n\n## Goal\nDocument end-to-end pipeline runbook\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-web-platform] Choose canonical web app entrypoint and architecture",
+    "track": "feat/prismbot-web-platform",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-web-platform`.\n\n## Goal\nChoose canonical web app entrypoint and architecture\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-web-platform] Unify nav/header/footer across web surfaces",
+    "track": "feat/prismbot-web-platform",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-web-platform`.\n\n## Goal\nUnify nav/header/footer across web surfaces\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-web-platform] Add project portfolio cards with filters/tags",
+    "track": "feat/prismbot-web-platform",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-web-platform`.\n\n## Goal\nAdd project portfolio cards with filters/tags\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-web-platform] Create game showcase section with play links",
+    "track": "feat/prismbot-web-platform",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-web-platform`.\n\n## Goal\nCreate game showcase section with play links\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-web-platform] Implement SEO baseline (meta/sitemap/robots)",
+    "track": "feat/prismbot-web-platform",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-web-platform`.\n\n## Goal\nImplement SEO baseline (meta/sitemap/robots)\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-web-platform] Add performance budget checks for main pages",
+    "track": "feat/prismbot-web-platform",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-web-platform`.\n\n## Goal\nAdd performance budget checks for main pages\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-web-platform] Build contact/community CTA section",
+    "track": "feat/prismbot-web-platform",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-web-platform`.\n\n## Goal\nBuild contact/community CTA section\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-web-platform] Add analytics event map for key interactions",
+    "track": "feat/prismbot-web-platform",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-web-platform`.\n\n## Goal\nAdd analytics event map for key interactions\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-web-platform] Create content publishing checklist",
+    "track": "feat/prismbot-web-platform",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-web-platform`.\n\n## Goal\nCreate content publishing checklist\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-web-platform] Document deploy and rollback process",
+    "track": "feat/prismbot-web-platform",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-web-platform`.\n\n## Goal\nDocument deploy and rollback process\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-mission-control] Build dashboard shell with status panels",
+    "track": "feat/mission-control",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/mission-control`.\n\n## Goal\nBuild dashboard shell with status panels\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-mission-control] Add agent/session activity stream module",
+    "track": "feat/mission-control",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/mission-control`.\n\n## Goal\nAdd agent/session activity stream module\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-mission-control] Create safe action console with confirmations",
+    "track": "feat/mission-control",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/mission-control`.\n\n## Goal\nCreate safe action console with confirmations\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-mission-control] Implement cron/job run visibility panel",
+    "track": "feat/mission-control",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/mission-control`.\n\n## Goal\nImplement cron/job run visibility panel\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-mission-control] Add alert center for failures and retries",
+    "track": "feat/mission-control",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/mission-control`.\n\n## Goal\nAdd alert center for failures and retries\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-mission-control] Add filters/search for operational events",
+    "track": "feat/mission-control",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/mission-control`.\n\n## Goal\nAdd filters/search for operational events\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-mission-control] Create role-based view scaffolding",
+    "track": "feat/mission-control",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/mission-control`.\n\n## Goal\nCreate role-based view scaffolding\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-mission-control] Add system health snapshot export",
+    "track": "feat/mission-control",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/mission-control`.\n\n## Goal\nAdd system health snapshot export\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-mission-control] Implement incident timeline view",
+    "track": "feat/mission-control",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/mission-control`.\n\n## Goal\nImplement incident timeline view\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-mission-control] Document mission-control operator SOP",
+    "track": "feat/mission-control",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/mission-control`.\n\n## Goal\nDocument mission-control operator SOP\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-mobile] Audit mobile env presets and startup paths",
+    "track": "feat/prismbot-mobile",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-mobile`.\n\n## Goal\nAudit mobile env presets and startup paths\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-mobile] Implement auth/session persistence hardening",
+    "track": "feat/prismbot-mobile",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-mobile`.\n\n## Goal\nImplement auth/session persistence hardening\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-mobile] Create mobile home + quick actions screen",
+    "track": "feat/prismbot-mobile",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-mobile`.\n\n## Goal\nCreate mobile home + quick actions screen\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-mobile] Add push notification routing handlers",
+    "track": "feat/prismbot-mobile",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-mobile`.\n\n## Goal\nAdd push notification routing handlers\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-mobile] Build offline state fallback for core views",
+    "track": "feat/prismbot-mobile",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-mobile`.\n\n## Goal\nBuild offline state fallback for core views\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-mobile] Add crash/error reporting integration",
+    "track": "feat/prismbot-mobile",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-mobile`.\n\n## Goal\nAdd crash/error reporting integration\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-mobile] Implement secure settings storage handling",
+    "track": "feat/prismbot-mobile",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-mobile`.\n\n## Goal\nImplement secure settings storage handling\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-mobile] Create mobile QA smoke checklist",
+    "track": "feat/prismbot-mobile",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-mobile`.\n\n## Goal\nCreate mobile QA smoke checklist\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-mobile] Optimize initial load and bundle size",
+    "track": "feat/prismbot-mobile",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-mobile`.\n\n## Goal\nOptimize initial load and bundle size\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-mobile] Document release checklist for mobile builds",
+    "track": "feat/prismbot-mobile",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-mobile`.\n\n## Goal\nDocument release checklist for mobile builds\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-desktop] Harden desktop startup/update flow",
+    "track": "feat/prismbot-desktop",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-desktop`.\n\n## Goal\nHarden desktop startup/update flow\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-desktop] Build settings and config diagnostics panel",
+    "track": "feat/prismbot-desktop",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-desktop`.\n\n## Goal\nBuild settings and config diagnostics panel\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-desktop] Add desktop-specific permission checks",
+    "track": "feat/prismbot-desktop",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-desktop`.\n\n## Goal\nAdd desktop-specific permission checks\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-desktop] Implement background task status widget",
+    "track": "feat/prismbot-desktop",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-desktop`.\n\n## Goal\nImplement background task status widget\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-desktop] Add error report export for support/debugging",
+    "track": "feat/prismbot-desktop",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-desktop`.\n\n## Goal\nAdd error report export for support/debugging\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-desktop] Create auto-update rollback guardrails",
+    "track": "feat/prismbot-desktop",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-desktop`.\n\n## Goal\nCreate auto-update rollback guardrails\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-desktop] Add local cache management controls",
+    "track": "feat/prismbot-desktop",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-desktop`.\n\n## Goal\nAdd local cache management controls\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-desktop] Build desktop QA matrix checklist",
+    "track": "feat/prismbot-desktop",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-desktop`.\n\n## Goal\nBuild desktop QA matrix checklist\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-desktop] Optimize cold start performance",
+    "track": "feat/prismbot-desktop",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-desktop`.\n\n## Goal\nOptimize cold start performance\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-desktop] Document packaging/release SOP",
+    "track": "feat/prismbot-desktop",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-desktop`.\n\n## Goal\nDocument packaging/release SOP\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-wix-integration] Define Wix integration auth flow contract",
+    "track": "feat/prismbot-wix-integration",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-wix-integration`.\n\n## Goal\nDefine Wix integration auth flow contract\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-wix-integration] Implement Wix embed handshake validation",
+    "track": "feat/prismbot-wix-integration",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-wix-integration`.\n\n## Goal\nImplement Wix embed handshake validation\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-wix-integration] Add API adapter layer for Wix actions",
+    "track": "feat/prismbot-wix-integration",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-wix-integration`.\n\n## Goal\nAdd API adapter layer for Wix actions\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-wix-integration] Create retry and timeout strategy for Wix calls",
+    "track": "feat/prismbot-wix-integration",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-wix-integration`.\n\n## Goal\nCreate retry and timeout strategy for Wix calls\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-wix-integration] Add integration status diagnostics endpoint",
+    "track": "feat/prismbot-wix-integration",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-wix-integration`.\n\n## Goal\nAdd integration status diagnostics endpoint\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-wix-integration] Build Wix-specific error messaging map",
+    "track": "feat/prismbot-wix-integration",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-wix-integration`.\n\n## Goal\nBuild Wix-specific error messaging map\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-wix-integration] Create sample Wix page integration guide",
+    "track": "feat/prismbot-wix-integration",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-wix-integration`.\n\n## Goal\nCreate sample Wix page integration guide\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-wix-integration] Add webhook/event verification checks",
+    "track": "feat/prismbot-wix-integration",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-wix-integration`.\n\n## Goal\nAdd webhook/event verification checks\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-wix-integration] Implement integration smoke test script",
+    "track": "feat/prismbot-wix-integration",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-wix-integration`.\n\n## Goal\nImplement integration smoke test script\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  },
+  {
+    "title": "[feat-prismbot-wix-integration] Document Wix deploy/update/rollback runbook",
+    "track": "feat/prismbot-wix-integration",
+    "labels": [
+      "phase-2b",
+      "feature"
+    ],
+    "body": "## Context\nPhase 2B backlog item for `feat/prismbot-wix-integration`.\n\n## Goal\nDocument Wix deploy/update/rollback runbook\n\n## Scope\n- Implement minimal viable version.\n- Keep changes branch-scoped and reversible.\n\n## Verification\n- Add/update docs for what changed.\n- Run relevant checks/build/tests.\n\n## Done condition\n- [ ] Acceptance criteria met\n- [ ] Verification passed\n- [ ] Docs updated\n- [ ] Follow-up task identified"
+  }
+]

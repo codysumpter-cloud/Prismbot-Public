@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Sync live Prismtek website state into repo backups.
-# Requires host-level access to /var/www/prismtek-wordpress and sudo -n capability.
-
 TS="$(date -u +%Y%m%d-%H%M%SZ)"
-REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-OUT="$REPO_ROOT/site-backups/live-$TS"
+ROOT="/home/cody_sumpter/.openclaw/workspace"
+OUT="$ROOT/site-backups/live-$TS"
 mkdir -p "$OUT"
 
 sudo -n cp /var/www/prismtek-wordpress/wp-content/mu-plugins/prismtek-pixel-vibes.php "$OUT/prismtek-pixel-vibes.php"

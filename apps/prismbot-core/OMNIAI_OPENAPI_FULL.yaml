@@ -1,0 +1,486 @@
+openapi: 3.0.3
+info:
+  title: PrismBot OmniAI API (Full Contract)
+  version: 1.3.0-wave1-model-sovereignty
+servers:
+  - url: https://app.prismtek.dev/api/omni
+  - url: http://127.0.0.1:8799/api/omni
+security:
+  - cookieAuth: []
+  - bearerAuth: []
+paths:
+  /health:
+    get: { summary: Omni runtime health }
+  /docs:
+    get: { summary: Omni docs HTML page }
+  /docs/spec.md:
+    get: { summary: Omni full spec markdown }
+  /docs/openapi.yaml:
+    get: { summary: Omni full OpenAPI contract }
+  /capabilities:
+    get: { summary: Capability matrix }
+  /metrics:
+    get: { summary: Runtime metrics snapshot }
+  /backends:
+    get:
+      summary: Backend health + provider readiness + routing policy snapshot
+  /models:
+    get:
+      summary: Runtime model inventory with live provider readiness
+  /generate:
+    post:
+      summary: Unified generate entrypoint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateRequest'
+      responses:
+        '200':
+          description: Generated text or image job
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateResponse'
+        '400': { $ref: '#/components/responses/OmniError' }
+        '401': { $ref: '#/components/responses/OmniError' }
+        '503': { $ref: '#/components/responses/OmniError' }
+
+  /chat/completions:
+    post:
+      summary: OpenAI-style chat completions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                model: { type: string }
+                prompt: { type: string }
+                input: { type: string }
+                messages:
+                  type: array
+                  items:
+                    type: object
+      responses:
+        '200': { description: Success, content: { application/json: { schema: { $ref: '#/components/schemas/OmniSuccess' } } } }
+        '400': { $ref: '#/components/responses/OmniError' }
+        '401': { $ref: '#/components/responses/OmniError' }
+  /responses:
+    post:
+      summary: Unified responses API
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input: { type: string }
+                prompt: { type: string }
+                messages: { type: array, items: { type: object } }
+      responses:
+        '200': { description: Success, content: { application/json: { schema: { $ref: '#/components/schemas/OmniSuccess' } } } }
+        '400': { $ref: '#/components/responses/OmniError' }
+        '401': { $ref: '#/components/responses/OmniError' }
+  /reason:
+    post:
+      summary: Structured reasoning steps + answer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input: { type: string }
+                prompt: { type: string }
+                text: { type: string }
+                messages: { type: array, items: { type: object } }
+      responses:
+        '200': { description: Success, content: { application/json: { schema: { $ref: '#/components/schemas/OmniSuccess' } } } }
+        '400': { $ref: '#/components/responses/OmniError' }
+        '401': { $ref: '#/components/responses/OmniError' }
+  /summarize:
+    post:
+      summary: Summarize long text
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text: { type: string }
+                input: { type: string }
+                prompt: { type: string }
+                maxSentences: { type: integer, minimum: 1, maximum: 6 }
+      responses:
+        '200': { description: Success, content: { application/json: { schema: { $ref: '#/components/schemas/OmniSuccess' } } } }
+        '400': { $ref: '#/components/responses/OmniError' }
+        '401': { $ref: '#/components/responses/OmniError' }
+  /rewrite:
+    post:
+      summary: Rewrite with target tone/style
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text: { type: string }
+                input: { type: string }
+                tone: { type: string, maxLength: 40 }
+      responses:
+        '200': { description: Success, content: { application/json: { schema: { $ref: '#/components/schemas/OmniSuccess' } } } }
+        '400': { $ref: '#/components/responses/OmniError' }
+        '401': { $ref: '#/components/responses/OmniError' }
+  /translate:
+    post:
+      summary: Translate text to target language
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text: { type: string }
+                input: { type: string }
+                source: { type: string, example: auto }
+                sourceLanguage: { type: string }
+                target: { type: string, example: en }
+                targetLanguage: { type: string }
+      responses:
+        '200': { description: Success, content: { application/json: { schema: { $ref: '#/components/schemas/OmniSuccess' } } } }
+        '400': { $ref: '#/components/responses/OmniError' }
+        '401': { $ref: '#/components/responses/OmniError' }
+  /moderate:
+    post:
+      summary: Safety moderation verdict
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input: { type: string }
+                prompt: { type: string }
+                text: { type: string }
+                messages: { type: array, items: { type: object } }
+      responses:
+        '200': { description: Success, content: { application/json: { schema: { $ref: '#/components/schemas/OmniSuccess' } } } }
+        '400': { $ref: '#/components/responses/OmniError' }
+        '401': { $ref: '#/components/responses/OmniError' }
+  /classify:
+    post:
+      summary: Intent/topic classification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text: { type: string }
+                input: { type: string }
+                prompt: { type: string }
+      responses:
+        '200': { description: Success, content: { application/json: { schema: { $ref: '#/components/schemas/OmniSuccess' } } } }
+        '400': { $ref: '#/components/responses/OmniError' }
+        '401': { $ref: '#/components/responses/OmniError' }
+  /extract:
+    post:
+      summary: Structured extraction (email/url/date)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text: { type: string }
+                input: { type: string }
+      responses:
+        '200': { description: Success, content: { application/json: { schema: { $ref: '#/components/schemas/OmniSuccess' } } } }
+        '400': { $ref: '#/components/responses/OmniError' }
+        '401': { $ref: '#/components/responses/OmniError' }
+
+  /images/generate:
+    post: { summary: Image generation }
+  /images/edit:
+    post: { summary: Image editing / inpaint }
+  /images/variations:
+    post: { summary: Image variations }
+  /images/upscale:
+    post: { summary: Upscale }
+  /images/remove-bg:
+    post: { summary: Background removal }
+
+  /audio/speak:
+    post:
+      summary: Text to speech
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [text]
+              properties:
+                text: { type: string }
+                prompt: { type: string }
+      responses:
+        '200': { description: Synthesized audio metadata, content: { application/json: { schema: { $ref: '#/components/schemas/OmniSuccess' } } } }
+        '400': { $ref: '#/components/responses/OmniError' }
+        '401': { $ref: '#/components/responses/OmniError' }
+  /audio/transcribe:
+    post:
+      summary: Speech to text
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text: { type: string }
+                sourceWebPath: { type: string }
+                language: { type: string, example: en }
+      responses:
+        '200': { description: Transcript output, content: { application/json: { schema: { $ref: '#/components/schemas/OmniSuccess' } } } }
+        '400': { $ref: '#/components/responses/OmniError' }
+        '401': { $ref: '#/components/responses/OmniError' }
+  /audio/translate:
+    post: { summary: Speech translation }
+  /audio/clone:
+    post: { summary: Voice cloning }
+
+  /video/generate:
+    post: { summary: Video generation job scaffold (partial) }
+  /video/edit:
+    post: { summary: Video edit job scaffold (partial) }
+  /video/keyframes:
+    post: { summary: Extract keyframes from local studio-output video }
+
+  /embeddings:
+    post: { summary: Deterministic local embeddings }
+  /rerank:
+    post: { summary: Lexical rerank over candidate documents }
+  /search/web:
+    post: { summary: Live web search (DuckDuckGo instant answer) }
+  /search/local:
+    post: { summary: Local index lexical search }
+  /rag/index/upsert:
+    post: { summary: RAG index upsert }
+  /rag/index/delete:
+    post: { summary: RAG index delete }
+  /rag/query:
+    post: { summary: RAG answer + sources }
+  /rag/sources:
+    get: { summary: List indexed RAG sources }
+
+  /game/create-character:
+    post: { summary: Create character asset job }
+  /game/animate-character:
+    post: { summary: Animate character scaffold (partial) }
+  /game/tileset/topdown:
+    post: { summary: Topdown tileset asset job }
+  /game/tileset/sidescroller:
+    post: { summary: Sidescroller tileset asset job }
+  /game/tileset/isometric:
+    post: { summary: Isometric tileset asset job }
+  /game/map-object:
+    post: { summary: Map object asset job }
+  /game/ui-elements:
+    post: { summary: UI element asset job }
+  /game/style-profile:
+    post: { summary: Style profile scaffold (partial) }
+  /game/pack/create:
+    post: { summary: Create pack scaffold (partial) }
+  /game/pack/export:
+    post: { summary: Export pack scaffold/validation (partial) }
+
+  /orchestrate/plan:
+    post: { summary: Plan workflow }
+  /orchestrate:
+    post: { summary: Execute workflow steps }
+  /orchestrate/run:
+    post: { summary: Plan + execute }
+  /orchestrate/jobs:
+    get: { summary: List async runs }
+  /orchestrate/jobs/{id}:
+    get:
+      summary: Get async run
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+  /orchestrate/jobs/{id}/cancel:
+    post:
+      summary: Request cancellation for queued/running run
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+  /orchestrate/stream/{id}:
+    get:
+      summary: Stream workflow progress (SSE)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+
+  /code/generate:
+    post: { summary: Planned code generation endpoint (returns planned_not_implemented) }
+  /code/explain:
+    post: { summary: Planned code explanation endpoint (returns planned_not_implemented) }
+  /code/fix:
+    post: { summary: Planned code fix endpoint (returns planned_not_implemented) }
+  /code/test:
+    post: { summary: Planned code test generation endpoint (returns planned_not_implemented) }
+
+  /tools/list:
+    get: { summary: Planned tool inventory endpoint (returns planned_not_implemented) }
+  /tools/run:
+    post: { summary: Planned tool execution endpoint (returns planned_not_implemented) }
+
+  /agents/session/start:
+    post: { summary: Planned persistent agent session start endpoint (returns planned_not_implemented) }
+  /agents/session/message:
+    post: { summary: Planned persistent agent session message endpoint (returns planned_not_implemented) }
+  /agents/session/stop:
+    post: { summary: Planned persistent agent session stop endpoint (returns planned_not_implemented) }
+  /agents/session/status:
+    get: { summary: Planned persistent agent session status endpoint (returns planned_not_implemented) }
+
+  /models/fine-tunes:
+    post: { summary: Planned fine-tune create endpoint (returns planned_not_implemented) }
+  /models/fine-tunes/{id}:
+    get:
+      summary: Planned fine-tune status endpoint (returns planned_not_implemented)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+  /models/fine-tunes/{id}/cancel:
+    post:
+      summary: Planned fine-tune cancel endpoint (returns planned_not_implemented)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+  /datasets/upload:
+    post: { summary: Planned dataset upload endpoint (returns planned_not_implemented) }
+  /datasets/{id}:
+    get:
+      summary: Planned dataset details endpoint (returns planned_not_implemented)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+  /adapters/lora/create:
+    post: { summary: Planned LoRA adapter creation endpoint (returns planned_not_implemented) }
+  /adapters/lora/list:
+    get: { summary: Planned LoRA adapter list endpoint (returns planned_not_implemented) }
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: prismbot_session
+  schemas:
+    OmniRoutingAttempt:
+      type: object
+      properties:
+        provider: { type: string }
+        ok: { type: boolean }
+        skipped: { type: boolean }
+        reason: { type: string }
+        attempt: { type: integer }
+        code: { type: string }
+        message: { type: string }
+        retryable: { type: boolean }
+        timeoutMs: { type: integer }
+    OmniRouting:
+      type: object
+      properties:
+        strategy: { type: string }
+        fallbackChain:
+          type: array
+          items: { type: string }
+        attempts:
+          type: array
+          items: { $ref: '#/components/schemas/OmniRoutingAttempt' }
+    GenerateRequest:
+      type: object
+      required: [prompt]
+      properties:
+        type: { type: string, enum: [text, image], default: text }
+        prompt: { type: string }
+        input: { type: string }
+        text: { type: string }
+        model: { type: string }
+    GenerateResponse:
+      type: object
+      properties:
+        ok: { type: boolean, example: true }
+        type: { type: string, enum: [text, image] }
+        model: { type: string }
+        output: { type: string }
+        backend: { type: string }
+        choices:
+          type: array
+          items: { type: object, additionalProperties: true }
+        job: { type: object, additionalProperties: true }
+        routing: { $ref: '#/components/schemas/OmniRouting' }
+        meta:
+          type: object
+          properties:
+            requestId: { type: string }
+    OmniSuccess:
+      type: object
+      properties:
+        ok: { type: boolean, example: true }
+        type: { type: string }
+        data: { type: object, additionalProperties: true }
+        backend: { type: string }
+        routing: { $ref: '#/components/schemas/OmniRouting' }
+        meta:
+          type: object
+          properties:
+            requestId: { type: string }
+    OmniError:
+      type: object
+      required: [ok, error, message]
+      properties:
+        ok: { type: boolean, example: false }
+        error: { type: string }
+        message: { type: string }
+        hint: { type: string }
+        meta:
+          type: object
+          properties:
+            requestId: { type: string }
+  responses:
+    OmniError:
+      description: Error envelope
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OmniError'
